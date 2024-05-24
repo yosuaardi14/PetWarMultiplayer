@@ -1,0 +1,52 @@
+<!-- public/index.html -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pet War Test Client</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        let socket = io();
+        let id;
+
+        socket.emit('joinRoom', "A");
+        socket.emit('setPlayerName', { name: "test" });
+
+        socket.on("setPlayerName", (data) => {
+            console.log("socket.id:" + data);
+            id = data;
+        });
+
+        socket.on('onGameInit', (data) => {
+            console.log(data);
+            socket.emit('onReady', "ready");
+        });
+
+        socket.on('dealCard', (data) => {
+            console.log("player card:");
+            for (let index = 0; index < data.length; index++) {
+                const element = data[index];
+                console.log(element);
+            }
+            // socket.emit('onReady', "ready");
+        });
+
+        socket.on("nextTurn", (data) => {
+            if (id === data) {
+                console.log("my turn");
+            }
+        });
+    </script>
+</body>
+
+</html>
