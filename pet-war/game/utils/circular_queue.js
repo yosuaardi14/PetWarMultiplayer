@@ -34,6 +34,10 @@ class CircularQueue {
         this.size = elements.length;
     }
 
+    setAt(index, element){
+        this.queue[index] = element;
+    }
+
     addElement(element) {
         this.queue.push(element);
         this.size += 1;

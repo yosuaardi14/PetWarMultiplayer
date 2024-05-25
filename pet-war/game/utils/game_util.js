@@ -5,8 +5,8 @@ const CircularQueue = require('./circular_queue');
 class GameUtil {
     static initActionDeck() {
         let actionDeck = [];
-        for (var i in Data.ACTION_NEW) {
-            let actionCard = Object.assign({}, Data.ACTION_NEW[i]);
+        for (var i in Data.ACTION) {
+            let actionCard = Object.assign({}, Data.ACTION[i]);
             switch (actionCard["name"]) {
                 case "Grenade":
                 case "Grenade-Mega Grenade":
@@ -42,6 +42,9 @@ class GameUtil {
                 delete actionCard["cardNum"];
                 actionDeck.push(actionCard);
             }
+            // if(actionDeck.length > 6){
+            //     break;
+            // }
         }
         Util.shuffle(actionDeck);
         return actionDeck;
@@ -60,7 +63,7 @@ class GameUtil {
 
     static initPetDeck(playerObj) {
         const petDeck = new CircularQueue();
-        const jungleSize = 1; // Assume this is the default value or fetch from Constant.PET["Jungle"]["cardNum"] ?? 0;
+        const jungleSize = Data.PET["Jungle"]["cardNum"]; // Assume this is the default value or fetch from Constant.PET["Jungle"]["cardNum"] ?? 0;
 
         for (let i = 0; i < jungleSize; i++) {
             let pet = Object.assign({}, Data.PET["Jungle"]);

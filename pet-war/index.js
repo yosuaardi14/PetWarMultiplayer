@@ -21,49 +21,77 @@ app.use(express.static(__dirname));
 // Handle socket.io connections
 io.on('connection', (socket) => {
     console.log('a user connected:', socket.id);
-
     socket.on('joinRoom', (roomID) => {
-        socket.join(roomID);
+        console.log("joinRoom " + roomID);
         if (!rooms[roomID]) {
             rooms[roomID] = {
+                "game": new Game(io),
+                "status": "EMPTY",
                 "num": 0,
                 "ready": 0
             };
         }
-        rooms[roomID][socket.id] = { id: socket.id, name: null };
 
-        game.playerObj[socket.id] = new Player(socket.id, "", game.maxLife);
-
-        rooms[roomID]["num"] = rooms[roomID]["num"] + 1;
-        if (rooms[roomID]["num"] === game.playerNum) {
-            game.init(roomID);
+        let roomGame = rooms[roomID]["game"];
+        
+        if ((rooms[roomID]["num"] + 1) > roomGame.playerNum) {
+            console.log("Room is Full");
+            io.to(socket.id).emit("joinRoom", "Room is Full");
+        } else {
+            console.log(socket.id + " join room " + roomID);
+            socket.join(roomID);
+            rooms[roomID][socket.id] = { id: socket.id, name: null };
+            roomGame.playerObj[socket.id] = new Player(socket.id, "", roomGame.maxLife);
+            rooms[roomID]["num"] = rooms[roomID]["num"] + 1;
+            rooms[roomID]["status"] = "WAITING";
+            io.to(socket.id).emit("joinRoom", "Please send your Name");
         }
+        console.log("Room Num Player: " + rooms[roomID]["num"]);
 
         socket.on('setPlayerName', (data) => {
+            console.log("setPlayerName " + data.name);
             rooms[roomID][socket.id].name = data.name;
-            game.playerObj[socket.id].name = data.name;
-            console.log(game.playerObj[socket.id]);
+            roomGame.playerObj[socket.id].name = data.name;
             io.to(socket.id).emit("setPlayerName", socket.id);
-            // io.to(roomID).emit('playerMoved', rooms[roomID][socket.id]);
+            if (rooms[roomID]["num"] === roomGame.playerNum) {
+                rooms[roomID]["status"] = "INITGAME";
+                roomGame.init(roomID);
+                // game.init(roomID);
+            }
         });
 
         socket.on('onGameInit', (data) => {
             console.log("client init data: " + data);
-        });
-
-        socket.on('onReady', (data) => {
             if (data === "ready") {
                 rooms[roomID]["ready"] = rooms[roomID]["ready"] + 1;
             }
             if (rooms[roomID]["ready"] === rooms[roomID]["num"]) {
                 console.log("Game Ready to Start");
-                game.ready();
+                rooms[roomID]["status"] = "STARTGAME";
+                roomGame.ready();
+                // game.ready();
             }
+        });
+
+        socket.on('onGameReady', (data) => {
+            console.log("onGameReady" + data);
+            // if (data === "ready") {
+            //     rooms[roomID]["ready"] = rooms[roomID]["ready"] + 1;
+            // }
+            // if (rooms[roomID]["ready"] === rooms[roomID]["num"]) {
+            //     console.log("Game Ready to Start");
+            //     game.ready();
+            // }
         });
 
         socket.on('dealCard', (data) => {
             // Send Data to Client Only by to each player by socket.id
             console.log("dealCard" + data);
+        });
+
+        socket.on('getCard', (data) => {
+            // Send Data to Client Only by to each player by socket.id
+            console.log("getCard" + data);
         });
 
         socket.on('nextTurn', (data) => {
@@ -74,7 +102,15 @@ io.on('connection', (socket) => {
         socket.on('sendAction', (data) => {
             // Server 
             console.log("sendAction" + data);
-            game.onPlayerAction(data);
+            roomGame.onPlayerAction(data);
+            // game.onPlayerAction(data);
+        });
+
+        socket.on('confirmAction', (data) => {
+            // Server 
+            console.log("confirmAction" + data);
+            roomGame.onConfirmAction(data);
+            // game.onConfirmAction(data);
         });
 
         socket.on('finishAction', (data) => {
@@ -94,34 +130,35 @@ io.on('connection', (socket) => {
         });
 
         socket.on('disconnect', () => {
-            console.log('user disconnected:', socket.id);
+            console.log('user on room disconnect:', socket.id);
             if (rooms[roomID]) {
                 delete rooms[roomID][socket.id];
+                rooms[roomID]["num"] = rooms[roomID]["num"] - 1;
                 io.to(roomID).emit('playerDisconnected', socket.id);
                 if (Object.keys(rooms[roomID]).length === 0) {
                     delete rooms[roomID];
                 }
             }
         });
-
-        socket.on('playerMovement', (movementData) => {
-            let player = rooms[roomID][socket.id];
-            if (player) {
-                player.x += movementData.x;
-                player.y += movementData.y;
-                io.to(roomID).emit('playerMoved', player);
-            }
-        });
     });
 
     // Reconnection logic
     socket.on('disconnecting', () => {
-        console.log('user disconnecting:', socket.id);
-        const roomsToLeave = Object.keys(socket.rooms);
-        roomsToLeave.forEach(room => {
-            if (rooms[room]) {
-                delete rooms[room][socket.id];
-                io.to(room).emit('playerDisconnected', socket.id);
+        console.log('user disconnecting:' + socket.id);
+        let roomsToLeave = Object.keys(socket.rooms);
+
+        console.log("'user disconnecting room list:'" + roomsToLeave);
+        // const roomsToLeave = Object.keys(rooms);
+        roomsToLeave.forEach(roomID => {
+            console.log(rooms[roomID]);
+            if (rooms[roomID]) {
+                console.log('room disconnecting from room:', roomID);
+                delete rooms[roomID][socket.id];
+                rooms[roomID]["num"] = rooms[roomID]["num"] - 1;
+                io.to(roomID).emit('playerDisconnected', socket.id);
+                if (Object.keys(rooms[roomID]).length === 0) {
+                    delete rooms[roomID];
+                }
             }
         });
     });

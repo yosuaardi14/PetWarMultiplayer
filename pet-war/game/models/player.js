@@ -8,6 +8,7 @@ class Player {
         this.life = maxLife;
         this.cardDeck = [];
         this.isDead = false;
+        this.defeatedPet = [];
     }
 
     setRanger(ranger) {
@@ -19,7 +20,7 @@ class Player {
         return {
             "name": this.name,
             "rangeName": this.rangerName,
-            "ranger": this.ranger,
+            "ranger": JSON.stringify(this.ranger),
             "maxLife": this.maxLife,
             "life": this.life,
             "cardDeck": this.cardDeck,

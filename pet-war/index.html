@@ -20,30 +20,39 @@
         let id;
 
         socket.emit('joinRoom', "A");
-        socket.emit('setPlayerName', { name: "test" });
+
+        socket.on('joinRoom', (data) => {
+            console.log(data);
+            if (data !== "Room is Full") {
+                socket.emit('setPlayerName', { name: "test" });
+            }
+        });
 
         socket.on("setPlayerName", (data) => {
-            console.log("socket.id:" + data);
+            console.log("setPlayerName my socket.id:" + data);
             id = data;
         });
 
         socket.on('onGameInit', (data) => {
             console.log(data);
-            socket.emit('onReady', "ready");
+            socket.emit('onGameInit', "ready");
         });
 
-        socket.on('dealCard', (data) => {
-            console.log("player card:");
-            for (let index = 0; index < data.length; index++) {
-                const element = data[index];
-                console.log(element);
-            }
+        socket.on('onGameReady', (data) => {
+            console.log("player card:" + data);
+            // for (let index = 0; index < data.length; index++) {
+            //     const element = data[index];
+            //     console.log(element);
+            // }
             // socket.emit('onReady', "ready");
         });
 
         socket.on("nextTurn", (data) => {
             if (id === data) {
                 console.log("my turn");
+                // socket.emit('sendAction', "ready");
+            } else {
+                console.log("other turn");
             }
         });
     </script>

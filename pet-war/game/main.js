@@ -2,6 +2,8 @@ const Data = require('./values/data');
 const Player = require('./models/player');
 const CircularQueue = require('./utils/circular_queue');
 const GameUtil = require('./utils/game_util');
+const Util = require('./utils/util');
+const AbilityUtil = require('./utils/ability_util');
 
 class Main {
     constructor(io) {
@@ -10,6 +12,7 @@ class Main {
         this.aimList = [null, null, null, null, null, null]; // 6
         this.actionUp = [null, null, null, null, null, null]; // 6
         this.petLine = []; // 6
+        this.grenadeList = [null, null, null, null, null, null]; // 6
         this.actionDown = [null, null, null, null, null, null]; // 6
 
         //Not Visible
@@ -21,11 +24,11 @@ class Main {
         this.rangerList = [];
         this.playerObj = {};
         this.playerIdArr = [];
-        this.playerNum = 2;
+        this.playerNum = 1;
         this.maxLife = 1; //5;
         this.nowTurn = "";
-        this.turn = 0;
-        this.actualTurn = 0; // Ignore Player Dead
+        this.turn = 0; // For finding the next turn (if player dead, increase value until get player who still alive)
+        this.actualTurn = 0;
         this.round = 0;
         this.winner = null;
     }
@@ -54,11 +57,11 @@ class Main {
                 deadNum += 1;
                 this.onDead(player);
             } else {
-                this.winner = i;
+                this.winner = playerId;
             }
         }
 
-        if (deadNum === (playerArr.length - 1)) {
+        if (deadNum === (this.playerIdArr.length - 1)) {
             return true;
         }
         return false;
@@ -105,14 +108,15 @@ class Main {
     dealActionCard(size) {
         for (let i = 0; i < size; i++) {
             for (let playerId in this.playerObj) {
-                const player = this.playerObj[playerId];
-                player.cardDeck.push(this.actionDeck.splice(0, 1));
+                let player = this.playerObj[playerId];
+                let card = this.actionDeck.splice(0, 1);
+                player.cardDeck.push(card[0]);
             }
         }
 
         for (let playerId in this.playerObj) {
             const player = this.playerObj[playerId];
-            this.io.to(player.id).emit("dealCard", player.cardDeck);
+            this.io.to(player.id).emit("onGameReady", JSON.stringify(player.toJson()));
         }
         this.io.to(this.roomID).emit("nextTurn", this.nowTurn);
         console.log(this.actionDeck.length);
@@ -145,18 +149,66 @@ class Main {
     }
 
     getActionCard(player) {
+        this.moveDiscardPileToActionDeck();
         let card = this.actionDeck.splice(0, 1);
-        player.cardDeck.push(card);
-        this.io.to(player.id).emit("getCard", card.id);
+        if(card[0] !== undefined){
+            player.cardDeck.push(card[0]);
+        }
+        console.log(card);
+        this.io.to(player.id).emit("getCard", JSON.stringify(player.toJson()));
+    }
+
+    moveDiscardPileToActionDeck() {
+        if (this.actionDeck.length <= 0) {
+            console.log("moveDiscardPileToActionDeck");
+            this.actionDeck.push(...Util.shuffle(this.discardPile));
+            this.discardPile = [];
+        }
     }
 
     // START
     onPlayerAction(data) {
+        var cardDeckIndex = this.playerObj[this.nowTurn].cardDeck.indexOf(Util.findyById(this.playerObj[this.nowTurn].cardDeck, data["card"]["id"]));
+        console.log(this.playerObj[this.nowTurn].cardDeck);
+        console.log(cardDeckIndex);
+        this.playerObj[this.nowTurn].cardDeck.splice(cardDeckIndex, 1);
+        console.log(this.playerObj[this.nowTurn].cardDeck);
         // Ability Util
+        let useSpecial = data["card"]["useSpecial"];
+        let cardName = useSpecial == true ? data["card"]["special"]["name"] : data["card"]["name"];
+        console.log(data["card"]);
+        console.log(data["extraprop"]);
+        if (data["extraprop"] == null) {
+            // discard pile card
+            if (AbilityUtil.discardPileTypeCard.indexOf(cardName) >= 0) {
+                AbilityUtil.onAbilityAction(this, data["card"], data["extraprop"]);
+                // this.io.to(this.nowTurn).emit("confirmAction", "discardPile");
+            } else {
+                this.discardPile.push(data["card"]);
+                this.io.to(this.nowTurn).emit("confirmAction", "");
+            }
+        } else {
+            AbilityUtil.onAbilityAction(this, data["card"], data["extraprop"]);
+            // this.actionUp[data["extraprop"]["index"]] = data["card"];
+            // this.io.to(this.nowTurn).emit("confirmAction", "normal");
+        }
+    }
+
+    onConfirmAction(data) {
+        // console.log(data["card"]+ "this.onConfirmAction");
+        if (data["card"] !== undefined) {
+            AbilityUtil.onConfirmAbilityAction(this, data["card"], data["extraprop"]);
+        }
+        // nothing
+        // this.io.to(this.nowTurn).emit("confirmAction", "normal");
         this.onFinishAction();
     }
 
     onFinishAction() {
+        // this.petDeck.moveForwardAll();
+        this.petLine = this.petDeck.getRange(6);
+        // this.discardPile = this.actionDeck;
+        this.updateGrenadeTurn();
         this.sendDataToClient();
         this.sendCardDeckToClient();
         this.onNextTurn();
@@ -175,6 +227,21 @@ class Main {
             this.io.to(this.roomID).emit("nextTurn", this.nowTurn);
         } else {
             this.finish();
+        }
+    }
+
+    updateGrenadeTurn() {
+        for (let i = 0; i < this.grenadeList.length; i++) {
+            let grenade = this.grenadeList[i];
+            if (grenade == null) {
+                continue;
+            }
+            grenade += 1;
+            if (grenade == 3) {
+                this.grenadeList[i] = null;
+            }
+            // explode grenade
+            // AbilityUtil
         }
     }
 
@@ -199,33 +266,43 @@ class Main {
             "actionDown": this.actionDown,
             "discardPile": this.discardPile,
         };
-        console.log(masterData);
-        console.log(JSON.stringify(masterData));
+        // console.log(masterData);
+        // console.log(JSON.stringify(masterData));
         this.io.to(roomID).emit("onGameInit", JSON.stringify(masterData));
     }
 
     sendDataToClient() {
         const gameData = {
+            "actionDeckLength": this.actionDeck.length,
             "aimList": this.aimList,
-            "actionUp": this.getIdFromArray(this.actionUp),
-            "actionDeck": this.getIdFromArray(this.actionDeck),
-            // "petLine": this.getIdFromArrayOfArray(this.petLine),
-            "petDeck": this.getIdFromArrayOfArray(this.petDeck.toArray()),
-            "actionDown": this.getIdFromArray(this.actionDown),
-            "discardPile": this.getIdFromArrayOfArray(this.discardPile),
+            "actionUp": this.actionUp,
+            // "actionDeck": this.actionDeck,
+            // "petDeck": this.petDeck.toArray(),
+            "petLine": this.petLine,
+            "actionDown": this.actionDown,
+            "discardPile": this.discardPile,
         };
-        console.log(gameData);
-        console.log(JSON.stringify(gameData));
-        // this.io.to(roomID).emit("finishAction", JSON.stringify(gameData));
+        // const gameData = {
+        //     "aimList": this.aimList,
+        //     "actionUp": this.getIdFromArray(this.actionUp),
+        //     "actionDeck": this.getIdFromArray(this.actionDeck),
+        //     // "petLine": this.getIdFromArrayOfArray(this.petLine),
+        //     "petDeck": this.getIdFromArrayOfArray(this.petDeck.toArray()),
+        //     "actionDown": this.getIdFromArray(this.actionDown),
+        //     "discardPile": this.getIdFromArrayOfArray(this.discardPile),
+        // };
+        // console.log(gameData);
+        // console.log(JSON.stringify(gameData));
+        this.io.to(this.roomID).emit("finishAction", JSON.stringify(gameData));
     }
 
     sendCardDeckToClient() {
-        const player = this.playerObj[this.nowTurn];
+        let player = this.playerObj[this.nowTurn];
         this.getActionCard(player);
     }
 
     getIdFromArray(data) {
-        const result = data.map(item => item.id);
+        const result = data.map(item => item.id ?? null);
         return result;
     }
 

@@ -1,4 +1,15 @@
 class Util {
+    static nullSafety(value, nullValue) {
+        if (value === null) {
+            return nullValue;
+        }
+        return value;
+    }
+    
+    static findyById(array, id) {
+        return array.find(item => item.id === id);
+    }
+
     static shuffle(data, size = null) {
         if (size == null) {
             size = data.length;
