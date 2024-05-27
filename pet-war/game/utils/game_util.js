@@ -20,6 +20,9 @@ class GameUtil {
                     actionCard["extraprop"] = { "life": 2 };
                     break;
             }
+            if(!actionCard.hasOwnProperty("block")){
+                actionCard["block"] = 1;
+            }
             var size = 1; //actionCard["cardNum"];
             for (var j = 0; j < size; j++) {
                 let cardName = actionCard["name"];
@@ -89,6 +92,20 @@ class GameUtil {
 
         petDeck.shuffleAll();
         return petDeck;
+    }
+
+    static getPlayerIdByPet(petName, playerObj) {
+        for (const playerId in playerObj) {
+            const player = playerObj[playerId];
+            if (player.ranger["pet"] === petName) {
+                return player.id;
+            }
+        }
+        return "";
+    }
+
+    static resetCard(card){
+        return card;
     }
 }
 

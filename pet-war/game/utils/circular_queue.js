@@ -11,6 +11,16 @@ class CircularQueue {
         }
     }
 
+    shuffleOn(start = 0, end) {
+        if (end > this.queue.length) {
+            end = this.queue.length;
+        }
+        for (let i = start; i < end; i++) {
+            const rand = Math.floor(Math.random() * (end - start + 1)) + start;
+            [this.queue[i], this.queue[rand]] = [this.queue[rand], this.queue[i]];
+        }
+    }
+
     shuffleAll() {
         for (let i = this.queue.length - 1; i > 0; i--) {
             const rand = Math.floor(Math.random() * (i + 1));
@@ -29,12 +39,12 @@ class CircularQueue {
         return Array.from(this.queue).splice(0, len);
     }
 
-    set(elements) {
+    setElement(elements) {
         this.queue = elements;
         this.size = elements.length;
     }
 
-    setAt(index, element){
+    setAt(index, element) {
         this.queue[index] = element;
     }
 

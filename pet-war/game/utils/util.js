@@ -5,9 +5,19 @@ class Util {
         }
         return value;
     }
-    
+
     static findyById(array, id) {
         return array.find(item => item.id === id);
+    }
+
+    static findAllIndex(array, element) {
+        let listIndex = [];
+        let idx = array.indexOf(element);
+        while (idx !== -1) {
+            listIndex.push(idx);
+            idx = array.indexOf(element, idx + 1);
+        }
+        return listIndex;
     }
 
     static shuffle(data, size = null) {

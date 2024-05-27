@@ -125,6 +125,7 @@ class Data {
         },
         "Two Aim": {
             "name": "Two Aim",
+            "block": 2,
             "description": "",
             "color": "gold",
             "cardNum": 2, //1,
@@ -133,6 +134,7 @@ class Data {
         },
         "Two Boom": {
             "name": "Two Boom",
+            "block": 2,
             "description": "",
             "color": "gold",
             "cardNum": 1,
