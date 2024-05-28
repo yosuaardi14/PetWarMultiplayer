@@ -16,7 +16,7 @@ class CircularQueue {
             end = this.queue.length;
         }
         for (let i = start; i < end; i++) {
-            const rand = Math.floor(Math.random() * (end - start + 1)) + start;
+            const rand = Math.floor(Math.random() * (end - start + 1)) + (start - 1);
             [this.queue[i], this.queue[rand]] = [this.queue[rand], this.queue[i]];
         }
     }

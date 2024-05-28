@@ -16,7 +16,8 @@ const game = new Game(io);
 let rooms = {};
 
 app.use(cors());
-app.use(express.static(__dirname));
+// app.use(express.static(__dirname));
+app.use(express.static(__dirname + "/public")); // For UI
 
 // Handle socket.io connections
 io.on('connection', (socket) => {
@@ -33,7 +34,7 @@ io.on('connection', (socket) => {
         }
 
         let roomGame = rooms[roomID]["game"];
-        
+
         if ((rooms[roomID]["num"] + 1) > roomGame.playerNum) {
             console.log("Room is Full");
             io.to(socket.id).emit("joinRoom", "Room is Full");

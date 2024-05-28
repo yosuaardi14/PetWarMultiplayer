@@ -292,8 +292,15 @@ class AbilityUtil {
             let oldPetCard = main.petDeck.getAt(targetIndex + indexVal);//[targetIndex + indexVal];
             main.petDeck.setAt(targetIndex, oldPetCard);//[targetIndex] = oldPetCard;
             main.petDeck.setAt(targetIndex + indexVal, petCard);//[targetIndex + indexVal] = petCard;
-            // Equal ???
-            // [main.petDeck[targetIndex], main.petDeck[targetIndex + indexVal]] = [main.petDeck[targetIndex + indexVal], main.petDeck[targetIndex]];
+            if (main.hideList[targetIndex] != null) {
+                if (main.hideList[targetIndex + indexVal] != null) {
+                    let oldHide = main.playerIdArr.indexOf(main.hideList[targetIndex + indexVal]);
+                    let newHide = main.playerIdArr.indexOf(main.hideList[targetIndex]);
+                    main.hideList[targetIndex + indexVal] = oldHide < newHide ? main.hideList[targetIndex] : main.hideList[targetIndex + indexVal];
+                } else {
+                    main.hideList[targetIndex + indexVal] = main.hideList[targetIndex];
+                }
+            }
         }
     }
 
@@ -307,28 +314,41 @@ class AbilityUtil {
     }
 
     static onDestroyPet(main, targetIndex) {
+        if (targetIndex >= main.petDeck.length) {
+            return;
+        }
         // // check target isForest -> do nothing
         // // check target hasHide -> do nothing
-        // if (main.petDeck.getAt(targetIndex)[0].name === Data.PET["Jungle"].name || (main.petDeck.getAt(targetIndex)[0].useSpecial === false) && (main.petDeck.getAt(targetIndex)[0].name === Data.ACTION["Hide"].name)) {
-        //     return;
-        // }
+        if (main.petDeck.getAt(targetIndex)[0].name === Data.PET["Jungle"].name || (main.petDeck.getAt(targetIndex)[0].useSpecial === false) && (main.petDeck.getAt(targetIndex)[0].name === Data.ACTION["Hide"].name)) {
+            return;
+        }
         // // main.petDeck.getAt(targetIndex)[0];
         // // check target hasKamikaze
         // if ((main.petDeck.getAt(targetIndex)[0].useSpecial === true) && (main.petDeck.getAt(targetIndex)[0].name === Data.ACTION["Aim-Kamikaze"].special.name)) {
 
         // }
         // // check target hasShield -> change shield to Armor (useSpecial => false)
-        // if ((main.petDeck.getAt(targetIndex)[0].useSpecial === true) && (main.petDeck.getAt(targetIndex)[0].name === Data.ACTION["Armor-Shield"].special.name)) {
-
-        // }
+        if ((main.petDeck.getAt(targetIndex)[0].useSpecial == true) && (main.petDeck.getAt(targetIndex)[0].special != null && main.petDeck.getAt(targetIndex)[0].name === Data.ACTION["Armor-Shield"].special.name)) {
+            main.petDeck.getAt(targetIndex)[0].useSpecial = false;
+            console.log("Destroy Shield");
+            return;
+        }
         // // check target hasArmor -> destroy Armor
-        // if ((main.petDeck.getAt(targetIndex)[0].useSpecial === false) && (main.petDeck.getAt(targetIndex)[0].name === Data.ACTION["Armor"].name)) {
+        if ((main.petDeck.getAt(targetIndex)[0].useSpecial == false) && (main.petDeck.getAt(targetIndex)[0].name === Data.ACTION["Armor"].name)) {
+            this.moveCardToDiscardPile(main, main.petDeck.getAt(targetIndex)[0]);
+            main.petDeck.getAt(targetIndex).splice(0, 1);
+            return;
+        }
 
-        // }
+        let playerId = GameUtil.getPlayerIdByPet(main.petDeck.getAt(targetIndex)[0]["name"], main.playerObj);
+        main.playerObj[playerId].life--;
+        main.playerObj[playerId].defeatedPet.push(main.petDeck.getAt(targetIndex)[0]);
+        if (main.petDeck.getAt(targetIndex).length > 1) {
+            main.petDeck.getAt(targetIndex).splice(0, 1);
+        } else {
+            main.petDeck.removeAt(targetIndex);
+        }
 
-        // let playerId = GameUtil.getPlayerIdByPet(main.petDeck.getAt(targetIndex)[0]["name"], main.playerObj);
-        // main.playerObj[playerId].life--;
-        // main.playerObj.defeatedPet.push(main.petDeck.getAt(targetIndex)[0]);
 
         // if (extraprop["line"] == 0) {
         //     main.discardPile.add(main.actionUp[index]);
@@ -377,7 +397,25 @@ class AbilityUtil {
         if (index != -1) {
             // check splice
             // TODO Set hide card to the top
-            main.petDeck.getAt(index).unshift(card);//.splice(index, 0, card);
+            // let hasHide = false;
+            let tempCard = [];
+            let hideCard = null;
+            for (let i = 0; i < main.petDeck.getAt(index).length; i++) {
+                if ((main.petDeck.getAt(index)[i].useSpecial === false) && (main.petDeck.getAt(index)[i].name === Data.ACTION["Hide"].name)) {
+                    hideCard = main.petDeck.getAt(index)[i];
+                    console.log("hideCard: ");
+                    console.log(hideCard);
+                } else {
+                    tempCard.push(main.petDeck.getAt(index)[i]);
+                }
+            }
+            if (hideCard != null) {
+                main.petDeck.setAt(index, tempCard);
+                main.petDeck.getAt(index).unshift(card);//.splice(index, 0, card);
+                main.petDeck.getAt(index).unshift(hideCard);
+            } else {
+                main.petDeck.getAt(index).unshift(card);//.splice(index, 0, card);
+            }
         }
     }
 
@@ -458,6 +496,7 @@ class AbilityUtil {
                     // check if the card is two aim
 
                     // onDestroyPet
+                    this.onDestroyPet(main, index);
                 } else if (line == 1) { // kamikaze
 
                 }
@@ -476,17 +515,20 @@ class AbilityUtil {
                     // remove AIM
                     // todo refactor using for
                     this.moveCardToDiscardPile(main, main.actionUp[index]);
-                    main.aimList[index] = null;
                     main.actionUp[index] = null;
-                    if (index + 1 < 6) {
-                        main.aimList[index + 1] = null;
-                    }
-                    if (index + 1 < 6) {
-                        if (main.actionUp[index + 1] != null) {
-                            this.moveCardToDiscardPile(main, main.actionUp[index + 1]);
-                        }
+                    main.aimList[index] = null;
+                    this.onDestroyPet(main, index);
+
+                    if (index + 1 < 6 && main.actionUp[index + 1] != null) {
+                        this.moveCardToDiscardPile(main, main.actionUp[index + 1]);
                         main.actionUp[index + 1] = null;
                     }
+                    if (index + 1 < 6 && main.aimList[index + 1] == true) {
+                        main.aimList[index + 1] = null;
+                        this.onDestroyPet(main, index + 1);
+
+                    }
+
                     // check if the card is two aim
 
                     // onDestroyPet
@@ -505,36 +547,32 @@ class AbilityUtil {
             if (index != -1) {
                 // remove AIM card
                 this.moveCardToDiscardPile(main, main.actionUp[index]);
-                main.aimList[index] = null;
                 main.actionUp[index] = null;
+                main.aimList[index] = null;
                 // check if the card is two aim
-
 
                 let missIndex = 0;
                 if (index == 0 || index == 5) {
                     //
                     missIndex = index == 0 ? index + 1 : index - 1;
+                    extraprop["missIndex"] = missIndex;
                     // if no need confirmation
-                    this.onMiss(main, card, extraprop, missIndex);
+                    this.onMiss(main, card, extraprop);
+                    this.onActionFinish(main);
                 } else {
                     // emit confirmation
                     this.needConfirmation(main, card, extraprop);
                 }
-                this.onActionFinish(main);
             }
         }
     }
 
     static onMiss(main, card, extraprop, missIndex = null) {
         console.log("TODO onMiss");
-        if (missIndex != null) {
-            this.onDestroyPet(main, missIndex);
-        } else {
-            if (extraprop != null) {
-                let index = Util.nullSafety(extraprop["index"], -1);
-                if (index != -1) {
-                    this.onDestroyPet(main, index);
-                }
+        if (extraprop != null) {
+            let index = Util.nullSafety(extraprop["missIndex"], -1);
+            if (index != -1) {
+                this.onDestroyPet(main, index);
             }
         }
         this.moveCardToDiscardPile(main, card);
@@ -547,10 +585,14 @@ class AbilityUtil {
             if (index != -1) {
                 // remove AIM if exist
                 main.aimList[index] = null;
-                // main.actionUp[index] = card;
+                if (main.actionUp[index] != null) {
+                    this.moveCardToDiscardPile(main, main.actionUp[index]);
+                    main.actionUp[index] = null;
+                }
+
                 // check if the card is two aim
 
-                // onDestroyPet
+                this.onDestroyPet(main, index);
 
             }
         }
@@ -611,6 +653,7 @@ class AbilityUtil {
             }
         }
         this.moveCardToDiscardPile(main, main.actionDown[index]);
+        main.actionDown[index] = null;
     }
 
     static onRunning(main, card, extraprop) {
@@ -629,6 +672,8 @@ class AbilityUtil {
             }
         }
         main.petDeck.setAt(0, tempCard);// = tempCard;
+        main.hideList[0] = null;
+        main.trapList[0] = null;
         main.petDeck.moveForwardAll();
     }
 
@@ -641,7 +686,7 @@ class AbilityUtil {
     static onRessurect(main, card, extraprop) {
         if (main.playerObj[main.nowTurnId].life < main.playerObj[main.nowTurnId].maxLife) {
             main.playerObj[main.nowTurnId].life += 1;
-            main.petDeck.addElement(main.playerObj.defeatedPet.splice(0, 1));
+            main.petDeck.addElement(main.playerObj[main.nowTurnId].defeatedPet.splice(0, 1));
             // main.petDeck.addElement([Data.PET[main.playerObj.ranger.pet]]);
         }
     }
@@ -674,23 +719,18 @@ class AbilityUtil {
                     let card = main.petDeck.getAt(i)[j];
                     this.moveCardToDiscardPile(main, card);
                 } else {
-                    if (i == (main.petDeck.getAt(0).length - 1)) {
-                        tempCard.push(main.petDeck.getAt(i)[j]);
-                    } else {
+                    if (tempCard.length > 0) {
                         main.petDeck.addElement([main.petDeck.getAt(i)[j]]);
+                    } else {
+                        tempCard.push(main.petDeck.getAt(i)[j]);
                     }
-                    // tempPetDeck.push([main.petDeck.getAt(i)[j]]);
-                    // tempCard.push(main.petDeck.getAt(i)[j]);
                 }
             }
-            if (tempCard.length > 0) {
-                main.petDeck.setAt(i, tempCard);
-            }
-            // CHECK THERE IS SOMETHING EMPTY
+            main.petDeck.setAt(i, tempCard);
         }
-        // TODO because only loop in petLine (0-6) the other pet deck is missing when setElement
-        // main.petDeck.setElement(tempPetDeck);
         main.petDeck.shuffleAll();
+        Util.setListElementNull(main.hideList, 6);
+        Util.setListElementNull(main.trapList, 6);
     }
 
     static onHide(main, card, extraprop) {
@@ -700,7 +740,7 @@ class AbilityUtil {
                 // remove hide if there is hide
                 this.removeActionCardOnIndex(main, card["name"], index);
                 this.addCardToPet(main, card, extraprop);
-                main.hideList[index] = main.playerIdArr.indexOf(main.nowTurnId);
+                main.hideList[index] = main.nowTurnId;
             }
         }
     }
@@ -757,14 +797,23 @@ class AbilityUtil {
 
     static onGoAnyward(main, card, extraprop) {
         console.log("TODO onGoAnyward");
-        // if (extraprop != null) {
-        //     let index = Util.nullSafety(extraprop["index"], 5);
-        //     let maxIndex = 5;
-        //     if (maxIndex > (main.petDeck.toArray().length - 1)) {
-        //         maxIndex = main.petDeck.toArray().length - 1;
-        //     }
-        //     this.onPetGo(main, index < maxIndex, index, 2);
-        // }
+        if (extraprop != null) {
+            let index = Util.nullSafety(extraprop["index"], 5);
+            let goIndex = Util.nullSafety(extraprop["goIndex"], -1);
+            let condition = true;
+            if (goIndex < 0) { // -2
+                if (index + goIndex < 0) {
+                    goIndex = -1;
+                }
+                condition = index + goIndex >= 0;
+            } else { // +2
+                if (index + goIndex > main.petDeck.toArray().length) {
+                    goIndex = 1;
+                }
+                condition = index + goIndex <= main.petDeck.toArray().length;
+            }
+            this.onPetGo(main, condition, index, goIndex);
+        }
         // need confirmation
         this.moveCardToDiscardPile(main, card);
     }
@@ -794,6 +843,7 @@ class AbilityUtil {
                     main.petDeck.removeAt(index);
                     console.log("RemoveOld " + main.petDeck);
                     console.log(main.petDeck);
+                    // TODO if there is hide card move theHideList
                 }
             }
         }
@@ -813,6 +863,7 @@ class AbilityUtil {
                 coverIndex = index == 0 ? index + 1 : index - 1;
                 extraprop["coverIndex"] = coverIndex;
                 this.onGetCover(main, card, extraprop);
+                this.onActionFinish(main);
             } else {
                 // emit confirmation
                 this.needConfirmation(main, card, extraprop);
@@ -834,12 +885,22 @@ class AbilityUtil {
 
     static onTrap(main, card, extraprop) {
         console.log("TODO onTrap");
+        if (extraprop != null) {
+            let index = Util.nullSafety(extraprop["index"], -1);
+            if (index != -1) {
+                // remove hide if there is hide
+                this.removeActionCardOnIndex(main, card["name"], index);
+                this.addCardToPet(main, card, extraprop);
+                main.trapList[index] = main.nowTurnId;
+            }
+        }
     }
 
     static onMovingAim(main, card, extraprop) {
         console.log("TODO onMovingAim");
         if (extraprop != null) {
-
+            main.actionUp = extraprop["actionUp"];
+            main.aimList = extraprop["aimList"];
         }
     }
 
@@ -850,9 +911,11 @@ class AbilityUtil {
     }
 
     static onMoveThePet(main, card, extraprop) {
-        console.log("TODO onMoveThePet");
         if (extraprop != null) {
-            main.petLine = extraprop["petLine"];
+            for (let i = 0; i < main.petLine.length; i++) {
+                let pet = extraprop["petLine"][i];
+                main.petDeck.setAt(i, pet);
+            }
         }
     }
 
@@ -872,24 +935,34 @@ class AbilityUtil {
         console.log("TODO onEscape");
         if (extraprop != null) {
             let index = Util.nullSafety(extraprop["index"], -1);
-            if (index != -1) {
+            if (index != -1 && main.petDeck.length > 5) {
                 const firstPetDeckIndex = 6;
-                let copyOfPetDeck = [...main.petDeck.toArray()];
+                // let copyOfPetDeck = [...main.petDeck.toArray()];
                 // get pet card
                 var petCard = main.petDeck.getAt(index);
-                // if there is armor/shield/hide remove move to discardPile
-
-                // if there is other pet add to petDeck too
-
+                let tempCard = [];
+                for (let i = 0; i < petCard.length; i++) {
+                    if (main.petDeck.getAt(index)[i].hasOwnProperty("ability")) {
+                        // if there is armor/shield/hide remove (action card) move to discardPile
+                        let card = main.petDeck.getAt(index)[i];
+                        this.moveCardToDiscardPile(main, card);
+                    } else {
+                        // if there is other pet add to petDeck too
+                        main.petDeck.addElement([main.petDeck.getAt(index)[i]]);
+                        // tempCard.push(main.petDeck.getAt(index)[i]);
+                    }
+                }
+                // main.petDeck.setAt(index, tempCard);
                 // add to petDeck
                 // main.petDeck.addElement(petCard);
 
                 // shuffle petDeck (exclude the pet line)
-                // main.petDeck.shuffleOn(firstPetDeckIndex, main.petDeck.toArray().length);
+                main.petDeck.shuffleOn(firstPetDeckIndex, main.petDeck.toArray().length);
 
                 // get first petDeck and put in the petCard oldIndex
-                // let newPet = main.petDeck.getAt(firstPetDeckIndex);
-                // main.petDeck.setAt(index, newPet);
+                let newPet = main.petDeck.getAt(firstPetDeckIndex);
+                main.petDeck.setAt(index, newPet);
+                main.petDeck.removeAt(firstPetDeckIndex);
 
                 // set the pet deck from copyOfPetDeck
             }

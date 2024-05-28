@@ -52,9 +52,9 @@ class Main {
         let deadNum = 0;
 
         for (let playerId in this.playerObj) {
-            const player = this.playerObj[playerId];
+            let player = this.playerObj[playerId];
             if (player.life === 0) {
-                if (player.isDead()) {
+                if (player.isDead) {
                     continue;
                 }
                 player.isDead = true;
@@ -65,9 +65,11 @@ class Main {
             }
         }
 
-        if (deadNum === (this.playerIdArr.length - 1)) {
+        if ((deadNum > 0) && (deadNum === (this.playerIdArr.length - 1))) {
+            console.log("checkFinish true");
             return true;
         }
+        console.log("checkFinishfalse");
         return false;
     }
 
@@ -156,7 +158,7 @@ class Main {
         this.moveDiscardPileToActionDeck();
         let card = this.actionDeck.splice(0, 1);
         if (card[0] !== undefined) {
-            player.cardDeck.push(card[0]);
+            player.cardDeck.push(GameUtil.resetCard(card[0]));
         }
         console.log(card);
         this.io.to(player.id).emit("getCard", JSON.stringify(player.toJson()));
@@ -241,6 +243,7 @@ class Main {
             //     this.nowTurnId = this.playerIdArr[this.turn % this.playerIdArr.length];
             //     //search player who is not dead;
             // }
+            console.log("nextTurn" + this.nowTurnId);
             this.io.to(this.roomID).emit("nextTurn", this.nowTurnId);
         } else {
             this.finish();
@@ -251,34 +254,37 @@ class Main {
         // remove hide if player index == hideList.indexOf() >= 0 but it impossible to have to hide in same time
         let hideIndexList = Util.findAllIndex(this.hideList, this.nowTurnId);
         console.log("hideList" + hideIndexList);
-        if (hideIndexList.length > 0) {
+        // if (hideIndexList.length > 0) {
             for (let i = 0; i < hideIndexList.length; i++) {
                 AbilityUtil.removeActionCardOnIndex(this, "Hide", i);
+                this.hideList[i] = null;
             }
-        }
+        // }
 
         let trapIndexList = Util.findAllIndex(this.trapList, this.nowTurnId);
-        if (trapIndexList.length > 0) {
+        // if (trapIndexList.length > 0) {
             for (let i = 0; i < trapIndexList.length; i++) {
                 AbilityUtil.removeActionCardOnIndex(this, "Trap", i);
+                this.trapList[i] = null;
             }
-        }
+        // }
     }
 
     updateGrenadeTurn() {
         for (let i = 0; i < this.grenadeList.length; i++) {
-            let grenade = this.grenadeList[i];
-            if (grenade == null) {
+            if (this.grenadeList[i] === null) {
                 continue;
             }
-            grenade += 1;
-            if (grenade == 3) {
+            this.grenadeList[i] += 1;
+            if (this.grenadeList[i] == 3) {
                 this.grenadeList[i] = null;
                 // explode grenade
                 // need to add check if there is grenade, megagrenada, grenade -> will it explode or add checking in UI
                 AbilityUtil.explodeGrenade(this, i);
             }
         }
+        console.log("this.grenadeList:");
+        console.log(this.grenadeList);
     }
 
     // FINISH

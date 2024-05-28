@@ -20,7 +20,7 @@ class GameUtil {
                     actionCard["extraprop"] = { "life": 2 };
                     break;
             }
-            if(!actionCard.hasOwnProperty("block")){
+            if (!actionCard.hasOwnProperty("block")) {
                 actionCard["block"] = 1;
             }
             var size = 1; //actionCard["cardNum"];
@@ -104,7 +104,11 @@ class GameUtil {
         return "";
     }
 
-    static resetCard(card){
+    static resetCard(card) {
+        card.useSpecial = false;
+        if (card.name == "Two Aim" || card.name == "Two Boom") {
+            card.block = 2;
+        }
         return card;
     }
 }
