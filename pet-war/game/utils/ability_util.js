@@ -319,7 +319,10 @@ class AbilityUtil {
         }
         // // check target isForest -> do nothing
         // // check target hasHide -> do nothing
-        if (main.petDeck.getAt(targetIndex)[0].name === Data.PET["Jungle"].name || (main.petDeck.getAt(targetIndex)[0].useSpecial === false) && (main.petDeck.getAt(targetIndex)[0].name === Data.ACTION["Hide"].name)) {
+        let isForest = main.petDeck.getAt(targetIndex)[0].name === Data.PET["Jungle"].name;
+        let isHide = (main.petDeck.getAt(targetIndex)[0].useSpecial === false) && (main.petDeck.getAt(targetIndex)[0].name === Data.ACTION["Hide"].name);
+        let isTrap = (main.petDeck.getAt(targetIndex)[0].useSpecial === true) && (main.petDeck.getAt(targetIndex)[0].special !== null && main.petDeck.getAt(targetIndex)[0].name === Data.ACTION["Aim-Trap"].special.name);
+        if (isForest || isHide || isTrap) {
             return;
         }
         // // main.petDeck.getAt(targetIndex)[0];
@@ -328,13 +331,15 @@ class AbilityUtil {
 
         // }
         // // check target hasShield -> change shield to Armor (useSpecial => false)
-        if ((main.petDeck.getAt(targetIndex)[0].useSpecial == true) && (main.petDeck.getAt(targetIndex)[0].special != null && main.petDeck.getAt(targetIndex)[0].name === Data.ACTION["Armor-Shield"].special.name)) {
+        let isShield = (main.petDeck.getAt(targetIndex)[0].useSpecial == true) && (main.petDeck.getAt(targetIndex)[0].special != null && main.petDeck.getAt(targetIndex)[0].name === Data.ACTION["Armor-Shield"].special.name);
+        if (isShield) {
             main.petDeck.getAt(targetIndex)[0].useSpecial = false;
             console.log("Destroy Shield");
             return;
         }
         // // check target hasArmor -> destroy Armor
-        if ((main.petDeck.getAt(targetIndex)[0].useSpecial == false) && (main.petDeck.getAt(targetIndex)[0].name === Data.ACTION["Armor"].name)) {
+        let isArmor = (main.petDeck.getAt(targetIndex)[0].useSpecial == false) && (main.petDeck.getAt(targetIndex)[0].name === Data.ACTION["Armor"].name);
+        if (isArmor) {
             this.moveCardToDiscardPile(main, main.petDeck.getAt(targetIndex)[0]);
             main.petDeck.getAt(targetIndex).splice(0, 1);
             return;
@@ -348,48 +353,6 @@ class AbilityUtil {
         } else {
             main.petDeck.removeAt(targetIndex);
         }
-
-
-        // if (extraprop["line"] == 0) {
-        //     main.discardPile.add(main.actionUp[index]);
-        //     main.aimList[index] = null;
-        //     main.actionUp[index] = null;
-        //     if (index < main.petDeck().data.length) {
-        //         if (main.petDeck().getAt(index).first["name"] !=
-        //             Constant.PET["Jungle"].name) {
-        //             if (main.petDeck().getAt(index).length > 1) {
-        //                 var card = main.petDeck().getAt(index).first;
-        //                 if (card["name"] == "Shield") {
-        //                     // check shield life (armor 2x)
-        //                     main.discardPile.add(card);
-        //                     main.petDeck().getAt(index).removeAt(0);
-        //                 } else if (card["name"] == "Armor") {
-        //                     main.discardPile.add(card);
-        //                     main.petDeck().getAt(index).removeAt(0);
-        //                 } else if (card["name"] == "Hide") {
-        //                     // do nothing
-        //                 } else {
-        //                     // jika pet
-        //                     var indexPlayerPet = GameUtils.getPlayerIndexByPet(
-        //                         main.petDeck().getAt(index).first["name"],
-        //                         main.playerArr());
-        //                     if (indexPlayerPet != -1) {
-        //                         main.playerArr()[indexPlayerPet].life.value--;
-        //                     }
-        //                     main.petDeck().getAt(index).removeAt(0);
-        //                 }
-        //             } else {
-        //                 var indexPlayerPet = GameUtils.getPlayerIndexByPet(
-        //                     main.petDeck().getAt(index).first["name"],
-        //                     main.playerArr());
-        //                 if (indexPlayerPet != -1) {
-        //                     main.playerArr()[indexPlayerPet].life.value--;
-        //                 }
-        //                 main.petDeck().removeAt(index);
-        //             }
-        //         }
-        //     }
-        // }
     }
 
     static addCardToPet(main, card, extraprop) {
@@ -635,7 +598,7 @@ class AbilityUtil {
     }
 
     static explodeGrenade(main, index) {
-        if (main.actionDown[index].useSpecial === true) {
+        if (main.actionDown[index] != null && main.actionDown[index].useSpecial === true) {
             let startIndex = index - 1;
             if (startIndex < 0) {
                 startIndex = 0;

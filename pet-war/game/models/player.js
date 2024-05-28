@@ -3,7 +3,7 @@ class Player {
         this.id = id;
         this.name = name;
         this.rangerName = "";//ranger["name"];
-        this.ranger = null;
+        this.ranger = {};
         this.maxLife = maxLife;
         this.life = maxLife;
         this.cardDeck = [];
@@ -14,16 +14,27 @@ class Player {
     setRanger(ranger) {
         this.ranger = ranger;
         this.rangerName = ranger["name"];
+        console.log(this.rangerName);
     }
 
     toJson() {
         return {
             "name": this.name,
-            "rangeName": this.rangerName,
+            "rangerName": this.rangerName,
             "ranger": JSON.stringify(this.ranger),
             "maxLife": this.maxLife,
             "life": this.life,
             "cardDeck": this.cardDeck,
+            "isDead": this.isDead,
+        };
+    }
+
+    clientToJson(){
+        return {
+            "name": this.name,
+            "rangerName": this.rangerName,
+            "maxLife": this.maxLife,
+            "life": this.life,
             "isDead": this.isDead,
         };
     }

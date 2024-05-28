@@ -35,6 +35,7 @@ class Main {
         this.totalTurn = 0;
         this.round = 0;
         this.winner = null;
+        this.playerInfoList = [];
     }
 
     init(roomID) {
@@ -103,7 +104,7 @@ class Main {
         for (let playerId in this.playerObj) {
             if (this.playerObj.hasOwnProperty(playerId)) {
                 const rand = Math.floor(Math.random() * this.rangerList.length);
-                const player = this.playerObj[playerId];
+                let player = this.playerObj[playerId];
                 player.setRanger(this.rangerList[rand]);
                 this.rangerList.splice(rand, 1);
             }
@@ -146,12 +147,13 @@ class Main {
         }
 
         for (let playerId in this.playerObj) {
+            this.playerInfoList.push(this.playerObj[playerId].clientToJson());
             this.playerIdArr.push(playerId);
         }
-        var firstPlayerIndex = this.playerIdArr.indexOf(this.nowTurnId);
-        if (firstPlayerIndex != 0) {
-            [this.playerIdArr[0], this.playerIdArr[firstPlayerIndex]] = [this.playerIdArr[firstPlayerIndex], this.playerIdArr[0]];
-        }
+        // var firstPlayerIndex = this.playerIdArr.indexOf(this.nowTurnId);
+        // if (firstPlayerIndex != 0) {
+        //     [this.playerIdArr[0], this.playerIdArr[firstPlayerIndex]] = [this.playerIdArr[firstPlayerIndex], this.playerIdArr[0]];
+        // }
     }
 
     getActionCard(player) {
@@ -219,10 +221,20 @@ class Main {
         text += "]";
         console.log(text);
         console.log(this.petLine);
+        this.updatePlayerInfo();
         this.updateGrenadeTurn();
         this.sendDataToClient();
         this.sendCardDeckToClient();
         this.onNextTurn();
+    }
+
+    updatePlayerInfo() {
+        this.playerInfoList = [];
+        for (let playerId in this.playerObj) {
+            
+            this.playerInfoList.push(this.playerObj[playerId].clientToJson());
+        }
+        console.log(this.playerInfoList);
     }
 
     onNextTurn() {
@@ -244,7 +256,9 @@ class Main {
             //     //search player who is not dead;
             // }
             console.log("nextTurn" + this.nowTurnId);
+            console.log("nextTurnName" + this.playerObj[this.nowTurnId].name);
             this.io.to(this.roomID).emit("nextTurn", this.nowTurnId);
+            this.io.to(this.roomID).emit("nextTurnName", this.playerObj[this.nowTurnId].name);
         } else {
             this.finish();
         }
@@ -255,18 +269,18 @@ class Main {
         let hideIndexList = Util.findAllIndex(this.hideList, this.nowTurnId);
         console.log("hideList" + hideIndexList);
         // if (hideIndexList.length > 0) {
-            for (let i = 0; i < hideIndexList.length; i++) {
-                AbilityUtil.removeActionCardOnIndex(this, "Hide", i);
-                this.hideList[i] = null;
-            }
+        for (let i = 0; i < hideIndexList.length; i++) {
+            AbilityUtil.removeActionCardOnIndex(this, "Hide", i);
+            this.hideList[i] = null;
+        }
         // }
 
         let trapIndexList = Util.findAllIndex(this.trapList, this.nowTurnId);
         // if (trapIndexList.length > 0) {
-            for (let i = 0; i < trapIndexList.length; i++) {
-                AbilityUtil.removeActionCardOnIndex(this, "Trap", i);
-                this.trapList[i] = null;
-            }
+        for (let i = 0; i < trapIndexList.length; i++) {
+            AbilityUtil.removeActionCardOnIndex(this, "Trap", i);
+            this.trapList[i] = null;
+        }
         // }
     }
 
@@ -310,6 +324,7 @@ class Main {
             "petLine": this.petLine,
             "actionDown": this.actionDown,
             "discardPile": this.discardPile,
+            "playerInfoList": this.playerInfoList,
         };
         // console.log(masterData);
         // console.log(JSON.stringify(masterData));
@@ -328,6 +343,7 @@ class Main {
             "petLine": this.petLine,
             "actionDown": this.actionDown,
             "discardPile": this.discardPile,
+            "playerInfoList": this.playerInfoList,
         };
         // const gameData = {
         //     "aimList": this.aimList,

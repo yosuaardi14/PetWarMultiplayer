@@ -23,7 +23,7 @@ class GameUtil {
             if (!actionCard.hasOwnProperty("block")) {
                 actionCard["block"] = 1;
             }
-            var size = 1; //actionCard["cardNum"];
+            var size = actionCard["cardNum"];
             for (var j = 0; j < size; j++) {
                 let cardName = actionCard["name"];
                 let normalName = actionCard["name"], specialName = "";
