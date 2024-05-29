@@ -126,7 +126,7 @@ class Main {
             this.io.to(player.id).emit("onGameReady", JSON.stringify(player.toJson()));
         }
         this.io.to(this.roomID).emit("nextTurn", this.nowTurnId);
-        console.log(this.actionDeck.length);
+        // console.log(this.actionDeck.length);
     }
 
     getFirstTurn() {
@@ -164,6 +164,7 @@ class Main {
         }
         console.log(card);
         this.io.to(player.id).emit("getCard", JSON.stringify(player.toJson()));
+        this.onNextTurn();
     }
 
     moveDiscardPileToActionDeck() {
@@ -225,13 +226,12 @@ class Main {
         this.updateGrenadeTurn();
         this.sendDataToClient();
         this.sendCardDeckToClient();
-        this.onNextTurn();
+        // this.onNextTurn();
     }
 
     updatePlayerInfo() {
         this.playerInfoList = [];
         for (let playerId in this.playerObj) {
-            
             this.playerInfoList.push(this.playerObj[playerId].clientToJson());
         }
         console.log(this.playerInfoList);

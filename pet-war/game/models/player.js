@@ -33,6 +33,7 @@ class Player {
         return {
             "name": this.name,
             "rangerName": this.rangerName,
+            "ranger": JSON.stringify(this.ranger),
             "maxLife": this.maxLife,
             "life": this.life,
             "isDead": this.isDead,
