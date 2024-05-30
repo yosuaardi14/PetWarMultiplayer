@@ -924,7 +924,7 @@ class AbilityUtil {
         // console.log("TODO onEscape");
         if (extraprop != null) {
             let index = Util.nullSafety(extraprop["index"], -1);
-            if (index != -1 && main.petDeck.length > 5) {
+            if (index != -1 && main.petDeck.toArray().length > 5) {
                 const firstPetDeckIndex = 6;
                 // let copyOfPetDeck = [...main.petDeck.toArray()];
                 // get pet card
