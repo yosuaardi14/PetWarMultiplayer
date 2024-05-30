@@ -7,6 +7,9 @@ class GameUtil {
         let actionDeck = [];
         for (var i in Data.ACTION) {
             let actionCard = Object.assign({}, Data.ACTION[i]);
+            if (actionCard.block != undefined) {
+                actionCard["block"] = 1;
+            }
             switch (actionCard["name"]) {
                 case "Grenade":
                 case "Grenade-Mega Grenade":
@@ -19,9 +22,6 @@ class GameUtil {
                 case "Shield":
                     actionCard["extraprop"] = { "life": 2 };
                     break;
-            }
-            if (!actionCard.hasOwnProperty("block")) {
-                actionCard["block"] = 1;
             }
             var size = actionCard["cardNum"];
             for (var j = 0; j < size; j++) {

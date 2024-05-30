@@ -12,7 +12,7 @@ const cors = require('cors');
 const Game = require("./game/main");
 const Player = require('./game/models/player');
 
-const game = new Game(io);
+// const game = new Game(io);
 let rooms = {};
 
 app.use(cors());
@@ -22,6 +22,17 @@ app.use(express.static(__dirname + "/public")); // For UI
 // Handle socket.io connections
 io.on('connection', (socket) => {
     console.log('a user connected:', socket.id);
+
+    socket.on('spectateRoom', (roomID) => {
+        if (rooms[roomID]) {
+            socket.join(roomID);
+            io.to(socket.id).emit("spectateRoom", "Joined");
+        } else {
+            io.to(socket.id).emit("spectateRoom", "Room not Found");
+            // io.to.(socket.id).emit("onSpectateInit", rooms[roomID].game.getInitialData());
+        }
+    });
+
     socket.on('joinRoom', (roomID) => {
         console.log("joinRoom " + roomID);
         if (!rooms[roomID]) {
@@ -33,30 +44,36 @@ io.on('connection', (socket) => {
             };
         }
 
-        let roomGame = rooms[roomID]["game"];
+        let game = rooms[roomID]["game"];
 
-        if ((rooms[roomID]["num"] + 1) > roomGame.playerNum) {
+        if ((rooms[roomID]["num"] + 1) > game.playerNum) {
             console.log("Room is Full");
             io.to(socket.id).emit("joinRoom", "Room is Full");
         } else {
             console.log(socket.id + " join room " + roomID);
             socket.join(roomID);
             rooms[roomID][socket.id] = { id: socket.id, name: null };
-            roomGame.playerObj[socket.id] = new Player(socket.id, "", roomGame.maxLife);
+            game.playerObj[socket.id] = new Player(socket.id, "", game.maxLife);
             rooms[roomID]["num"] = rooms[roomID]["num"] + 1;
             rooms[roomID]["status"] = "WAITING";
             io.to(socket.id).emit("joinRoom", "Please send your Name");
         }
         console.log("Room Num Player: " + rooms[roomID]["num"]);
 
+        socket.on('playerRoomList', (data) => {
+
+        });
+
         socket.on('setPlayerName', (data) => {
             console.log("setPlayerName " + data.name);
             rooms[roomID][socket.id].name = data.name;
-            roomGame.playerObj[socket.id].name = data.name;
+            game.playerObj[socket.id].name = data.name;
             io.to(socket.id).emit("setPlayerName", socket.id);
-            if (rooms[roomID]["num"] === roomGame.playerNum) {
+            // console.log(game.getAllPlayerName());
+            io.to(roomID).emit("playerRoomList", game.getAllPlayerName());
+            if (rooms[roomID]["num"] === game.playerNum) {
                 rooms[roomID]["status"] = "INITGAME";
-                roomGame.init(roomID);
+                game.init(roomID);
                 // game.init(roomID);
             }
         });
@@ -69,20 +86,13 @@ io.on('connection', (socket) => {
             if (rooms[roomID]["ready"] === rooms[roomID]["num"]) {
                 console.log("Game Ready to Start");
                 rooms[roomID]["status"] = "STARTGAME";
-                roomGame.ready();
+                game.ready();
                 // game.ready();
             }
         });
 
         socket.on('onGameReady', (data) => {
             console.log("onGameReady" + data);
-            // if (data === "ready") {
-            //     rooms[roomID]["ready"] = rooms[roomID]["ready"] + 1;
-            // }
-            // if (rooms[roomID]["ready"] === rooms[roomID]["num"]) {
-            //     console.log("Game Ready to Start");
-            //     game.ready();
-            // }
         });
 
         socket.on('dealCard', (data) => {
@@ -103,15 +113,13 @@ io.on('connection', (socket) => {
         socket.on('sendAction', (data) => {
             // Server 
             console.log("sendAction" + data);
-            roomGame.onPlayerAction(data);
-            // game.onPlayerAction(data);
+            game.onPlayerAction(data);
         });
 
         socket.on('confirmAction', (data) => {
             // Server 
             console.log("confirmAction" + data);
-            roomGame.onConfirmAction(data);
-            // game.onConfirmAction(data);
+            game.onConfirmAction(data);
         });
 
         socket.on('finishAction', (data) => {

@@ -78,8 +78,8 @@ class AbilityUtil {
                 // this.onGetCover(main, card, extraprop);
                 break;
             case "Doom":
-                this.onDoom(main, card, extraprop);
                 this.moveCardToDiscardPile(main, card);
+                this.onDoom(main, card, extraprop);
                 this.onActionFinish(main);
                 break;
             case "GoForward":
@@ -92,34 +92,34 @@ class AbilityUtil {
                 break;
             // Discard Pile
             case "Running":
-                this.onRunning(main, card, extraprop);
                 this.moveCardToDiscardPile(main, card);
+                this.onRunning(main, card, extraprop);
                 this.onActionFinish(main);
                 break;
             case "Typhoon":
-                this.onTyphoon(main, card, extraprop);
                 this.moveCardToDiscardPile(main, card);
+                this.onTyphoon(main, card, extraprop);
                 this.onActionFinish(main);
                 break;
             case "Ressurect":
-                this.onRessurect(main, card, extraprop);
                 this.moveCardToDiscardPile(main, card);
+                this.onRessurect(main, card, extraprop);
                 this.onActionFinish(main);
                 break;
             case "MoveThePet":
                 // need confirmation
+                this.moveCardToDiscardPile(main, card);
                 this.onCheckMoveThePet(main, card, extraprop);
                 // this.onMoveThePet(main, card, extraprop);
-                this.moveCardToDiscardPile(main, card);
                 break;
             case "LunchTime":
-                this.onLunchTime(main, card, extraprop);
                 this.moveCardToDiscardPile(main, card);
+                this.onLunchTime(main, card, extraprop);
                 this.onActionFinish(main);
                 break;
             default:
                 isNotFound = true;
-                console.log(cardAbility + " is 404");
+                // console.log(cardAbility + " is 404");
                 break;
         }
     }
@@ -133,6 +133,7 @@ class AbilityUtil {
                 this.onActionFinish(main);
                 break;
             case "MasterHide":
+                this.moveCardToDiscardPile(main, card);
                 // need confirmation
                 this.onCheckMasterHide(main, card, extraprop);
                 // this.onMasterHide(main, card, extraprop);
@@ -147,26 +148,29 @@ class AbilityUtil {
                 this.onActionFinish(main);
                 break;
             case "DoubleRessurect":
-                this.onDoubleRessurect(main, card, extraprop);
                 this.moveCardToDiscardPile(main, card);
+                this.onDoubleRessurect(main, card, extraprop);
                 this.onActionFinish(main);
                 break;
             case "GoAnyward":
                 // need confirmation
+                this.moveCardToDiscardPile(main, card);
                 this.onCheckGoAnyward(main, card, extraprop);
                 // this.onGoAnyward(main, card, extraprop);
                 break;
             case "OverShock":
                 // Same as Doom
+                this.moveCardToDiscardPile(main, card);
                 this.onOverShock(main, card, extraprop);
                 this.onActionFinish(main);
                 break;
             case "DoubleRun":
-                this.onDoubleRun(main, card, extraprop);
                 this.moveCardToDiscardPile(main, card);
+                this.onDoubleRun(main, card, extraprop);
                 this.onActionFinish(main);
                 break;
             case "Escape":
+                this.moveCardToDiscardPile(main, card);
                 this.onEscape(main, card, extraprop);
                 this.onActionFinish(main);
                 break;
@@ -180,7 +184,7 @@ class AbilityUtil {
                 break;
             default:
                 isNotFound = true;
-                console.log(cardAbility + " is 404");
+                // console.log(cardAbility + " is 404");
                 break;
         }
     }
@@ -286,7 +290,7 @@ class AbilityUtil {
     }
 
     static onPetGo(main, condition, targetIndex, indexVal) {
-        console.log("onPetGo condition:" + condition);
+        // console.log("onPetGo condition:" + condition);
         if (condition) {
             let petCard = main.petDeck.getAt(targetIndex);//[targetIndex];
             let oldPetCard = main.petDeck.getAt(targetIndex + indexVal);//[targetIndex + indexVal];
@@ -317,35 +321,52 @@ class AbilityUtil {
         if (targetIndex >= main.petDeck.length) {
             return;
         }
+        let useSpecialAbility = main.petDeck.getAt(targetIndex)[0].useSpecial == true;
+        console.log("onDestroyPet useSpecial" + useSpecialAbility);
+        let isSpecialCard = main.petDeck.getAt(targetIndex)[0].special != null;
+        console.log("onDestroyPet isSpecialCard" + isSpecialCard);
+
+        let cardName = main.petDeck.getAt(targetIndex)[0].name;
+        let specialCardName = isSpecialCard ? main.petDeck.getAt(targetIndex)[0].special.name : "";
         // // check target isForest -> do nothing
         // // check target hasHide -> do nothing
-        let isForest = main.petDeck.getAt(targetIndex)[0].name === Data.PET["Jungle"].name;
-        let isHide = (main.petDeck.getAt(targetIndex)[0].useSpecial === false) && (main.petDeck.getAt(targetIndex)[0].name === Data.ACTION["Hide"].name);
-        let isTrap = (main.petDeck.getAt(targetIndex)[0].useSpecial === true) && (main.petDeck.getAt(targetIndex)[0].special !== null && main.petDeck.getAt(targetIndex)[0].name === Data.ACTION["Aim-Trap"].special.name);
+        let isForest = cardName == Data.PET["Jungle"].name;
+        let isHide = !useSpecialAbility && (cardName == Data.ACTION["Hide"].name);
+        let isTrap = useSpecialAbility && isSpecialCard && (specialCardName == Data.ACTION["Aim-Trap"].special.name);
+        console.log((cardName == Data.ACTION["Aim-Trap"].special.name));
+        console.log("isForest || isHide || isTrap");
         if (isForest || isHide || isTrap) {
+            console.log("isForest || isHide || isTrap : true");
             return;
         }
         // // main.petDeck.getAt(targetIndex)[0];
         // // check target hasKamikaze
-        // if ((main.petDeck.getAt(targetIndex)[0].useSpecial === true) && (main.petDeck.getAt(targetIndex)[0].name === Data.ACTION["Aim-Kamikaze"].special.name)) {
-
-        // }
+        let hasKamikaze = useSpecialAbility && (specialCardName == Data.ACTION["Aim-Kamikaze"].special.name);
+        if (hasKamikaze) {
+            console.log("isForest || isHide || isTrap : true");
+            return;
+        }
         // // check target hasShield -> change shield to Armor (useSpecial => false)
-        let isShield = (main.petDeck.getAt(targetIndex)[0].useSpecial == true) && (main.petDeck.getAt(targetIndex)[0].special != null && main.petDeck.getAt(targetIndex)[0].name === Data.ACTION["Armor-Shield"].special.name);
+        let isShield = useSpecialAbility && isSpecialCard && (specialCardName == Data.ACTION["Armor-Shield"].special.name);
+        console.log((cardName == Data.ACTION["Armor-Shield"].special.name));
+        console.log("isShield");
         if (isShield) {
+            console.log("isShield : true");
             main.petDeck.getAt(targetIndex)[0].useSpecial = false;
-            console.log("Destroy Shield");
+            // console.log("Destroy Shield");
             return;
         }
         // // check target hasArmor -> destroy Armor
-        let isArmor = (main.petDeck.getAt(targetIndex)[0].useSpecial == false) && (main.petDeck.getAt(targetIndex)[0].name === Data.ACTION["Armor"].name);
+        let isArmor = !useSpecialAbility && (cardName == Data.ACTION["Armor"].name);
+        console.log("isArmor");
         if (isArmor) {
+            console.log("isArmor : true");
             this.moveCardToDiscardPile(main, main.petDeck.getAt(targetIndex)[0]);
             main.petDeck.getAt(targetIndex).splice(0, 1);
             return;
         }
 
-        let playerId = GameUtil.getPlayerIdByPet(main.petDeck.getAt(targetIndex)[0]["name"], main.playerObj);
+        let playerId = GameUtil.getPlayerIdByPet(cardName, main.playerObj);
         main.playerObj[playerId].life--;
         main.playerObj[playerId].defeatedPet.push(main.petDeck.getAt(targetIndex)[0]);
         if (main.petDeck.getAt(targetIndex).length > 1) {
@@ -366,8 +387,8 @@ class AbilityUtil {
             for (let i = 0; i < main.petDeck.getAt(index).length; i++) {
                 if ((main.petDeck.getAt(index)[i].useSpecial === false) && (main.petDeck.getAt(index)[i].name === Data.ACTION["Hide"].name)) {
                     hideCard = main.petDeck.getAt(index)[i];
-                    console.log("hideCard: ");
-                    console.log(hideCard);
+                    // console.log("hideCard: ");
+                    // console.log(hideCard);
                 } else {
                     tempCard.push(main.petDeck.getAt(index)[i]);
                 }
@@ -401,6 +422,7 @@ class AbilityUtil {
         let tempCard = [];
         for (var i = 0; i < main.petDeck.getAt(index).length; i++) {
             if (main.petDeck.getAt(index)[i].name == cardName || (main.petDeck.getAt(index)[i].special != null && main.petDeck.getAt(index)[i].special.name == cardName)) {
+                console.log("removeActionCardOnIndex " + cardName);
                 let card = main.petDeck.getAt(index)[i];
                 this.moveCardToDiscardPile(main, card);
             } else {
@@ -411,6 +433,9 @@ class AbilityUtil {
     }
 
     static moveCardToDiscardPile(main, card) {
+        if (card.block) {
+            card.block = 1;
+        }
         main.discardPile.push(card);
     }
 
@@ -427,7 +452,7 @@ class AbilityUtil {
     }
 
     static onTwoAim(main, card, extraprop) {
-        console.log("TODO onTwoAim");
+        // console.log("TODO onTwoAim");
         if (extraprop != null) {
             let index = Util.nullSafety(extraprop["index"], -1);
             if (index != -1) {
@@ -446,7 +471,7 @@ class AbilityUtil {
     }
 
     static onBoom(main, card, extraprop) {
-        console.log("TODO onBoom");
+        // console.log("TODO onBoom");
         if (extraprop != null) {
             let index = Util.nullSafety(extraprop["index"], -1);
             let line = Util.nullSafety(extraprop["line"], -1);
@@ -469,7 +494,7 @@ class AbilityUtil {
     }
 
     static onTwoBoom(main, card, extraprop) {
-        console.log("TODO onTwoBoom");
+        // console.log("TODO onTwoBoom");
         if (extraprop != null) {
             let index = Util.nullSafety(extraprop["index"], -1);
             let line = Util.nullSafety(extraprop["line"], -1);
@@ -504,7 +529,7 @@ class AbilityUtil {
     }
 
     static onCheckMiss(main, card, extraprop) {
-        console.log("TODO onCheckMiss");
+        // console.log("TODO onCheckMiss");
         if (extraprop != null) {
             let index = Util.nullSafety(extraprop["index"], -1);
             if (index != -1) {
@@ -531,7 +556,7 @@ class AbilityUtil {
     }
 
     static onMiss(main, card, extraprop, missIndex = null) {
-        console.log("TODO onMiss");
+        // console.log("TODO onMiss");
         if (extraprop != null) {
             let index = Util.nullSafety(extraprop["missIndex"], -1);
             if (index != -1) {
@@ -542,7 +567,7 @@ class AbilityUtil {
     }
 
     static onDoom(main, card, extraprop) {
-        console.log("TODO onDoom");
+        // console.log("TODO onDoom");
         if (extraprop != null) {
             let index = Util.nullSafety(extraprop["index"], -1);
             if (index != -1) {
@@ -759,7 +784,7 @@ class AbilityUtil {
     }
 
     static onGoAnyward(main, card, extraprop) {
-        console.log("TODO onGoAnyward");
+        // console.log("TODO onGoAnyward");
         if (extraprop != null) {
             let index = Util.nullSafety(extraprop["index"], 5);
             let goIndex = Util.nullSafety(extraprop["goIndex"], -1);
@@ -782,30 +807,30 @@ class AbilityUtil {
     }
 
     static onCheckGoAnyward(main, card, extraprop) {
-        console.log("TODO onCheckGoAnyward");
+        // console.log("TODO onCheckGoAnyward");
         // emit confirmation
         this.needConfirmation(main, card, extraprop);
     }
 
     static onGetCover(main, card, extraprop) {
-        console.log("TODO onGetCover");
+        // console.log("TODO onGetCover");
         if (extraprop != null) {
             let index = Util.nullSafety(extraprop["index"], -1);
             let coverIndex = Util.nullSafety(extraprop["coverIndex"], -1);
-            console.log("TODO coverIndex" + index);
-            console.log("TODO coverIndex" + coverIndex);
+            // console.log("TODO coverIndex" + index);
+            // console.log("TODO coverIndex" + coverIndex);
             if (coverIndex != -1) {
-                console.log("TODO coverIndex length: " + main.petDeck.getAt(coverIndex).length);
+                // console.log("TODO coverIndex length: " + main.petDeck.getAt(coverIndex).length);
                 if (main.petDeck.getAt(coverIndex)[0].name !== Data.PET["Jungle"].name) {
                     let tempPet = main.petDeck.getAt(index);
-                    console.log("Def " + main.petDeck);
-                    console.log(main.petDeck);
+                    // console.log("Def " + main.petDeck);
+                    // console.log(main.petDeck);
                     main.petDeck.getAt(coverIndex).push(...tempPet);
-                    console.log("AfterCover " + main.petDeck);
-                    console.log(main.petDeck);
+                    // console.log("AfterCover " + main.petDeck);
+                    // console.log(main.petDeck);
                     main.petDeck.removeAt(index);
-                    console.log("RemoveOld " + main.petDeck);
-                    console.log(main.petDeck);
+                    // console.log("RemoveOld " + main.petDeck);
+                    // console.log(main.petDeck);
                     // TODO if there is hide card move theHideList
                 }
             }
@@ -813,7 +838,7 @@ class AbilityUtil {
     }
 
     static onCheckGetCover(main, card, extraprop) {
-        console.log("TODO onCheckGetCover");
+        // console.log("TODO onCheckGetCover");
         if (extraprop != null) {
             const minIndex = 0;
             let maxIndex = 5;
@@ -835,19 +860,20 @@ class AbilityUtil {
     }
 
     static onMasterHide(main, card, extraprop) {
-        console.log("TODO onMasterHide");
+        // console.log("TODO onMasterHide");
         this.needConfirmation(main, card, extraprop);
     }
 
     static onCheckMasterHide(main, card, extraprop) {
-        console.log("TODO onCheckMasterHide");
+        // console.log("TODO onCheckMasterHide");
         // if
         // emit confirmation
-        this.needConfirmation(main, card, extraprop);
+        this.onActionFinish(main);
+        // this.needConfirmation(main, card, extraprop);
     }
 
     static onTrap(main, card, extraprop) {
-        console.log("TODO onTrap");
+        // console.log("TODO onTrap");
         if (extraprop != null) {
             let index = Util.nullSafety(extraprop["index"], -1);
             if (index != -1) {
@@ -860,7 +886,7 @@ class AbilityUtil {
     }
 
     static onMovingAim(main, card, extraprop) {
-        console.log("TODO onMovingAim");
+        // console.log("TODO onMovingAim");
         if (extraprop != null) {
             main.actionUp = extraprop["actionUp"];
             main.aimList = extraprop["aimList"];
@@ -868,7 +894,7 @@ class AbilityUtil {
     }
 
     static onCheckMovingAim(main, card, extraprop) {
-        console.log("TODO onCheckMovingAim");
+        // console.log("TODO onCheckMovingAim");
         // emit confirmation
         this.needConfirmation(main, card, extraprop);
     }
@@ -883,7 +909,7 @@ class AbilityUtil {
     }
 
     static onCheckMoveThePet(main, card, extraprop) {
-        console.log("TODO onCheckMoveThePet");
+        // console.log("TODO onCheckMoveThePet");
         // emit confirmation
         this.needConfirmation(main, card, extraprop);
     }
@@ -895,7 +921,7 @@ class AbilityUtil {
     }
 
     static onEscape(main, card, extraprop) {
-        console.log("TODO onEscape");
+        // console.log("TODO onEscape");
         if (extraprop != null) {
             let index = Util.nullSafety(extraprop["index"], -1);
             if (index != -1 && main.petDeck.length > 5) {
