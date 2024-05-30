@@ -106,6 +106,7 @@ class Main {
                 const rand = Math.floor(Math.random() * this.rangerList.length);
                 let player = this.playerObj[playerId];
                 player.setRanger(this.rangerList[rand]);
+                this.playerInfoList.push(player.clientToJson());
                 this.rangerList.splice(rand, 1);
             }
         }
@@ -159,7 +160,6 @@ class Main {
         }
 
         for (let playerId in this.playerObj) {
-            this.playerInfoList.push(this.playerObj[playerId].clientToJson());
             this.playerIdArr.push(playerId);
         }
         console.log(this.playerIdArr);
@@ -287,16 +287,16 @@ class Main {
         // console.log("hideList" + hideIndexList);
         // if (hideIndexList.length > 0) {
         for (let i = 0; i < hideIndexList.length; i++) {
-            this.hideList[i] = null;
-            AbilityUtil.removeActionCardOnIndex(this, "Hide", i);
+            this.hideList[hideIndexList[i]] = null;
+            AbilityUtil.removeActionCardOnIndex(this, "Hide", hideIndexList[i]);
         }
         // }
 
         let trapIndexList = Util.findAllIndex(this.trapList, playerId);
         // if (trapIndexList.length > 0) {
         for (let i = 0; i < trapIndexList.length; i++) {
-            this.trapList[i] = null;
-            AbilityUtil.removeActionCardOnIndex(this, "Trap", i);
+            this.trapList[trapIndexList[i]] = null;
+            AbilityUtil.removeActionCardOnIndex(this, "Trap", trapIndexList[i]);
         }
         // }
     }
