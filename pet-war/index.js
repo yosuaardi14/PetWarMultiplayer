@@ -116,6 +116,11 @@ io.on('connection', (socket) => {
             game.onPlayerAction(data);
         });
 
+        socket.on('infoAction', (data) => {
+            // Server 
+            console.log("infoAction" + data);
+        });
+
         socket.on('confirmAction', (data) => {
             // Server 
             console.log("confirmAction" + data);

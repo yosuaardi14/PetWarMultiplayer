@@ -1,6 +1,8 @@
 class Data {
     static DEFAULT_MAX_LIFE = 5;
 
+    static GRENADE_TURN = 4;
+
     static CANVAS_RANGER = [
         {
             "name": "Dobel",
@@ -101,6 +103,7 @@ class Data {
     static ACTION = {
         "Aim": {
             "name": "Aim",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 8, //5,
@@ -109,6 +112,7 @@ class Data {
         },
         "Boom": {
             "name": "Boom",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 8, //6,
@@ -117,6 +121,7 @@ class Data {
         },
         "Doom": {
             "name": "Doom",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 1,
@@ -143,6 +148,7 @@ class Data {
         },
         "Miss": {
             "name": "Miss",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 1,
@@ -151,6 +157,7 @@ class Data {
         },
         "Hide": {
             "name": "Hide",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 1,
@@ -159,6 +166,7 @@ class Data {
         },
         "Running": {
             "name": "Running",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 3,
@@ -167,6 +175,7 @@ class Data {
         },
         "Go Forward": {
             "name": "Go Forward",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 2, //1,
@@ -175,6 +184,7 @@ class Data {
         },
         "Go Backward": {
             "name": "Go Backward",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 2,
@@ -183,6 +193,7 @@ class Data {
         },
         "Move The Pet": {
             "name": "Move The Pet",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 2, //1,
@@ -191,6 +202,7 @@ class Data {
         },
         "Typhoon": {
             "name": "Typhoon",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 1,
@@ -199,6 +211,7 @@ class Data {
         },
         "Get Cover": {
             "name": "Get Cover",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 2,
@@ -207,6 +220,7 @@ class Data {
         },
         "Armor": {
             "name": "Armor",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 3, //1,
@@ -215,6 +229,7 @@ class Data {
         },
         "Lunch Time": {
             "name": "Lunch Time",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 2, //1,
@@ -223,6 +238,7 @@ class Data {
         },
         "Grenade-Mega Grenade": {
             "name": "Grenade",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 2,
@@ -237,6 +253,7 @@ class Data {
         },
         "Aim-Kamikaze": {
             "name": "Aim",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 3,
@@ -251,6 +268,7 @@ class Data {
         },
         "Ressurect-Double Resurrect": {
             "name": "Ressurect",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 2,
@@ -260,11 +278,12 @@ class Data {
                 "description": "",
                 "color": "deeppink",
                 "ranger": "Von staire",
-                "ability": "DoubleResurrect"
+                "ability": "DoubleRessurect"
             }
         },
         "Go Forward-Go Anyward": {
             "name": "Go Forward",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 2,
@@ -279,6 +298,7 @@ class Data {
         },
         "Go Backward-Go Anyward": {
             "name": "Go Backward",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 1,
@@ -293,6 +313,7 @@ class Data {
         },
         "Boom-Over Shock": {
             "name": "Boom",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 3,
@@ -307,6 +328,7 @@ class Data {
         },
         "Armor-Shield": {
             "name": "Armor",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 1,
@@ -321,6 +343,7 @@ class Data {
         },
         "Hide-Master Hide": {
             "name": "Hide",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 2,
@@ -335,6 +358,7 @@ class Data {
         },
         "Aim-Trap": {
             "name": "Aim",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 4,
@@ -349,6 +373,7 @@ class Data {
         },
         "Bump Left-Moving Aim": {
             "name": "Bump Left",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 2,
@@ -363,6 +388,7 @@ class Data {
         },
         "Bump Right-Moving Aim": {
             "name": "Bump Right",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 2,
@@ -377,6 +403,7 @@ class Data {
         },
         "Running-Escape": {
             "name": "Running",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 3,
@@ -391,6 +418,7 @@ class Data {
         },
         "Running-Double Run": {
             "name": "Running",
+            "block": 1,
             "description": "",
             "color": "gold",
             "cardNum": 2,

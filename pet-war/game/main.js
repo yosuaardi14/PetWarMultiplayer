@@ -204,17 +204,31 @@ class Main {
         if (data["extraprop"] == null) {
             // discard pile card
             if (AbilityUtil.discardPileTypeCard.indexOf(cardName) >= 0) {
+                this.onInfoAction(data["card"]);
                 AbilityUtil.onAbilityAction(this, data["card"], data["extraprop"]);
                 // this.io.to(this.nowTurnId).emit("confirmAction", "discardPile");
             } else {
+                this.onInfoAction(data["card"], true);
                 this.discardPile.push(data["card"]);
                 this.io.to(this.nowTurnId).emit("confirmAction", "");
             }
         } else {
+            this.onInfoAction(data["card"]);
             AbilityUtil.onAbilityAction(this, data["card"], data["extraprop"]);
             // this.actionUp[data["extraprop"]["index"]] = data["card"];
             // this.io.to(this.nowTurnId).emit("confirmAction", "normal");
         }
+    }
+
+    onInfoAction(card, discard = false) {
+        let infoText = this.playerObj[this.nowTurnId]["name"];
+        infoText += discard ? " membuang " : " menggunakan ";
+        if (card["useSpecial"] === true) {
+            infoText += card["special"]["name"];
+        } else {
+            infoText += card["name"];
+        }
+        this.io.to(this.roomID).emit("infoAction", infoText);
     }
 
     onConfirmAction(data) {
@@ -288,6 +302,7 @@ class Main {
         // if (hideIndexList.length > 0) {
         for (let i = 0; i < hideIndexList.length; i++) {
             this.hideList[hideIndexList[i]] = null;
+            this.io.to(this.roomID).emit("infoAction", "Hide dari " + this.playerObj[playerId]["name"] + " telah menghilang");
             AbilityUtil.removeActionCardOnIndex(this, "Hide", hideIndexList[i]);
         }
         // }
@@ -296,6 +311,7 @@ class Main {
         // if (trapIndexList.length > 0) {
         for (let i = 0; i < trapIndexList.length; i++) {
             this.trapList[trapIndexList[i]] = null;
+            this.io.to(this.roomID).emit("infoAction", "Trap dari " + this.playerObj[playerId]["name"] + " telah menghilang");
             AbilityUtil.removeActionCardOnIndex(this, "Trap", trapIndexList[i]);
         }
         // }
@@ -307,7 +323,7 @@ class Main {
                 continue;
             }
             this.grenadeList[i] += 1;
-            if (this.grenadeList[i] == 3) {
+            if (this.grenadeList[i] == Data.GRENADE_TURN) {
                 this.grenadeList[i] = null;
                 // explode grenade
                 // need to add check if there is grenade, megagrenada, grenade -> will it explode or add checking in UI
