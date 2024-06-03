@@ -28,7 +28,7 @@ class Main {
         this.rangerList = [];
         this.playerObj = {};
         this.playerIdArr = [];
-        this.playerNum = 2;
+        this.playerNum = 1;//2;
         this.maxLife = 5; //5;
         this.nowTurnId = "";
         this.turn = 0; // For finding the next turn (if player dead, increase value until get player who still alive)
@@ -67,7 +67,7 @@ class Main {
         }
 
         if ((deadNum > 0) && (deadNum === (this.playerIdArr.length - 1))) {
-            // console.log("checkFinish true");
+            console.log("checkFinish true");
             return true;
         }
         // console.log("checkFinishfalse");
@@ -258,8 +258,8 @@ class Main {
 
     updatePlayerInfo() {
         this.playerInfoList = [];
-        for (let playerId in this.playerObj) {
-            this.playerInfoList.push(this.playerObj[playerId].clientToJson());
+        for (let i in this.playerIdArr) {
+            this.playerInfoList.push(this.playerObj[this.playerIdArr[i]].clientToJson());
         }
         // console.log(this.playerInfoList);
     }

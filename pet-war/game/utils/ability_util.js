@@ -227,12 +227,15 @@ class AbilityUtil {
             case "GoAnyward":
                 // targetIndex (2/-2)
                 if (extraprop != null) {
-                    extraprop["goIndex"] = extraprop["index"] + (extraprop["targetIndex"] == "left" ? -2 : 2);
+                    extraprop["goIndex"] = extraprop["targetIndex"] == "left" ? -2 : 2;
                 }
                 this.onGoAnyward(main, card, extraprop);
                 break;
             default:
                 // do nothing
+                isNotFound = true;
+                this.onActionFinish(main);
+                console.log(cardAbility + " is 404");
                 break;
         }
     }
@@ -292,7 +295,7 @@ class AbilityUtil {
     }
 
     static onPetGo(main, condition, targetIndex, indexVal) {
-        if (main.trapList.indexOf(targetIndex) >= 0) {
+        if (main.trapList[targetIndex] != null) {
             console.log("Tidak bisa bergerak karena ada Trap");
             main.io.to(main.roomID).emit("infoAction", "Tidak bisa bergerak karena ada Trap");
             return;
@@ -300,21 +303,77 @@ class AbilityUtil {
         // console.log("onPetGo condition:" + condition);
         if (condition) {
             let petCard = main.petDeck.getAt(targetIndex);//[targetIndex];
-            let oldPetCard = main.petDeck.getAt(targetIndex + indexVal);//[targetIndex + indexVal];
-            main.petDeck.setAt(targetIndex, oldPetCard);//[targetIndex] = oldPetCard;
-            main.petDeck.setAt(targetIndex + indexVal, petCard);//[targetIndex + indexVal] = petCard;
-            if (main.hideList[targetIndex] != null) {
-                if (main.hideList[targetIndex + indexVal] != null) {
-                    let newHide = main.playerIdArr.indexOf(main.hideList[targetIndex]);
-                    let oldHide = main.playerIdArr.indexOf(main.hideList[targetIndex + indexVal]);
-                    main.hideList[targetIndex + indexVal] = oldHide < newHide ? main.hideList[targetIndex] : main.hideList[targetIndex + indexVal];
-                } else {
-                    main.hideList[targetIndex + indexVal] = main.hideList[targetIndex];
+            let hidePet = main.hideList[targetIndex];
+            // let oldPetCard = main.petDeck.getAt(targetIndex + indexVal);//[targetIndex + indexVal];
+            // main.petDeck.setAt(targetIndex, oldPetCard);//[targetIndex] = oldPetCard;
+            // main.petDeck.setAt(targetIndex + indexVal, petCard);//[targetIndex + indexVal] = petCard;
+            let startIndex = -1;
+            let endIndex = -1;
+            // let selectedCard
+            if ((targetIndex + indexVal) < targetIndex) { // Forward (-)
+                startIndex = targetIndex;
+                endIndex = targetIndex + indexVal;
+                for (let i = startIndex; i > endIndex; i--) {
+                    let tempPet = main.petDeck.getAt(i - 1);
+                    main.petDeck.setAt(i, tempPet);
+                    let tempHide = main.hideList[i - 1];
+                    main.hideList[i] = tempHide;
                 }
-            } else if (main.hideList[targetIndex + indexVal] != null) {
-                main.hideList[targetIndex + indexVal] = main.hideList[targetIndex];
+                // main.petDeck.setAt(endIndex, petCard);
+                // main.hideList[endIndex] = hidePet;
+            } else { // Backward (+)
+                startIndex = targetIndex; // 3
+                endIndex = targetIndex + indexVal; // 5
+                for (let i = startIndex; i < endIndex; i++) {
+                    let tempPet = main.petDeck.getAt(i + 1);
+                    main.petDeck.setAt(i, tempPet);
+                    let tempHide = main.hideList[i + 1];
+                    main.hideList[i] = tempHide;
+                }
+                // main.petDeck.setAt(endIndex, petCard);
+                // main.hideList[endIndex] = hidePet;
             }
+            main.petDeck.setAt(endIndex, petCard);
+            main.hideList[endIndex] = hidePet;
+
+
+            // if (main.hideList[targetIndex] != null) {
+            //     if (main.hideList[targetIndex + indexVal] != null) {
+            //         let newHide = main.playerIdArr.indexOf(main.hideList[targetIndex]);
+            //         let oldHide = main.playerIdArr.indexOf(main.hideList[targetIndex + indexVal]);
+            //         main.hideList[targetIndex + indexVal] = oldHide < newHide ? main.hideList[targetIndex] : main.hideList[targetIndex + indexVal];
+            //     } else {
+            //         main.hideList[targetIndex + indexVal] = main.hideList[targetIndex];
+            //     }
+            // } else if (main.hideList[targetIndex + indexVal] != null) {
+            //     main.hideList[targetIndex + indexVal] = main.hideList[targetIndex];
+            // }
         }
+    }
+
+    static onMoveTrapOrHide(main, index, newIndex, type) {
+        if (type == "onPetGo") {
+            main.hideList = this.goHideOrTrapList(main, main.hideList, index, newIndex);
+
+            main.trapList = this.goHideOrTrapList(main, main.trapList, index, newIndex);
+        } else if (type == "onPetMove") {
+
+        }
+    }
+
+    static goHideOrTrapList(main, arrList, index, newIndex) {
+        if (arrList[index] != null) {
+            if (arrList[newIndex] != null) {
+                let newCard = main.playerIdArr.indexOf(arrList[index]);
+                let oldCard = main.playerIdArr.indexOf(arrList[newIndex]);
+                arrList[newIndex] = oldCard < newCard ? arrList[index] : arrList[newIndex];
+            } else {
+                arrList[newIndex] = arrList[index];
+            }
+        } else if (arrList[newIndex] != null) {
+            arrList[index] = arrList[newIndex];
+        }
+        return arrList;
     }
 
     static onCover(main, condition, targetIndex, indexVal) {
@@ -326,9 +385,9 @@ class AbilityUtil {
 
     }
 
-    static onDestroyPet(main, targetIndex) {
+    static onNewDestroyPet(main, targetIndex) {
         if (targetIndex >= main.petDeck.length) {
-            return;
+            return false;
         }
         let useSpecialAbility = main.petDeck.getAt(targetIndex)[0].useSpecial == true;
         console.log("onDestroyPet useSpecial" + useSpecialAbility);
@@ -351,7 +410,7 @@ class AbilityUtil {
             if (isHide)
                 main.io.to(main.roomID).emit("infoAction", "Serangan tidak berguna karena ada Hide");
             // main.io.to(main.roomID).emit("infoAction", "Forest diserang");
-            return;
+            return false;
         }
         // // main.petDeck.getAt(targetIndex)[0];
         // // check target hasKamikaze
@@ -380,7 +439,7 @@ class AbilityUtil {
                 }
                 this.activeKamikaze(main, targetIndex);
             }
-            return;
+            return false;
         }
         // // check target hasShield -> change shield to Armor (useSpecial => false)
         let isShield = useSpecialAbility && isSpecialCard && (specialCardName == Data.ACTION["Armor-Shield"].special.name);
@@ -390,7 +449,7 @@ class AbilityUtil {
             console.log("isShield : true");
             main.petDeck.getAt(targetIndex)[0].useSpecial = false;
             main.io.to(main.roomID).emit("infoAction", "Shield telah menjadi Armor");
-            return;
+            return false;
         }
         // // check target hasArmor -> destroy Armor
         let isArmor = !useSpecialAbility && (cardName == Data.ACTION["Armor"].name);
@@ -400,18 +459,123 @@ class AbilityUtil {
             this.moveCardToDiscardPile(main, main.petDeck.getAt(targetIndex)[0]);
             main.petDeck.getAt(targetIndex).splice(0, 1);
             main.io.to(main.roomID).emit("infoAction", "Armor dihancurkan");
-            return;
+            return false;
         }
 
         let playerId = GameUtil.getPlayerIdByPet(cardName, main.playerObj);
         main.playerObj[playerId].life--;
         main.playerObj[playerId].defeatedPet.push(main.petDeck.getAt(targetIndex)[0]);
+        let emptyBlock = false;
         if (main.petDeck.getAt(targetIndex).length > 1) {
             main.petDeck.getAt(targetIndex).splice(0, 1);
         } else {
             main.petDeck.removeAt(targetIndex);
+            emptyBlock = true;
         }
         main.io.to(main.roomID).emit("infoAction", main.playerObj[playerId]["ranger"]["pet"] + " mati");
+        return emptyBlock;
+    }
+
+    static onDestroyPet(main, targetIndex) {
+        if (targetIndex >= main.petDeck.length) {
+            return false;
+        }
+        let useSpecialAbility = main.petDeck.getAt(targetIndex)[0].useSpecial == true;
+        console.log("onDestroyPet useSpecial" + useSpecialAbility);
+        let isSpecialCard = main.petDeck.getAt(targetIndex)[0].special != null;
+        console.log("onDestroyPet isSpecialCard" + isSpecialCard);
+
+        let cardName = main.petDeck.getAt(targetIndex)[0].name;
+        let specialCardName = isSpecialCard ? main.petDeck.getAt(targetIndex)[0].special.name : "";
+        // // check target isForest -> do nothing
+        // // check target hasHide -> do nothing
+        let isForest = cardName == Data.PET["Jungle"].name;
+        let isHide = !useSpecialAbility && (cardName == Data.ACTION["Hide"].name);
+        let isTrap = useSpecialAbility && isSpecialCard && (specialCardName == Data.ACTION["Aim-Trap"].special.name);
+        console.log((cardName == Data.ACTION["Aim-Trap"].special.name));
+        console.log("isForest || isHide || isTrap");
+        if (isForest || isHide || isTrap) {
+            console.log("isForest || isHide || isTrap : true");
+            if (isForest)
+                main.io.to(main.roomID).emit("infoAction", "Forest diserang");
+            if (isHide)
+                main.io.to(main.roomID).emit("infoAction", "Serangan tidak berguna karena ada Hide");
+            // main.io.to(main.roomID).emit("infoAction", "Forest diserang");
+            return false;
+        }
+        // // main.petDeck.getAt(targetIndex)[0];
+        // // check target hasKamikaze
+        let hasKamikaze = useSpecialAbility && (specialCardName == Data.ACTION["Aim-Kamikaze"].special.name);
+        if (hasKamikaze) {
+            console.log("hasKamikaze : true");
+            main.io.to(main.roomID).emit("infoAction", "Kamikaze aktif");
+            this.moveCardToDiscardPile(main, main.petDeck.getAt(targetIndex)[0]);
+            main.petDeck.getAt(targetIndex).splice(0, 1);
+            let lpgZordIndex = -1;
+            for (let i = 0; i < main.petDeck.getAt(targetIndex).length; i++) {
+                let petName = main.petDeck.getAt(targetIndex)[i].name;
+                if (petName == Data.PET["Lpg-Zord"].name) {
+                    lpgZordIndex = i;
+                    break;
+                }
+            }
+            if (lpgZordIndex != -1) {
+                let playerId = GameUtil.getPlayerIdByPet(Data.PET["Lpg-Zord"].name, main.playerObj);
+                main.playerObj[playerId].life--;
+                main.playerObj[playerId].defeatedPet.push(main.petDeck.getAt(targetIndex)[lpgZordIndex]);
+                let emptyBlock = false;
+                if (main.petDeck.getAt(targetIndex).length > 1) {
+                    main.petDeck.getAt(targetIndex).splice(lpgZordIndex, 1);
+                } else {
+                    main.petDeck.removeAt(targetIndex);
+                    main.hideList.splice(targetIndex, 1);
+                    main.trapList.splice(targetIndex, 1);
+                    main.hideList[5] = null;
+                    main.trapList[5] = null;
+                    emptyBlock = true;
+                }
+                this.activeKamikaze(main, targetIndex, emptyBlock); //TODO need add param if kamikaze leave empty
+            }
+            return false;
+        }
+        // // check target hasShield -> change shield to Armor (useSpecial => false)
+        let isShield = useSpecialAbility && isSpecialCard && (specialCardName == Data.ACTION["Armor-Shield"].special.name);
+        console.log((cardName == Data.ACTION["Armor-Shield"].special.name));
+        console.log("isShield");
+        if (isShield) {
+            console.log("isShield : true");
+            main.petDeck.getAt(targetIndex)[0].useSpecial = false;
+            main.io.to(main.roomID).emit("infoAction", "Shield telah menjadi Armor");
+            return false;
+        }
+        // // check target hasArmor -> destroy Armor
+        let isArmor = !useSpecialAbility && (cardName == Data.ACTION["Armor"].name);
+        console.log("isArmor");
+        if (isArmor) {
+            console.log("isArmor : true");
+            this.moveCardToDiscardPile(main, main.petDeck.getAt(targetIndex)[0]);
+            main.petDeck.getAt(targetIndex).splice(0, 1);
+            main.io.to(main.roomID).emit("infoAction", "Armor dihancurkan");
+            return false;
+        }
+
+        let playerId = GameUtil.getPlayerIdByPet(cardName, main.playerObj);
+        main.playerObj[playerId].life--;
+        main.playerObj[playerId].defeatedPet.push(main.petDeck.getAt(targetIndex)[0]);
+        let emptyBlock = false;
+        if (main.petDeck.getAt(targetIndex).length > 1) {
+            main.petDeck.getAt(targetIndex).splice(0, 1);
+        } else {
+            main.petDeck.removeAt(targetIndex);
+            main.hideList.splice(targetIndex, 1);
+            main.trapList.splice(targetIndex, 1);
+            main.hideList[5] = null;
+            main.trapList[5] = null;
+            emptyBlock = true;
+        }
+        main.io.to(main.roomID).emit("infoAction", main.playerObj[playerId]["ranger"]["pet"] + " mati");
+        return emptyBlock;
+
     }
 
     static addCardToPet(main, card, extraprop) {
@@ -471,9 +635,9 @@ class AbilityUtil {
     }
 
     static moveCardToDiscardPile(main, card) {
-        if (card.block) {
-            card.block = 1;
-        }
+        // if (card.block) {
+        //     card.block = 1;
+        // }
         main.discardPile.push(card);
     }
 
@@ -543,7 +707,7 @@ class AbilityUtil {
                     this.moveCardToDiscardPile(main, main.actionUp[index]);
                     main.actionUp[index] = null;
                     main.aimList[index] = null;
-                    this.onDestroyPet(main, index);
+                    let leaveEmpty = this.onDestroyPet(main, index);
 
                     if (index + 1 < 6 && main.actionUp[index + 1] != null) {
                         this.moveCardToDiscardPile(main, main.actionUp[index + 1]);
@@ -551,8 +715,7 @@ class AbilityUtil {
                     }
                     if (index + 1 < 6 && main.aimList[index + 1] == true) {
                         main.aimList[index + 1] = null;
-                        this.onDestroyPet(main, index + 1);
-
+                        this.onDestroyPet(main, leaveEmpty ? index : index + 1);
                     }
 
                     // check if the card is two aim
@@ -618,7 +781,16 @@ class AbilityUtil {
 
                 // check if the card is two aim
 
-                this.onDestroyPet(main, index);
+                // this.onDestroyPet(main, index);
+                // let copyOfPetDeck = main.petDeck.copyAll();
+                let leaveEmpty = this.onDestroyPet(main, index);
+                // if (leaveEmpty) {
+                //     // geser
+                //     main.hideList.splice(index, 1);
+                //     main.trapList.splice(index, 1);
+                //     main.hideList[5] = null;
+                //     main.trapList[5] = null;
+                // }
 
             }
         }
@@ -671,9 +843,27 @@ class AbilityUtil {
                 endIndex = main.petLine.length - 1;
             }
             main.io.to(main.roomID).emit("infoAction", "Mega Grenade telah meledak");
-            for (let i = startIndex; i < endIndex; i++) {
-                this.onDestroyPet(main, i);
+            let counter = 0;
+            let maxCounter = lastIndex - firstIndex;
+            let i = firstIndex;
+            while (counter <= maxCounter) {
+                // if (counter >= maxCounter) {
+                //     break;
+                // }
+                let leaveEmpty = this.onDestroyPet(main, i);
+                if (leaveEmpty) {
+                    // main.hideList.splice(i, 1);
+                    // main.trapList.splice(i, 1);
+                    // main.hideList[5] = null;
+                    // main.trapList[5] = null;
+                } else {
+                    i++;
+                }
+                counter++;
             }
+            // for (let i = startIndex; i < endIndex; i++) {
+            //     this.onDestroyPet(main, i);
+            // }
         } else {
             main.io.to(main.roomID).emit("infoAction", "Grenade telah meledak");
             if (index < main.petLine.length) {
@@ -703,6 +893,15 @@ class AbilityUtil {
         main.hideList[0] = null;
         main.trapList[0] = null;
         main.petDeck.moveForwardAll();
+        for (let i = 0; i < 6; i++) {
+            if (i == 5) {
+                main.hideList[5] = null;
+                main.trapList[5] = null;
+            } else {
+                main.hideList[i] = main.hideList[i + 1];
+                main.trapList[i] = main.trapList[i + 1];
+            }
+        }
     }
 
     static onDoubleRun(main, card, extraprop) {
@@ -827,20 +1026,36 @@ class AbilityUtil {
         // console.log("TODO onGoAnyward");
         if (extraprop != null) {
             let index = Util.nullSafety(extraprop["index"], 5);
+            console.log("onGoAnyward index:" + index);
             let goIndex = Util.nullSafety(extraprop["goIndex"], -1);
             let condition = true;
-            if (goIndex < 0) { // -2
-                if (index + goIndex < 0) {
-                    goIndex = -1;
-                }
-                condition = index + goIndex >= 0;
-            } else { // +2
-                if (index + goIndex > main.petDeck.toArray().length) {
-                    goIndex = 1;
-                }
-                condition = index + goIndex <= main.petDeck.toArray().length;
+            // if (goIndex < 0) { // -2
+            //     if ((index + goIndex) < 0) {
+            //         goIndex = -1;
+            //     }
+            //     condition = (index + goIndex) >= 0;
+            // } else { // +2
+            //     if ((index + goIndex) > main.petDeck.toArray().length) {
+            //         goIndex = 1;
+            //     }
+            //     condition = (index + goIndex) <= main.petDeck.toArray().length;
+            // }
+            const petDeckLength = main.petDeck.toArray().length;
+
+            // Calculate the new position after applying goIndex
+            let newPosition = index + goIndex;
+
+            // Ensure the new position is within the valid range
+            if (newPosition < 0) {
+                newPosition = 0;
+                condition = !(newPosition == index);
+            } else if (newPosition > petDeckLength) {
+                newPosition = petDeckLength;
+                condition = !(newPosition == index);
+            } else {
+                condition = true;
             }
-            this.onPetGo(main, condition, index, goIndex);
+            this.onPetGo(main, condition, index, newPosition - index);
         }
         // need confirmation
         this.moveCardToDiscardPile(main, card);
@@ -901,15 +1116,23 @@ class AbilityUtil {
 
     static onMasterHide(main, card, extraprop) {
         // console.log("TODO onMasterHide");
-        this.needConfirmation(main, card, extraprop);
+        if (extraprop != null) {
+            let index = Util.nullSafety(extraprop["index"], -1);
+            let coverIndex = Util.nullSafety(extraprop["masterHideIndex"], -1);
+            if (coverIndex != -1) {
+                extraprop["coverIndex"] = coverIndex;
+                this.onGetCover(main, card, extraprop);
+            }
+        }
+        // this.needConfirmation(main, card, extraprop);
     }
 
     static onCheckMasterHide(main, card, extraprop) {
         // console.log("TODO onCheckMasterHide");
         // if
         // emit confirmation
-        this.onActionFinish(main);
-        // this.needConfirmation(main, card, extraprop);
+        // this.onActionFinish(main);
+        this.needConfirmation(main, card, extraprop);
     }
 
     static onTrap(main, card, extraprop) {
@@ -944,6 +1167,7 @@ class AbilityUtil {
             for (let i = 0; i < main.petLine.length; i++) {
                 let pet = extraprop["petLine"][i];
                 main.petDeck.setAt(i, pet);
+                // need to do hide and trap
             }
         }
     }
@@ -960,29 +1184,52 @@ class AbilityUtil {
         }
     }
 
-    static activeKamikaze(main, targetIndex) {
+    static activeKamikaze(main, targetIndex, emptyBlock) {
         let firstIndex = 0;
         let lastIndex = 5;
+
         if (targetIndex == 0) {
             // jika kamikaze berada di paling ujung kiri (targetIndex == 0)
             firstIndex = 0;
-            lastIndex = 1;
+            lastIndex = emptyBlock ? firstIndex : 1;
         } else if (targetIndex == 5 || targetIndex == (main.petDeck.toArray().length - 1)) {
             // jika kamikaze berada di paling ujung kanan (targetIndex == 5)
             firstIndex = targetIndex - 1;
-            lastIndex = targetIndex;
+            lastIndex = emptyBlock ? firstIndex : targetIndex;
         } else {
             // jika kamikaze tidak berada di ujung (targetIndex > 0 && targetIndex < 5)
             firstIndex = targetIndex - 1;
-            lastIndex = targetIndex + 1;
+            lastIndex = emptyBlock ? targetIndex : targetIndex + 1;
         }
-        for (let i = firstIndex; i <= lastIndex; i++) {
-            this.onDestroyPet(main, i);
+        let counter = 0;
+        let maxCounter = lastIndex - firstIndex;
+        let i = firstIndex;
+        while (counter <= maxCounter) {
+            // if (counter >= maxCounter) {
+            //     break;
+            // }
+            let leaveEmpty = this.onDestroyPet(main, i);
+            if (leaveEmpty) {
+                // main.hideList.splice(i, 1);
+                // main.trapList.splice(i, 1);
+                // main.hideList[5] = null;
+                // main.trapList[5] = null;
+            } else {
+                i++;
+            }
+            counter++;
         }
+        // for (let i = firstIndex; i <= lastIndex; i++) {
+        //     let leaveEmpty = this.onDestroyPet(main, i);
+        //     if (leaveEmpty) {
+
+        //     }
+        // }
     }
 
     static onEscape(main, card, extraprop) {
-        // console.log("TODO onEscape");
+        // DONE
+        // console.log("onEscape");
         if (extraprop != null) {
             let index = Util.nullSafety(extraprop["index"], -1);
             if (index != -1 && main.petDeck.toArray().length > 5) {
@@ -990,7 +1237,7 @@ class AbilityUtil {
                 // let copyOfPetDeck = [...main.petDeck.toArray()];
                 // get pet card
                 var petCard = main.petDeck.getAt(index);
-                let tempCard = [];
+                // let tempCard = [];
                 for (let i = 0; i < petCard.length; i++) {
                     if (main.petDeck.getAt(index)[i].hasOwnProperty("ability")) {
                         // if there is armor/shield/hide remove (action card) move to discardPile
@@ -998,6 +1245,7 @@ class AbilityUtil {
                         this.moveCardToDiscardPile(main, card);
                     } else {
                         // if there is other pet add to petDeck too
+                        // console.log(main.petDeck.getAt(index)[i].id);
                         main.petDeck.addElement([main.petDeck.getAt(index)[i]]);
                         // tempCard.push(main.petDeck.getAt(index)[i]);
                     }
@@ -1012,6 +1260,7 @@ class AbilityUtil {
 
                 // get first petDeck and put in the petCard oldIndex
                 let newPet = main.petDeck.getAt(firstPetDeckIndex);
+                // console.log(newPet[0].id)
                 main.petDeck.setAt(index, newPet);
                 main.petDeck.removeAt(firstPetDeckIndex);
 

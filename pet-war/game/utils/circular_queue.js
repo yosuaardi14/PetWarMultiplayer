@@ -15,8 +15,14 @@ class CircularQueue {
         if (end > this.queue.length) {
             end = this.queue.length;
         }
+        // for (let i = start; i < end; i++) {
+        //     const rand = Math.floor(Math.random() * (end - start + 1)) + (start - 1);
+        //     [this.queue[i], this.queue[rand]] = [this.queue[rand], this.queue[i]];
+        // }
         for (let i = start; i < end; i++) {
-            const rand = Math.floor(Math.random() * (end - start + 1)) + (start - 1);
+            // Generate a random index between i (inclusive) and end (exclusive)
+            const rand = Math.floor(Math.random() * (end - i)) + i;
+            // Swap elements at indices i and rand
             [this.queue[i], this.queue[rand]] = [this.queue[rand], this.queue[i]];
         }
     }
@@ -58,19 +64,23 @@ class CircularQueue {
         return this.queue.splice(index, 1);
     }
 
+    copyAll(){
+        return JSON.parse(JSON.stringify(this.queue));
+    }
+
     moveForwardAll() {
-        console.log("Forward");
-        var firstElement = this.queue[0];
-        for (var i = 0; i < this.queue.length; i++) {
+        // console.log("Forward");
+        let firstElement = this.queue[0];
+        for (let i = 0; i < this.queue.length; i++) {
             this.queue[i] = this.queue[i + 1];
         }
         this.queue[this.queue.length - 1] = firstElement;
     }
 
     moveBackwardAll() {
-        console.log("Backward");
-        var lastElement = this.queue[this.queue.length - 1];
-        for (var i = this.queue.length - 1; i > 0; i--) {
+        // console.log("Backward");
+        let lastElement = this.queue[this.queue.length - 1];
+        for (let i = this.queue.length - 1; i > 0; i--) {
             this.queue[i] = this.queue[i - 1];
         }
         this.queue[0] = lastElement;
@@ -80,17 +90,17 @@ class CircularQueue {
         if (len > this.size) {
             len = this.size;
         }
-        var temp = Array.from(this.queue).splice(0, len);
-        console.log(temp);
-        // for (var i = 0; i < size; i++) {
-        //     console.log(this.queue[i]);
+        let temp = Array.from(this.queue).splice(0, len);
+        // console.log(temp);
+        // for (let i = 0; i < size; i++) {
+        //     // console.log(this.queue[i]);
         // }
     }
 
     printAll() {
-        console.log(this.queue);
-        // for (var i = 0; i < this.size; i++) {
-        //     console.log(this.queue[i]);
+        // console.log(this.queue);
+        // for (let i = 0; i < this.size; i++) {
+        //     // console.log(this.queue[i]);
         // }
     }
 

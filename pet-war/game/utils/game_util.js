@@ -7,9 +7,9 @@ class GameUtil {
         let actionDeck = [];
         for (var i in Data.ACTION) {
             let actionCard = Object.assign({}, Data.ACTION[i]);
-            if (actionCard.block != undefined) {
-                actionCard["block"] = 1;
-            }
+            // if (actionCard.block != undefined) {
+            //     actionCard["block"] = 1;
+            // }
             switch (actionCard["name"]) {
                 case "Grenade":
                 case "Grenade-Mega Grenade":
