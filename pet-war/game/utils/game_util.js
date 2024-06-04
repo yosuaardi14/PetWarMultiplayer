@@ -11,18 +11,21 @@ class GameUtil {
             //     actionCard["block"] = 1;
             // }
             switch (actionCard["name"]) {
-                case "Grenade":
-                case "Grenade-Mega Grenade":
-                    actionCard["extraprop"] = { "turn": 0 };
-                    break;
+                // case "Grenade":
+                // case "Grenade-Mega Grenade":
+                //     actionCard["extraprop"] = { "turn": 0 };
+                //     break;
+                case "Aim-Trap":
                 case "Hide":
                 case "Hide-Master Hide":
-                    actionCard["extraprop"] = { "playerId": -1 };
+                    actionCard["prop"] = { "playerId": "" };
                     break;
-                case "Shield":
-                    actionCard["extraprop"] = { "life": 2 };
-                    break;
+                // case "Shield":
+                //     actionCard["prop"] = { "life": 2 };
+                //     break;
             }
+            if (actionCard["prop"] != null)
+                console.log(actionCard["prop"]);
             var size = actionCard["cardNum"];
             for (var j = 0; j < size; j++) {
                 let cardName = actionCard["name"];

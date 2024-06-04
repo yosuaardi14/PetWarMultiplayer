@@ -28,7 +28,7 @@ class Main {
         this.rangerList = [];
         this.playerObj = {};
         this.playerIdArr = [];
-        this.playerNum = 1;//2;
+        this.playerNum = 2;//2;
         this.maxLife = 5; //5;
         this.nowTurnId = "";
         this.turn = 0; // For finding the next turn (if player dead, increase value until get player who still alive)
@@ -36,6 +36,9 @@ class Main {
         this.round = 0;
         this.winner = null;
         this.playerInfoList = [];
+        this.gameFinish = false;
+
+        this.devMode = false;
     }
 
     init(roomID) {
@@ -58,7 +61,7 @@ class Main {
                 if (player.isDead) {
                     continue;
                 }
-                player.isDead = true;
+                this.playerObj[playerId].isDead = true;
                 deadNum += 1;
                 this.onDead(player);
             } else {
@@ -68,13 +71,16 @@ class Main {
 
         if ((deadNum > 0) && (deadNum === (this.playerIdArr.length - 1))) {
             console.log("checkFinish true");
-            return true;
+            this.gameFinish = true;
+        } else {
+            // console.log("checkFinishfalse");
+            this.gameFinish = false;
         }
-        // console.log("checkFinishfalse");
-        return false;
+
     }
 
     finish() {
+        this.sendDataToClient();
         this.io.to(this.roomID).emit("onGameFinish", "Pemenangnya adalah " + this.winner);
     }
 
@@ -122,11 +128,25 @@ class Main {
 
     // READY
     dealActionCard(size) {
+        const cardName = ["Two Aim", "Two Aim", "Doom"];
         for (let i = 0; i < size; i++) {
             for (let playerId in this.playerObj) {
                 let player = this.playerObj[playerId];
-                let card = this.actionDeck.splice(0, 1);
-                player.cardDeck.push(card[0]);
+                if (this.playerIdArr.indexOf(playerId) == 0 && this.devMode) {
+                    let card = this.actionDeck.find(item => item.name === cardName[i]);
+                    if (card === undefined) {
+                        card = this.actionDeck.find(item => item.special.name === cardName[i]);
+                        if (card === undefined) {
+                            card = this.actionDeck.splice(0, 1)[0];
+                        }
+                    }
+                    // let card = this.actionDeck.splice(cardIndex, 1);
+                    player.cardDeck.push(card);
+                } else {
+                    let card = this.actionDeck.splice(0, 1);
+                    player.cardDeck.push(card[0]);
+                }
+
             }
         }
 
@@ -172,11 +192,13 @@ class Main {
 
     getActionCard(player) {
         this.moveDiscardPileToActionDeck();
-        let card = this.actionDeck.splice(0, 1);
-        if (card[0] !== undefined) {
-            player.cardDeck.push(GameUtil.resetCard(card[0]));
+        if (player.isDead == false) {
+            let card = this.actionDeck.splice(0, 1);
+            if (card[0] !== undefined) {
+                player.cardDeck.push(GameUtil.resetCard(card[0]));
+            }
+            // console.log(card);
         }
-        // console.log(card);
         this.io.to(player.id).emit("getCard", JSON.stringify(player.toJson()));
         this.onNextTurn();
     }
@@ -260,12 +282,13 @@ class Main {
         this.playerInfoList = [];
         for (let i in this.playerIdArr) {
             this.playerInfoList.push(this.playerObj[this.playerIdArr[i]].clientToJson());
+            this.io.to(this.playerObj[this.playerIdArr[i]]).emit("getCard", JSON.stringify(this.playerObj[this.playerIdArr[i]].toJson()));
         }
         // console.log(this.playerInfoList);
     }
 
     onNextTurn() {
-        if (this.checkFinish() == false) {
+        if (this.gameFinish == false) {
             this.totalTurn += 1;
             for (let i = 0; i < this.playerIdArr.length; i++) {
                 this.turn += 1;
@@ -274,6 +297,9 @@ class Main {
                 if (this.playerObj[this.nowTurnId].isDead === false) {
                     break;
                 }
+                // if (this.playerObj[this.nowTurnId].life > 0) {
+                //     break;
+                // }
             }
             // this.turn += 1;
             // this.nowTurnId = this.playerIdArr[this.turn % this.playerIdArr.length];
@@ -290,31 +316,37 @@ class Main {
             this.sendDataToClient();
             this.io.to(this.roomID).emit("nextTurn", this.nowTurnId);
             this.io.to(this.roomID).emit("nextTurnName", this.playerObj[this.nowTurnId].name);
+            this.io.to(this.roomID).emit("infoAction", "Giliran: " + this.playerObj[this.nowTurnId].name);
         } else {
             this.finish();
         }
     }
 
     checkHideAndTrapTurn(playerId) {
-        // remove hide if player index == hideList.indexOf() >= 0 but it impossible to have to hide in same time
-        let hideIndexList = Util.findAllIndex(this.hideList, playerId);
-        // console.log("hideList" + hideIndexList);
-        // if (hideIndexList.length > 0) {
-        for (let i = 0; i < hideIndexList.length; i++) {
-            this.hideList[hideIndexList[i]] = null;
-            this.io.to(this.roomID).emit("infoAction", "Hide dari " + this.playerObj[playerId]["name"] + " telah menghilang");
-            AbilityUtil.removeActionCardOnIndex(this, "Hide", hideIndexList[i]);
-        }
+        // // remove hide if player index == hideList.indexOf() >= 0 but it impossible to have to hide in same time
+        // let hideIndexList = Util.findAllIndex(this.hideList, playerId);
+        // // console.log("hideList" + hideIndexList);
+        // // if (hideIndexList.length > 0) {
+        // for (let i = 0; i < hideIndexList.length; i++) {
+        //     this.hideList[hideIndexList[i]] = null;
+        //     this.io.to(this.roomID).emit("infoAction", "Hide dari " + this.playerObj[playerId]["name"] + " telah menghilang");
+        //     AbilityUtil.removeActionCardOnIndex(this, "Hide", hideIndexList[i]);
         // }
+        // // }
 
-        let trapIndexList = Util.findAllIndex(this.trapList, playerId);
-        // if (trapIndexList.length > 0) {
-        for (let i = 0; i < trapIndexList.length; i++) {
-            this.trapList[trapIndexList[i]] = null;
-            this.io.to(this.roomID).emit("infoAction", "Trap dari " + this.playerObj[playerId]["name"] + " telah menghilang");
-            AbilityUtil.removeActionCardOnIndex(this, "Trap", trapIndexList[i]);
-        }
+        // let trapIndexList = Util.findAllIndex(this.trapList, playerId);
+        // // if (trapIndexList.length > 0) {
+        // for (let i = 0; i < trapIndexList.length; i++) {
+        //     this.trapList[trapIndexList[i]] = null;
+        //     this.io.to(this.roomID).emit("infoAction", "Trap dari " + this.playerObj[playerId]["name"] + " telah menghilang");
+        //     AbilityUtil.removeActionCardOnIndex(this, "Trap", trapIndexList[i]);
         // }
+        // // }
+        this.removeHideAndTrap(playerId);
+    }
+
+    removeHideAndTrap(playerId) {
+        AbilityUtil.removeHideAndTrapCard(this, playerId);
     }
 
     updateGrenadeTurn() {
@@ -343,6 +375,7 @@ class Main {
         this.io.to(player.id).emit("onPlayerDefeated", "Defeat");
         this.discardPile.push(...player.cardDeck);
         player.cardDeck.splice(0, 3);
+        this.io.to(player.id).emit("getCard", JSON.stringify(player.toJson()));
     }
 
     // OTHER
@@ -400,6 +433,7 @@ class Main {
     }
 
     sendCardDeckToClient() {
+        this.checkFinish();
         let player = this.playerObj[this.nowTurnId];
         this.getActionCard(player);
     }
