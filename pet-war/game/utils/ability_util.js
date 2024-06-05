@@ -283,14 +283,77 @@ class AbilityUtil {
         // check is empty
         if (condition) {
             // check if there is two aim TODO
-            if (main.actionUp[targetIndex + indexVal] == null) {
-                // move
-                const aimCard = main.actionUp[targetIndex];
-                main.aimList[targetIndex] = null;
-                main.aimList[targetIndex + indexVal] = true;
-                main.actionUp[targetIndex] = null;
-                main.actionUp[targetIndex + indexVal] = aimCard;
+            // TWO AIM TAIL
+            if (main.actionUp[targetIndex] == null && main.aimList[targetIndex] == true) {
+                if ((targetIndex + indexVal - 1) < 0 || (targetIndex + indexVal) > 5) {
+                    return;
+                }
+                console.log("onAimMove");
+                //let isTwoAim = main.actionUp[targetIndex].name === Data.ACTION["Two Aim"].name && main.actionUp[targetIndex].block == 2;
+                //let isTwoAimTail = main.actionUp[targetIndex] == null && main.aimList[targetIndex] == true && main.actionUp[targetIndex - 1].name === Data.ACTION["Two Aim"].name && main.actionUp[targetIndex - 1].block == 2;
+                // let cardBlockNum = isTwoAim ? 2 : 1;
+
+                let aimCard = main.actionUp[targetIndex - 1];
+                let targetPosAim = targetIndex + indexVal - 1;
+                let targetPosTail = targetIndex + indexVal;
+                console.log("onAimMove(A,T): " + targetPosAim + "," + targetPosTail);
+                if (indexVal < 0) { // -1
+                    if (main.actionUp[targetPosAim] == null && main.aimList[targetPosAim] == null) {
+                        console.log("onAimMove");
+                        main.aimList[targetIndex] = null;
+                        main.actionUp[targetIndex - 1] = null;
+
+                        main.aimList[targetPosAim] = true;
+                        main.aimList[targetPosTail] = true;
+                        main.actionUp[targetPosAim] = aimCard;
+                    }
+                } else { // 1
+                    if (main.actionUp[targetPosTail] == null && main.aimList[targetPosTail] == null) {
+                        console.log("onAimMove");
+                        main.aimList[targetIndex - 1] = null;
+                        main.actionUp[targetIndex - 1] = null;
+                        main.aimList[targetPosAim] = true;
+                        main.aimList[targetPosTail] = true;
+                        main.actionUp[targetPosAim] = aimCard;
+                    }
+                }
+            } else if (main.actionUp[targetIndex] != null && main.actionUp[targetIndex].name === Data.ACTION["Two Aim"].name && main.actionUp[targetIndex].block == 2) {
+                let aimCard = main.actionUp[targetIndex];
+                let targetPosAim = targetIndex + indexVal;
+                let targetPosTail = targetIndex + indexVal + 1;
+                console.log("onAimMove(A,T): " + targetPosAim + "," + targetPosTail);
+                if (indexVal < 0) { // -1
+                    if (main.actionUp[targetPosAim] == null && main.aimList[targetPosAim] == null) {
+                        console.log("onAimMove");
+                        main.aimList[targetIndex] = null;
+                        main.aimList[targetIndex + 1] = null;
+                        main.actionUp[targetIndex] = null;
+
+                        main.aimList[targetPosAim] = true;
+                        main.aimList[targetPosTail] = true;
+                        main.actionUp[targetPosAim] = aimCard;
+                    }
+                } else { // 1
+                    if (main.actionUp[targetPosTail] == null && main.aimList[targetPosTail] == null) {
+                        console.log("onAimMove");
+                        main.aimList[targetIndex] = null;
+                        main.actionUp[targetIndex] = null;
+                        main.aimList[targetPosAim] = true;
+                        main.aimList[targetPosTail] = true;
+                        main.actionUp[targetPosAim] = aimCard;
+                    }
+                }
+            } else {
+                if (main.actionUp[targetIndex + indexVal] == null && main.aimList[targetIndex + indexVal] == null) {
+                    // move
+                    const aimCard = main.actionUp[targetIndex];
+                    main.aimList[targetIndex] = null;
+                    main.aimList[targetIndex + indexVal] = true;
+                    main.actionUp[targetIndex] = null;
+                    main.actionUp[targetIndex + indexVal] = aimCard;
+                }
             }
+
         }
     }
 

@@ -28,7 +28,7 @@ class Main {
         this.rangerList = [];
         this.playerObj = {};
         this.playerIdArr = [];
-        this.playerNum = 2;//2;
+        this.playerNum = 1;//2;
         this.maxLife = 5; //5;
         this.nowTurnId = "";
         this.turn = 0; // For finding the next turn (if player dead, increase value until get player who still alive)
@@ -38,7 +38,7 @@ class Main {
         this.playerInfoList = [];
         this.gameFinish = false;
 
-        this.devMode = false;
+        this.devMode = true;
     }
 
     init(roomID) {
@@ -58,11 +58,11 @@ class Main {
         for (let playerId in this.playerObj) {
             let player = this.playerObj[playerId];
             if (player.life === 0) {
+                deadNum += 1;
                 if (player.isDead) {
                     continue;
                 }
-                this.playerObj[playerId].isDead = true;
-                deadNum += 1;
+                player.isDead = true;
                 this.onDead(player);
             } else {
                 this.winner = this.playerObj[playerId]["name"] + " (" + this.playerObj[playerId]["rangerName"] + ")";
@@ -128,7 +128,7 @@ class Main {
 
     // READY
     dealActionCard(size) {
-        const cardName = ["Two Aim", "Two Aim", "Doom"];
+        const cardName = ["Two Aim", "Bump Left", "Bump Right"];
         for (let i = 0; i < size; i++) {
             for (let playerId in this.playerObj) {
                 let player = this.playerObj[playerId];

@@ -10,7 +10,7 @@ class GameUtil {
             // if (actionCard.block != undefined) {
             //     actionCard["block"] = 1;
             // }
-            switch (actionCard["name"]) {
+            switch (i) {
                 // case "Grenade":
                 // case "Grenade-Mega Grenade":
                 //     actionCard["extraprop"] = { "turn": 0 };
