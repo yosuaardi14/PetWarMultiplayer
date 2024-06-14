@@ -128,7 +128,7 @@ class Main {
 
     // READY
     dealActionCard(size) {
-        const cardName = ["Two Aim", "Bump Left", "Bump Right"];
+        const cardName = ["Two Aim", "Aim", "Bump Left"];
         for (let i = 0; i < size; i++) {
             for (let playerId in this.playerObj) {
                 let player = this.playerObj[playerId];
@@ -231,6 +231,9 @@ class Main {
                 // this.io.to(this.nowTurnId).emit("confirmAction", "discardPile");
             } else {
                 this.onInfoAction(data["card"], true);
+                if (data["card"] != null) {
+                    data["card"]["block"] = 1;
+                }
                 this.discardPile.push(data["card"]);
                 this.io.to(this.nowTurnId).emit("confirmAction", "");
             }
@@ -403,7 +406,7 @@ class Main {
         this.io.to(roomID).emit("onGameInit", JSON.stringify(this.getInitialData()));
     }
 
-    sendDataToClient() {
+    getUpdatedData() {
         this.petLine = this.petDeck.getRange(6);
         const gameData = {
             "aimList": this.aimList,
@@ -418,6 +421,10 @@ class Main {
             "discardPile": this.discardPile,
             "playerInfoList": this.playerInfoList,
         };
+        return gameData;
+    }
+
+    sendDataToClient() {
         // const gameData = {
         //     "aimList": this.aimList,
         //     "actionUp": this.getIdFromArray(this.actionUp),
@@ -429,7 +436,7 @@ class Main {
         // };
         // // console.log(gameData);
         // // console.log(JSON.stringify(gameData));
-        this.io.to(this.roomID).emit("finishAction", JSON.stringify(gameData));
+        this.io.to(this.roomID).emit("finishAction", JSON.stringify(this.getUpdatedData()));
     }
 
     sendCardDeckToClient() {

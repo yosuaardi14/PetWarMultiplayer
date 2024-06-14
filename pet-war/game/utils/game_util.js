@@ -16,6 +16,8 @@ class GameUtil {
                 //     actionCard["extraprop"] = { "turn": 0 };
                 //     break;
                 case "Aim-Trap":
+                    actionCard["prop"] = { "playerId": "", "index": -1 };
+                    break;
                 case "Hide":
                 case "Hide-Master Hide":
                     actionCard["prop"] = { "playerId": "" };
@@ -111,6 +113,14 @@ class GameUtil {
         card.useSpecial = false;
         if (card.name == "Two Aim" || card.name == "Two Boom") {
             card.block = 2;
+        }
+        // TODO CHECK
+        if (card.prop != null) {
+            if (card.name.indexOf("Hide") >= 0) {
+                card.prop = { "playerId": "" };
+            } else {
+                card.prop = { "playerId": "", "index": -1 };
+            }
         }
         return card;
     }

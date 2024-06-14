@@ -14,7 +14,6 @@ class Player {
     setRanger(ranger) {
         this.ranger = ranger;
         this.rangerName = ranger["name"];
-        console.log(this.rangerName);
     }
 
     toJson() {
