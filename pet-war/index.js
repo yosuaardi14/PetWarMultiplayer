@@ -20,13 +20,7 @@ const sessionMiddleware = session({
 
 
 // User Defined
-const Game = require("./game/main");
-const Player = require('./game/models/player');
 const RoomManager = require('./game/room_manager');
-
-// const game = new Game(io);
-const rooms = {};
-
 const roomManager = new RoomManager(io);
 
 app.use(cors());
@@ -57,9 +51,25 @@ io.on('connection', (socket) => {
     socket.handshake.session.socketId = socket.id;
     socket.handshake.session.save();
 
+    // ADMIN
+
+    socket.on('admin:room', (data) => {
+        roomManager.showAdminRoomList(socket);
+    });
+
+    // USER
+
     socket.on('spectateRoom', (roomID) => {
         console.log(socket.handshake.session.socketId + " spectate " + roomID);
         roomManager.spectateRoom(socket, roomID);
+    });
+
+    socket.on('spectatorData', (roomID) => {
+        // Send Data to Client Only to All in Room (Update Game Canvas)
+        // Send Player Card Deck (who have finish the action before) 
+        console.log("spectatorData room:" + roomID);
+        const temp = roomManager.detailRoom(roomID);
+        io.to(socket.handshake.session.socketId).emit("spectatorData", temp.game.getUpdatedData());
     });
 
     socket.on('createRoom', (data) => {
@@ -104,6 +114,7 @@ io.on('connection', (socket) => {
         console.log("Room " + roomID + " Num Player: " + gameRoom.num);
 
         socket.on('setPlayerName', (data) => {
+            console.log(socket.rooms);
             console.log("setPlayerName " + data);
             gameRoom.setPlayerName(socket.handshake.session.socketId, data);
             io.to(socket.handshake.session.socketId).emit("setPlayerName", socket.handshake.session.socketId);
@@ -156,13 +167,6 @@ io.on('connection', (socket) => {
             // Send Data to Client Only to All in Room (Update Game Canvas)
             // Send Player Card Deck (who have finish the action before) 
             console.log("finishAction" + data);
-        });
-
-        socket.on('spectatorData', (data) => {
-            // Send Data to Client Only to All in Room (Update Game Canvas)
-            // Send Player Card Deck (who have finish the action before) 
-            console.log("spectatorData" + data);
-            io.to(socket.handshake.session.socketId).emit("spectatorData", game.getUpdatedData());
         });
 
         socket.on('onPlayerDefeated', (data) => {

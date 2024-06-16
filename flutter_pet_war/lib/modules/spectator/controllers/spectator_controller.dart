@@ -1,7 +1,9 @@
 import 'package:flutter_pet_war/data/services/socket_service.dart';
 import 'package:flutter_pet_war/modules/base/controllers/base_game_controller.dart';
+import 'package:get/get.dart';
 
 class SpectatorController extends BaseGameController {
+  final playerSelectedCard = <String, dynamic>{}.obs;
   @override
   void onInit() {
     super.onInit();
@@ -13,6 +15,6 @@ class SpectatorController extends BaseGameController {
     if (!SocketService.isInit) {
       socketService.initSocket();
     }
-    socketService.socket.emit("spectatorData", "");
+    socketService.socket.emit("spectatorData", Get.parameters["roomid"]);
   }
 }

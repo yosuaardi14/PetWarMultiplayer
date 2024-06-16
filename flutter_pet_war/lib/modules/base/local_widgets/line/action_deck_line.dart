@@ -152,6 +152,20 @@ class ActionDeckLine<T extends BaseGameController> extends GetView<T> {
                                             ),
                                           ),
                                         ),
+                                      Visibility(
+                                        visible: e.value != null &&
+                                            controller.isHaunted(),
+                                        maintainSize: true,
+                                        maintainAnimation: true,
+                                        maintainState: true,
+                                        child: SizedBox(
+                                          height: 25,
+                                          child: ElevatedButton(
+                                            onPressed: () {},
+                                            child: const Text("Hapus Aim"),
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 );

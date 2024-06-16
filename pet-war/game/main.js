@@ -33,7 +33,7 @@ class Main {
         this.playerObj = {};
         this.playerIdArr = [];
         this.playerNum = 1;//2;
-        this.maxLife = 3; //5;
+        this.maxLife = 5;
         this.nowTurnId = "";
         this.turn = 0; // For finding the next turn (if player dead, increase value until get player who still alive)
         this.totalTurn = 0;
@@ -135,7 +135,7 @@ class Main {
 
     // READY
     dealActionCard(size) {
-        const cardName = ["Running", "Running", "Running"];
+        const cardName = ["Aim", "Aim", "Aim"];
         for (let i = 0; i < size; i++) {
             for (let playerId in this.playerObj) {
                 let player = this.playerObj[playerId];
@@ -347,7 +347,7 @@ class Main {
                 continue;
             }
             this.grenadeList[i] += 1;
-            if (this.grenadeList[i] == DataTwo.GRENADE_TURN) {
+            if (this.grenadeList[i] == Data.GRENADE_TURN) {
                 this.grenadeList[i] = null;
                 // explode grenade
                 // need to add check if there is grenade, megagrenada, grenade -> will it explode or add checking in UI

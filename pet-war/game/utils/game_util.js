@@ -8,7 +8,7 @@ const CircularQueue = require('./circular_queue');
 class GameUtil {
     static initActionDeck() {
         let actionDeck = [];
-        let cardDB = DataTwo.ACTION;
+        let cardDB = Data.ACTION;
         for (var i in cardDB) {
             let actionCard = Object.assign({}, cardDB[i]);
             switch (i) {
@@ -55,7 +55,7 @@ class GameUtil {
     }
 
     static initCanvasRanger() {
-        let cardDB = DataTwo.CANVAS_RANGER;
+        let cardDB = Data.CANVAS_RANGER;
         let rangerList = Array.from(cardDB);
         for (var i = 0; i < rangerList.length; i++) {
             let ranger = Object.assign({}, rangerList[i]);
@@ -67,7 +67,7 @@ class GameUtil {
     }
 
     static initPetDeck(playerObj) {
-        let cardDB = DataTwo.PET;
+        let cardDB = Data.PET;
         const petDeck = new CircularQueue();
         const jungleSize = cardDB["Jungle"]["cardNum"];
 
@@ -90,7 +90,7 @@ class GameUtil {
     }
 
     static initPetDeckNew(playerObj) {
-        let cardDB = DataTwo.PET;
+        let cardDB = Data.PET;
         let petDeck = [];
         const jungleSize = 3;//cardDB["Jungle"]["cardNum"]; // Assume this is the default value or fetch from Constant.PET["Jungle"]["cardNum"] ?? 0;
 

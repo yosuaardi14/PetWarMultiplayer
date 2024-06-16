@@ -492,7 +492,12 @@ class AbilityUtil {
     }
 
     static onPetGo(main, condition, targetIndex, indexVal) {
-        if (main.trapList[targetIndex] != null) {
+        let useSpecialAbility = main.petDeck[targetIndex][0].useSpecial == true;
+        let isSpecialCard = main.petDeck[targetIndex][0].special != null;
+        let specialCardName = isSpecialCard ? main.petDeck[targetIndex][0].special.name : "";
+        let isTrap = useSpecialAbility && isSpecialCard && (specialCardName == Data.ACTION["Aim-Trap"].special.name);
+
+        if (isTrap) { // hasTrap ???
             console.log("Tidak bisa bergerak karena ada Trap");
             main.io.to(main.roomID).emit("infoAction", "Tidak bisa bergerak karena ada Trap");
             return;
@@ -578,11 +583,9 @@ class AbilityUtil {
         // // check target hasHide -> do nothing
         let isForest = cardName == Data.PET["Jungle"].name;
         let isHide = !useSpecialAbility && (cardName == Data.ACTION["Hide"].name);
-        let isTrap = useSpecialAbility && isSpecialCard && (specialCardName == Data.ACTION["Aim-Trap"].special.name);
-        console.log((cardName == Data.ACTION["Aim-Trap"].special.name));
-        console.log("isForest || isHide || isTrap");
-        if (isForest || isHide || isTrap) {
-            console.log("isForest || isHide || isTrap : true");
+        console.log("isForest || isHide");
+        if (isForest || isHide) {
+            console.log("isForest || isHide : true");
             if (isForest)
                 main.io.to(main.roomID).emit("infoAction", "Forest diserang");
             if (isHide)
@@ -641,6 +644,28 @@ class AbilityUtil {
             return false;
         }
 
+        let isTrap = useSpecialAbility && isSpecialCard && (specialCardName == Data.ACTION["Aim-Trap"].special.name);
+        console.log((cardName == Data.ACTION["Aim-Trap"].special.name));
+        if (isTrap) {
+            if (!main.petDeck[targetIndex][1].hasOwnProperty("ability")) { // PET
+                console.log("Remove Trap - PET");
+                this.moveCardToDiscardPile(main, main.petDeck[targetIndex][0]);
+                main.petDeck[targetIndex].splice(0, 1);
+            } else {
+                let isHideDownTrap = !useSpecialAbility && (main.petDeck[targetIndex][1].name == Data.ACTION["Hide"].name);
+                if (isHideDownTrap) {
+                    main.io.to(main.roomID).emit("infoAction", "Serangan tidak berguna karena ada Hide");
+                    return false;
+                } else {
+                    console.log("Remove Trap - ACTION");
+                    this.moveCardToDiscardPile(main, main.petDeck[targetIndex][0]);
+                    main.petDeck[targetIndex].splice(0, 1);
+                    // Armor and ETC
+                    return this.onDestroyPet(main, targetIndex);
+                }
+            }
+        }
+
         console.log("isPet");
         let playerId = GameUtil.getPlayerIdByPet(cardName, main.playerObj);
         main.playerObj[playerId].life--;
@@ -674,11 +699,11 @@ class AbilityUtil {
         // // check target hasHide -> do nothing
         let isForest = cardName == Data.PET["Jungle"].name;
         let isHide = !useSpecialAbility && (cardName == Data.ACTION["Hide"].name);
-        let isTrap = useSpecialAbility && isSpecialCard && (specialCardName == Data.ACTION["Aim-Trap"].special.name);
+        // let isTrap = useSpecialAbility && isSpecialCard && (specialCardName == Data.ACTION["Aim-Trap"].special.name);
         console.log((cardName == Data.ACTION["Aim-Trap"].special.name));
-        console.log("isForest || isHide || isTrap");
-        if (isForest || isHide || isTrap) {
-            console.log("isForest || isHide || isTrap : true");
+        console.log("isForest || isHide");
+        if (isForest || isHide) {
+            console.log("isForest || isHide : true");
             if (isForest)
                 main.io.to(main.roomID).emit("infoAction", "Forest diserang");
             if (isHide)
@@ -734,6 +759,29 @@ class AbilityUtil {
             main.petDeck[targetIndex].splice(0, 1);
             main.io.to(main.roomID).emit("infoAction", "Armor dihancurkan");
             return false;
+        }
+
+        let isTrap = useSpecialAbility && isSpecialCard && (specialCardName == Data.ACTION["Aim-Trap"].special.name);
+        console.log((cardName == Data.ACTION["Aim-Trap"].special.name));
+        if (isTrap) {
+            if (!main.petDeck[targetIndex][1].hasOwnProperty("ability")) { // PET
+                console.log("Remove Trap - PET");
+                this.moveCardToDiscardPile(main, main.petDeck[targetIndex][0]);
+                main.petDeck[targetIndex].splice(0, 1);
+                cardName = main.petDeck[targetIndex][0].name;
+            } else {
+                let isHideDownTrap = !useSpecialAbility && (main.petDeck[targetIndex][1].name == Data.ACTION["Hide"].name);
+                if (isHideDownTrap) {
+                    main.io.to(main.roomID).emit("infoAction", "Serangan tidak berguna karena ada Hide");
+                    return false;
+                } else {
+                    console.log("Remove Trap - ACTION");
+                    this.moveCardToDiscardPile(main, main.petDeck[targetIndex][0]);
+                    main.petDeck[targetIndex].splice(0, 1);
+                    // Armor and ETC
+                    return this.onDestroyPet(main, targetIndex);
+                }
+            }
         }
 
         console.log("isPet");

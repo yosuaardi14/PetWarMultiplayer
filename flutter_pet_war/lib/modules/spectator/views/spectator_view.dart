@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pet_war/data/services/socket_service.dart';
 import 'package:flutter_pet_war/modules/base/local_widgets/card_canvas.dart';
 import 'package:flutter_pet_war/modules/base/views/base_view.dart';
 import 'package:flutter_pet_war/modules/spectator/controllers/spectator_controller.dart';
@@ -10,10 +9,9 @@ class SpectatorView extends GetView<SpectatorController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.checkSocketStatus();
-    return BaseView<SpectatorController>(
+    return const BaseView<SpectatorController>(
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.only(top: 10.0),
           child: CardCanvas<SpectatorController>(isSpectate: true),
         ),

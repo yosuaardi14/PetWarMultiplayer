@@ -211,13 +211,16 @@ class SocketService {
     });
 
     _socket.on("spectatorData", (data) {
-      print("spectatorData: $data");
+      print("spectatorData");
       if (controller is SpectatorController) {
-        (controller as SpectatorController).finishAction(jsonDecode(data));
+        (controller as SpectatorController).finishAction(data);
       }
     });
 
     _socket.on("nextTurn", (data) {
+      if (controller is BaseGameController) {
+        (controller as BaseGameController).nowTurnPlayerId(data);
+      }
       if (_sessionId == data) {
         if (controller is BaseGameController) {
           (controller as BaseGameController).isPlayerTurn(true);

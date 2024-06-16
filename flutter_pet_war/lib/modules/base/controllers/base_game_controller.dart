@@ -32,6 +32,7 @@ class BaseGameController extends GetxController {
 
   final playerInfoList = <Map<String, dynamic>>[].obs;
   final nowTurnPlayerName = "".obs;
+  final nowTurnPlayerId = "".obs;
   final playerObj = RxPlayer().obs;
 
   //

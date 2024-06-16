@@ -18,6 +18,7 @@ class Player {
 
     toJson() {
         return {
+            "id": this.id,
             "name": this.name,
             "rangerName": this.rangerName,
             "ranger": JSON.stringify(this.ranger),
@@ -28,8 +29,9 @@ class Player {
         };
     }
 
-    clientToJson(){
+    clientToJson() {
         return {
+            "id": this.id,
             "name": this.name,
             "rangerName": this.rangerName,
             "ranger": JSON.stringify(this.ranger),
