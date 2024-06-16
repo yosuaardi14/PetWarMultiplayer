@@ -252,6 +252,7 @@ class GameUtils {
     var needPetList = [
       "Armor",
       "Hide",
+      "Doom",
 
       //Special
       "Shield",
@@ -340,7 +341,7 @@ class GameUtils {
       "Grenade",
       //Special
       "Mega Grenade",
-      
+
       //
       "Mine",
       //
@@ -387,9 +388,9 @@ class GameUtils {
       "Get Cover",
       //
       "Kamikaze",
-      "Master Hide"
-          //
-          "Charge",
+      "Master Hide",
+      //
+      "Charge",
       "Banzai",
       "Water Bulb"
     ];
@@ -405,6 +406,10 @@ class GameUtils {
       "Lunch Time",
       "Move The Pet",
       "Ressurect",
+      // II
+      "Reshuffle Hand",
+      "Switch Ranger",
+      
       //Special
       "Double Run",
       "Double Resurrect",
