@@ -1,6 +1,6 @@
 class Data {
     static DEFAULT_MAX_LIFE = 5;
-
+    
     static GRENADE_TURN = 4;
 
     static CANVAS_RANGER = [
@@ -54,6 +54,7 @@ class Data {
             "description": "",
             "color": "grey",
             "ranger": "",
+            "life": 0,
             "cardNum": 5
         },
         "Sharpnell": {
@@ -61,6 +62,7 @@ class Data {
             "description": "",
             "color": "orange",
             "ranger": "Dobel",
+            "life": 1,
             "cardNum": 5
         },
         "Lpg-Zord": {
@@ -68,6 +70,7 @@ class Data {
             "description": "",
             "color": "yellowgreen",
             "ranger": "Tsunaryo",
+            "life": 1,
             "cardNum": 5
         },
         "Sunge": {
@@ -75,6 +78,7 @@ class Data {
             "description": "",
             "color": "deeppink",
             "ranger": "Von staire",
+            "life": 1,
             "cardNum": 5
         },
         "Minion": {
@@ -82,6 +86,7 @@ class Data {
             "description": "",
             "color": "red",
             "ranger": "Ashtray",
+            "life": 1,
             "cardNum": 5
         },
         "Waung": {
@@ -89,6 +94,7 @@ class Data {
             "description": "",
             "color": "blue",
             "ranger": "Bonci",
+            "life": 1,
             "cardNum": 5
         },
         "Paleo": {
@@ -96,6 +102,7 @@ class Data {
             "description": "",
             "color": "purple",
             "ranger": "Neo",
+            "life": 1,
             "cardNum": 5
         }
     };

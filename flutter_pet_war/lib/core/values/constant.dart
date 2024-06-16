@@ -3,9 +3,9 @@
 enum WidgetMode { normal, draggable, dragTarget }
 
 class Constant {
-  static const double CARD_WIDTH = 116.0;//150.0;
+  static const double CARD_WIDTH = 116.0; //150.0;
   static const double PET_CARD_HEIGHT = 176.0;
-  static const double CARD_HEIGHT = 176.0;//180.0;
+  static const double CARD_HEIGHT = 176.0; //180.0;
   static const double FONT_SIZE = 12.0;
 
   static const double ACTION_FONT_SIZE = 11.0;
@@ -63,7 +63,77 @@ class Constant {
       "pet": "Paleo",
       "color": "purple",
       "cardNum": 1
-    }
+    },
+    {
+      "name": "Daiya",
+      "description": "",
+      "pet": "Soeharti",
+      "color": "orange",
+      "cardNum": 1
+    },
+    {
+      "name": "Elliot",
+      "description": "",
+      "pet": "Marmar",
+      "color": "yellowgreen",
+      "cardNum": 1
+    },
+    {
+      "name": "Rei",
+      "description": "",
+      "pet": "Giro",
+      "color": "green",
+      "cardNum": 1
+    },
+    {
+      "name": "Javelin",
+      "description": "",
+      "pet": "Vulcan",
+      "color": "red",
+      "cardNum": 1
+    },
+    {
+      "name": "Louise",
+      "description": "",
+      "pet": "King",
+      "color": "blue",
+      "cardNum": 1
+    },
+    {
+      "name": "Bratz",
+      "description": "",
+      "pet": "Bracula",
+      "color": "purple",
+      "cardNum": 1
+    },
+    {
+      "name": "Gaoh",
+      "description": "",
+      "pet": "Vao",
+      "color": "black",
+      "cardNum": 1
+    },
+    {
+      "name": "Mazo",
+      "description": "",
+      "pet": "Menejeur",
+      "color": "silver",
+      "cardNum": 1
+    },
+    {
+      "name": "Visca",
+      "description": "",
+      "pet": "Lavu",
+      "color": "orange",
+      "cardNum": 1
+    },
+    {
+      "name": "Lynn",
+      "description": "",
+      "pet": "Raven",
+      "color": "purple",
+      "cardNum": 1
+    },
   ];
 
   static const Map<String, Map<String, dynamic>> PET = {
@@ -72,6 +142,7 @@ class Constant {
       "description": "",
       "color": "grey",
       "ranger": "",
+      "life": 0,
       "cardNum": 5
     },
     "Sharpnell": {
@@ -79,6 +150,7 @@ class Constant {
       "description": "",
       "color": "orange",
       "ranger": "Dobel",
+      "life": 1,
       "cardNum": 5
     },
     "Lpg-Zord": {
@@ -86,6 +158,7 @@ class Constant {
       "description": "",
       "color": "yellowgreen",
       "ranger": "Tsunaryo",
+      "life": 1,
       "cardNum": 5
     },
     "Sunge": {
@@ -93,6 +166,7 @@ class Constant {
       "description": "",
       "color": "deeppink",
       "ranger": "Von staire",
+      "life": 1,
       "cardNum": 5
     },
     "Minion": {
@@ -100,6 +174,7 @@ class Constant {
       "description": "",
       "color": "red",
       "ranger": "Ashtray",
+      "life": 1,
       "cardNum": 5
     },
     "Waung": {
@@ -107,6 +182,7 @@ class Constant {
       "description": "",
       "color": "blue",
       "ranger": "Bonci",
+      "life": 1,
       "cardNum": 5
     },
     "Paleo": {
@@ -114,6 +190,127 @@ class Constant {
       "description": "",
       "color": "purple",
       "ranger": "Neo",
+      "life": 1,
+      "cardNum": 5
+    },
+    "Soeharti": {
+      "name": "Soeharti",
+      "description": "",
+      "color": "orange",
+      "ranger": "Daiya",
+      "life": 1,
+      "cardNum": 5
+    },
+    "Marmar": {
+      "name": "Marmar",
+      "description": "",
+      "color": "yellowgreen",
+      "ranger": "Elliot",
+      "life": 1,
+      "cardNum": 5
+    },
+    "Giro": {
+      "name": "Giro",
+      "description": "",
+      "color": "green",
+      "ranger": "Rei",
+      "life": 1,
+      "cardNum": 5
+    },
+    "Vulcan": {
+      "name": "Vulcan",
+      "description": "",
+      "color": "red",
+      "ranger": "Javelin",
+      "life": 1,
+      "cardNum": 5
+    },
+    "King": {
+      "name": "King",
+      "description": "",
+      "color": "blue",
+      "ranger": "Louise",
+      "life": 1,
+      "cardNum": 5
+    },
+    "Bracula": {
+      "name": "Bracula",
+      "description": "",
+      "color": "purple",
+      "ranger": "Bratz",
+      "life": 1,
+      "cardNum": 5
+    },
+    "Enchanted Forest": {
+      "name": "Enchanted Forest",
+      "description": "",
+      "color": "grey",
+      "ranger": "",
+      "life": 0,
+      "cardNum": 5
+    },
+    "Maze Forest": {
+      "name": "Maze Forest",
+      "description": "",
+      "color": "grey",
+      "ranger": "",
+      "life": 0,
+      "cardNum": 5
+    },
+    "Thorn Forest": {
+      "name": "Thorn Forest",
+      "description": "",
+      "color": "grey",
+      "ranger": "",
+      "life": 0,
+      "cardNum": 5
+    },
+    "Cursed Forest": {
+      "name": "Cursed Forest",
+      "description": "",
+      "color": "grey",
+      "ranger": "",
+      "life": 0,
+      "cardNum": 5
+    },
+    "Catapult Forest": {
+      "name": "Catapult Forest",
+      "description": "",
+      "color": "grey",
+      "ranger": "",
+      "life": 0,
+      "cardNum": 5
+    },
+    "Vao": {
+      "name": "Vao",
+      "description": "",
+      "color": "black",
+      "ranger": "Gaoh",
+      "life": 1,
+      "cardNum": 5
+    },
+    "Menejeur": {
+      "name": "Menejeur",
+      "description": "",
+      "color": "silver",
+      "ranger": "Mazo",
+      "life": 2,
+      "cardNum": 5
+    },
+    "Lavu": {
+      "name": "Lavu",
+      "description": "",
+      "color": "orange",
+      "ranger": "Visca",
+      "life": 1,
+      "cardNum": 5
+    },
+    "Raven": {
+      "name": "Raven",
+      "description": "",
+      "color": "purple",
+      "ranger": "Lynn",
+      "life": 1,
       "cardNum": 5
     }
   };

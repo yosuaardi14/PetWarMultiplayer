@@ -110,6 +110,22 @@ class GameUtils {
     // return false;
   }
 
+  static bool petLineHasPet(List<List<Map<String, dynamic>>> petLine) {
+    try {
+      for (var i = 0; i < petLine.length; i++) {
+        for (var j = 0; j < petLine[i].length; j++) {
+          if (Constant.PET["Jungle"]?["name"] != petLine[i][j]["name"]) {
+            return true;
+          }
+        }
+      }
+      return false;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
   static bool petLineHasPlayerNowPet(
       RxPlayer player, List<List<Map<String, dynamic>>> petLine) {
     try {
@@ -168,6 +184,8 @@ class GameUtils {
       "Boom",
       "Two Boom",
       "Miss",
+      // JS
+      "Air Shield"
     ];
     // TODO check
     if (dragTargetCardList.contains(cardName) &&
@@ -200,6 +218,10 @@ class GameUtils {
       "Grenade",
       //Special
       "Mega Grenade",
+
+      "Mine",
+      //
+      "Mega Mine",
     ];
     if (dragTargetCardList.contains(cardName)) {
       return WidgetMode.dragTarget;
@@ -218,6 +240,7 @@ class GameUtils {
 
     var needKamikaze = [
       "Boom",
+      "Doom",
     ];
 
     if (checkAvailableCardOnPetLine(
@@ -233,6 +256,12 @@ class GameUtils {
       //Special
       "Shield",
       "Trap",
+
+      // Special II
+      "Vampiric Bite", // Need Aim too
+
+      // CA
+      "Hypnotize",
     ];
 
     if (!checkIsJungle(controller.petLine(), cardIndex) &&
@@ -250,6 +279,12 @@ class GameUtils {
       "Escape",
       "Master Hide",
       "Go Anyward",
+
+      //Special II
+      "Haunted",
+      "Charge",
+      "Banzai",
+      "Water Bulb"
     ];
 
     if (checkPlayerNowPet(
@@ -258,22 +293,31 @@ class GameUtils {
       return WidgetMode.dragTarget;
     }
 
-    //check if there is kamikaze boom can be added
-    var dragTargetCardList = [
-      // "Armor",
-      "Doom",
-      // "Hide",
+    // //check if there is kamikaze boom can be added
+    // var dragTargetCardList = [
+    //   // "Armor",
+    //   "Doom",
+    //   // "Hide",
 
-      //Special
-      // "Kamikaze",
-      // "Escape",
-      // "Master Hide",
-      "Over Shock",
-      // "Shield",
-      // "Trap",
-      // "Go Anyward",
+    //   //Special
+    //   // "Kamikaze",
+    //   // "Escape",
+    //   // "Master Hide",
+    //   "Over Shock",
+    //   // "Shield",
+    //   // "Trap",
+    //   // "Go Anyward",
+    // ];
+    // if (dragTargetCardList.contains(cardName)) {
+    //   return WidgetMode.dragTarget;
+    // }
+    var dragTargetCardList = [
+      "Air Compressor",
+      "Poison Darts", // But the effect pet only
     ];
+
     if (dragTargetCardList.contains(cardName)) {
+      print("onPetDeckTypeCard dragTargetCardList: $cardName");
       return WidgetMode.dragTarget;
     }
     return WidgetMode.normal;
@@ -296,6 +340,11 @@ class GameUtils {
       "Grenade",
       //Special
       "Mega Grenade",
+      
+      //
+      "Mine",
+      //
+      "Mega Mine"
     ];
 
     if (GF.isListFull(controller.actionDown) &&
@@ -307,18 +356,30 @@ class GameUtils {
       "Bump Left",
       "Bump Right",
       "Boom",
-      "Two Boom",
-      "Miss",
+      // JS
+      "Air Shield",
     ];
     if (GF.isListNull(controller.actionUp) && needAimList.contains(cardName)) {
+      print("onDiscardPileTypeCard needAimList: $cardName");
       return WidgetMode.dragTarget;
     }
 
-    // var needPetList = [
-    //   "Hide",
-    //   "Armor",
-    //   "Shield",
-    // ];
+    var needPetList = [
+      //   "Hide",
+      //   "Armor",
+      //   "Shield",
+      "Doom",
+      // Special
+      "Over Shock",
+      // Special II
+      "Vampiric Bite",
+    ];
+
+    if (!petLineHasPet(controller.petLine()) &&
+        needPetList.contains(cardName)) {
+      print("onPetDeckTypeCard needPetList: $cardName");
+      return WidgetMode.dragTarget;
+    }
 
     var needPlayerPetList = [
       "Go Forward",
@@ -327,6 +388,10 @@ class GameUtils {
       //
       "Kamikaze",
       "Master Hide"
+          //
+          "Charge",
+      "Banzai",
+      "Water Bulb"
     ];
 
     if (!petLineHasPlayerNowPet(controller.playerObj(), controller.petLine()) &&
@@ -345,6 +410,26 @@ class GameUtils {
       "Double Resurrect",
 
       "Moving Aim",
+
+      // Special II
+      "Boo",
+      "Avoid",
+      "Steal", // ? PetLine
+      "Scavenge",
+      "Corpse Cover", // ? need check has pet player pet in BackEnd
+      "Vampiric Move",
+
+      // US
+      "Apocalypse",
+      "Voodoo",
+
+      //
+      "Illusion",
+
+      //CA
+      "Fogging",
+      "Machine Gun",
+      "Wild", // change the card to be special card immediately - get special card after use card
     ];
     if (dragTargetCardList.contains(cardName)) {
       return WidgetMode.dragTarget;

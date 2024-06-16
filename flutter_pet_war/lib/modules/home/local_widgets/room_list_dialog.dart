@@ -3,6 +3,7 @@ import 'package:flutter_pet_war/modules/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
 
 class RoomListDialog extends GetView<HomeController> {
+  // final Map<String, dynamic> roomList;
   const RoomListDialog({super.key});
 
   @override
@@ -23,13 +24,18 @@ class RoomListDialog extends GetView<HomeController> {
       ),
       content: SizedBox(
         width: Get.width,
-        child: Column(
-          children: [
-            ...[<String, dynamic>{}, <String, dynamic>{}, <String, dynamic>{}]
-                .map(
-              (e) => roomWidget(e),
-            )
-          ],
+        child: Obx(
+          () => Column(
+            children: [
+              ElevatedButton(
+                onPressed: controller.onRefreshRoom,
+                child: const Text("Refresh"),
+              ),
+              ...controller.roomList().entries.map(
+                    (e) => roomWidget(e.value),
+                  ),
+            ],
+          ),
         ),
       ),
     );
@@ -39,9 +45,9 @@ class RoomListDialog extends GetView<HomeController> {
     return Card(
       elevation: 2,
       child: ListTile(
-        title: Text(roomData["name"] ?? "Test"),
+        title: Text(roomData["id"] ?? "Test"),
         subtitle: Text(
-          "${roomData["playerNum"] ?? 0}/${roomData["maxPlayerNum"] ?? 6}",
+          "${roomData["num"] ?? 0}/${roomData["maxNum"] ?? 6}",
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -51,17 +57,18 @@ class RoomListDialog extends GetView<HomeController> {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              width: 100,
-              height: 50,
-              color: Colors.blue,
-              child: ElevatedButton(
-                onPressed: () {
-                  controller.onJoinRoom(roomData["name"] ?? "");
-                },
-                child: const Text("Gabung"),
+            if ((roomData["num"] ?? 0) < (roomData["maxNum"] ?? 6))
+              Container(
+                width: 100,
+                height: 50,
+                color: Colors.blue,
+                child: ElevatedButton(
+                  onPressed: () {
+                    controller.onJoinRoom(roomData["id"] ?? "");
+                  },
+                  child: const Text("Gabung"),
+                ),
               ),
-            ),
             const SizedBox(width: 10),
             Container(
               width: 100,
@@ -69,7 +76,7 @@ class RoomListDialog extends GetView<HomeController> {
               color: Colors.blue,
               child: ElevatedButton(
                 onPressed: () {
-                  controller.onSpectateRoom(roomData["name"] ?? "");
+                  controller.onSpectateRoom(roomData["id"] ?? "");
                 },
                 child: const Text("Tonton"),
               ),

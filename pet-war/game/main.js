@@ -1,4 +1,7 @@
 const Data = require('./values/data');
+const DataTwo = require('./values/data_two');
+const DataSpinOff = require('./values/data_spin_off');
+const DataUltimateSeries = require('./values/data_ultimate_series');
 const Player = require('./models/player');
 const CircularQueue = require('./utils/circular_queue');
 const GameUtil = require('./utils/game_util');
@@ -21,7 +24,8 @@ class Main {
 
         //Not Visible
         this.actionDeck = [];
-        this.petDeck = new CircularQueue();
+        // this.petDeck = new CircularQueue();
+        this.petDeck = []; // array of array of map
         this.discardPile = [];
 
         //
@@ -29,7 +33,7 @@ class Main {
         this.playerObj = {};
         this.playerIdArr = [];
         this.playerNum = 1;//2;
-        this.maxLife = 5; //5;
+        this.maxLife = 3; //5;
         this.nowTurnId = "";
         this.turn = 0; // For finding the next turn (if player dead, increase value until get player who still alive)
         this.totalTurn = 0;
@@ -94,8 +98,11 @@ class Main {
         this.initRanger();
 
         // INIT Pet Line and Deck
-        this.petDeck = GameUtil.initPetDeck(this.playerObj);
-        this.petLine = this.petDeck.getRange(6);
+        // this.petDeck = GameUtil.initPetDeck(this.playerObj);
+        this.petDeck = GameUtil.initPetDeckNew(this.playerObj);
+        console.log(this.petDeck);
+        this.petLine = Array.from(this.petDeck.slice(0, 6));
+        
         // // console.log(this.petDeck);
         // this.convertPetDeck();
     }
@@ -128,7 +135,7 @@ class Main {
 
     // READY
     dealActionCard(size) {
-        const cardName = ["Two Aim", "Aim", "Bump Left"];
+        const cardName = ["Running", "Running", "Running"];
         for (let i = 0; i < size; i++) {
             for (let playerId in this.playerObj) {
                 let player = this.playerObj[playerId];
@@ -146,7 +153,6 @@ class Main {
                     let card = this.actionDeck.splice(0, 1);
                     player.cardDeck.push(card[0]);
                 }
-
             }
         }
 
@@ -166,7 +172,7 @@ class Main {
 
         for (let i = 0; i < this.petLine.length; i++) {
             firstPet = this.petLine[i][0];
-            if (firstPet.name !== Data.PET["Jungle"].name) {
+            if (firstPet.name !== DataTwo.PET["Jungle"].name) {
                 break;
             }
         }
@@ -267,7 +273,9 @@ class Main {
     }
 
     onFinishAction() {
-        this.petLine = this.petDeck.getRange(6);
+        // this.petLine = this.petDeck.getRange(6);
+        this.petLine = Array.from(this.petDeck.slice(0, 6));
+        console.log(this.petLine);
         let text = "[";
         for (let i = 0; i < this.petLine.length; i++) {
             text += `[${this.petLine[i].length}],`;
@@ -326,25 +334,6 @@ class Main {
     }
 
     checkHideAndTrapTurn(playerId) {
-        // // remove hide if player index == hideList.indexOf() >= 0 but it impossible to have to hide in same time
-        // let hideIndexList = Util.findAllIndex(this.hideList, playerId);
-        // // console.log("hideList" + hideIndexList);
-        // // if (hideIndexList.length > 0) {
-        // for (let i = 0; i < hideIndexList.length; i++) {
-        //     this.hideList[hideIndexList[i]] = null;
-        //     this.io.to(this.roomID).emit("infoAction", "Hide dari " + this.playerObj[playerId]["name"] + " telah menghilang");
-        //     AbilityUtil.removeActionCardOnIndex(this, "Hide", hideIndexList[i]);
-        // }
-        // // }
-
-        // let trapIndexList = Util.findAllIndex(this.trapList, playerId);
-        // // if (trapIndexList.length > 0) {
-        // for (let i = 0; i < trapIndexList.length; i++) {
-        //     this.trapList[trapIndexList[i]] = null;
-        //     this.io.to(this.roomID).emit("infoAction", "Trap dari " + this.playerObj[playerId]["name"] + " telah menghilang");
-        //     AbilityUtil.removeActionCardOnIndex(this, "Trap", trapIndexList[i]);
-        // }
-        // // }
         this.removeHideAndTrap(playerId);
     }
 
@@ -358,7 +347,7 @@ class Main {
                 continue;
             }
             this.grenadeList[i] += 1;
-            if (this.grenadeList[i] == Data.GRENADE_TURN) {
+            if (this.grenadeList[i] == DataTwo.GRENADE_TURN) {
                 this.grenadeList[i] = null;
                 // explode grenade
                 // need to add check if there is grenade, megagrenada, grenade -> will it explode or add checking in UI
@@ -391,7 +380,7 @@ class Main {
             "actionDeckLength": this.actionDeck.length,
             // "petDeck": this.petDeck.toArray(),
             "grenadeList": this.grenadeList,
-            "petDeckLength": this.petDeck.toArray().length,
+            "petDeckLength": this.petDeck.length,
             "petLine": this.petLine,
             "actionDown": this.actionDown,
             "discardPile": this.discardPile,
@@ -407,7 +396,8 @@ class Main {
     }
 
     getUpdatedData() {
-        this.petLine = this.petDeck.getRange(6);
+        // this.petLine = this.petDeck.getRange(6);
+        this.petLine = Array.from(this.petDeck.slice(0, 6));
         const gameData = {
             "aimList": this.aimList,
             "actionUp": this.actionUp,
@@ -415,7 +405,7 @@ class Main {
             "actionDeckLength": this.actionDeck.length,
             // "petDeck": this.petDeck.toArray(),
             "grenadeList": this.grenadeList,
-            "petDeckLength": this.petDeck.toArray().length,
+            "petDeckLength": this.petDeck.length,
             "petLine": this.petLine,
             "actionDown": this.actionDown,
             "discardPile": this.discardPile,

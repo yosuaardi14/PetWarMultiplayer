@@ -1,6 +1,8 @@
 class DataTwo {
     static DEFAULT_MAX_LIFE = 5;
 
+    static KING_MAX_TOKEN = 4;
+
     static CANVAS_RANGER = [
         {
             "name": "Daiya",
@@ -52,6 +54,7 @@ class DataTwo {
             "description": "",
             "color": "grey",
             "ranger": "",
+            "life": 0,
             "cardNum": 5
         },
         "Soeharti": {
@@ -59,6 +62,7 @@ class DataTwo {
             "description": "",
             "color": "orange",
             "ranger": "Daiya",
+            "life": 1,
             "cardNum": 5
         },
         "Marmar": {
@@ -66,6 +70,7 @@ class DataTwo {
             "description": "",
             "color": "yellowgreen",
             "ranger": "Elliot",
+            "life": 1,
             "cardNum": 5
         },
         "Giro": {
@@ -73,6 +78,7 @@ class DataTwo {
             "description": "",
             "color": "green",
             "ranger": "Rei",
+            "life": 1,
             "cardNum": 5
         },
         "Vulcan": {
@@ -80,6 +86,7 @@ class DataTwo {
             "description": "",
             "color": "red",
             "ranger": "Javelin",
+            "life": 1,
             "cardNum": 5
         },
         "King": {
@@ -87,6 +94,7 @@ class DataTwo {
             "description": "",
             "color": "blue",
             "ranger": "Louise",
+            "life": 1,
             "cardNum": 5
         },
         "Bracula": {
@@ -94,6 +102,7 @@ class DataTwo {
             "description": "",
             "color": "purple",
             "ranger": "Bratz",
+            "life": 1,
             "cardNum": 5
         }
     };

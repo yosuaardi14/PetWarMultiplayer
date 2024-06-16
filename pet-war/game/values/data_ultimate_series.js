@@ -1,4 +1,4 @@
-class DataSpinOff {
+class DataUltimateSeries {
     static DEFAULT_MAX_LIFE = 5;
 
     static CANVAS_RANGER = [
@@ -24,6 +24,7 @@ class DataSpinOff {
             "description": "",
             "color": "grey",
             "ranger": "",
+            "life": 0,
             "cardNum": 5
         },
         "Maze Forest": {
@@ -31,6 +32,7 @@ class DataSpinOff {
             "description": "",
             "color": "grey",
             "ranger": "",
+            "life": 0,
             "cardNum": 5
         },
         "Thorn Forest": {
@@ -38,6 +40,7 @@ class DataSpinOff {
             "description": "",
             "color": "grey",
             "ranger": "",
+            "life": 0,
             "cardNum": 5
         },
         "Cursed Forest": {
@@ -45,6 +48,7 @@ class DataSpinOff {
             "description": "",
             "color": "grey",
             "ranger": "",
+            "life": 0,
             "cardNum": 5
         },
         "Catapult Forest": {
@@ -52,6 +56,7 @@ class DataSpinOff {
             "description": "",
             "color": "grey",
             "ranger": "",
+            "life": 0,
             "cardNum": 5
         },
         "Vao": {
@@ -59,6 +64,7 @@ class DataSpinOff {
             "description": "",
             "color": "black",
             "ranger": "Gaoh",
+            "life": 1,
             "cardNum": 5
         },
         "Menejeur": {
@@ -66,6 +72,7 @@ class DataSpinOff {
             "description": "",
             "color": "silver",
             "ranger": "Mazo",
+            "life": 2,
             "cardNum": 5
         }
     };
@@ -139,4 +146,4 @@ class DataSpinOff {
         },
     };
 }
-module.exports = DataSpinOff;
+module.exports = DataUltimateSeries;

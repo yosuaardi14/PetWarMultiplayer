@@ -1,5 +1,7 @@
 class DataSpinOff {
     static DEFAULT_MAX_LIFE = 5;
+    
+    static POISON_DART_TURNS = 3;
 
     static CANVAS_RANGER = [
         {
@@ -24,6 +26,7 @@ class DataSpinOff {
             "description": "",
             "color": "orange",
             "ranger": "Visca",
+            "life": 1,
             "cardNum": 5
         },
         "Raven": {
@@ -31,6 +34,7 @@ class DataSpinOff {
             "description": "",
             "color": "purple",
             "ranger": "Lynn",
+            "life": 1,
             "cardNum": 5
         }
     };

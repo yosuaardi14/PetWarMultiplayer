@@ -104,4 +104,69 @@ class GF {
         return Colors.white;
     }
   }
+
+  static IconData getIconByAbility(String? ability) {
+    switch (ability) {
+      case "OverShock":
+      case "Doom":
+        return Icons.brightness_high_rounded;
+      case "GetCover":
+      case "MasterHide":
+        return Icons.group;
+      case "Hide":
+        return Icons.panorama_horizontal_select_rounded;
+      case "Armor":
+        return Icons.shield_outlined;
+      case "Shield":
+        return Icons.shield;
+      case "Aim":
+        return Icons.circle_outlined;
+      case "TwoAim":
+        return Icons.join_inner_rounded;
+      case "Grenade":
+        return Icons.zoom_in_map;
+      case "MegaGrenade":
+        return Icons.zoom_out_map;
+      case "Miss":
+        return Icons.call_missed;
+      case "Boom":
+        return Icons.brightness_5;
+      case "TwoBoom":
+        return Icons.brightness_low_outlined;
+      case "Running":
+        return Icons.arrow_back_ios_new;
+      case "DoubleRun":
+        return Icons.keyboard_double_arrow_left_sharp;
+      case "GoForward":
+        return Icons.turn_left;
+      case "GoBackward":
+        return Icons.turn_right;
+      case "GoAnyward":
+        return Icons.swap_horiz_sharp;
+      case "BumpLeft":
+        return Icons.arrow_back;
+      case "BumpRight":
+        return Icons.arrow_forward;
+      case "LunchTime":
+        return Icons.lunch_dining;
+      case "MovingAim":
+        return Icons.compare_arrows;
+      case "Trap":
+        return Icons.do_disturb;
+      case "MoveThePet":
+        return Icons.swap_horiz;
+      case "Kamikaze":
+        return Icons.brightness_7;
+      case "Escape":
+        return Icons.move_up_rounded;
+      case "Typhoon":
+        return Icons.wifi_protected_setup;
+      case "Ressurect":
+        return Icons.plus_one;
+      case "DoubleRessurect":
+        return Icons.exposure_plus_2;
+      default:
+        return Icons.abc;
+    }
+  }
 }
