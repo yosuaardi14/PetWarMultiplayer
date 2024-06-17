@@ -24,6 +24,8 @@ class BaseView<T extends BaseGameController> extends GetView<T> {
                 child: PlayerInfoList<T>(),
               ),
             ),
+            // CHILDREN
+            ...?children,
             Align(
               alignment: Alignment.topRight,
               child: Padding(
@@ -31,8 +33,6 @@ class BaseView<T extends BaseGameController> extends GetView<T> {
                 child: ActionHistory<T>(),
               ),
             ),
-            // CHILDREN
-            ...?children,
           ],
         ),
       ),

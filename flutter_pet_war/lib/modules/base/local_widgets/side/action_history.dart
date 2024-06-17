@@ -19,6 +19,13 @@ class ActionHistory<T extends BaseGameController> extends GetView<T> {
             () => ListView(
               controller: controller.actionHistoryScrollController,
               children: [
+                ElevatedButton(
+                  onPressed: () {
+                    print("object");
+                    controller.showCatalog();
+                  },
+                  child: const Text("Katalog Kartu"),
+                ),
                 const Text(
                   "History",
                   style: TextStyle(
@@ -41,10 +48,6 @@ class ActionHistory<T extends BaseGameController> extends GetView<T> {
                             const TextStyle(fontSize: 14, color: Colors.white),
                       ),
                     ),
-                ElevatedButton(
-                  onPressed: controller.showCatalog,
-                  child: const Text("Katalog Kartu"),
-                ),
               ],
             ),
           ),
