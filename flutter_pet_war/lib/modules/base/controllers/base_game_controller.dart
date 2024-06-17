@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pet_war/core/utils/circular_queue.dart';
 import 'package:flutter_pet_war/data/models/player.dart';
 import 'package:flutter_pet_war/data/services/socket_service.dart';
+import 'package:flutter_pet_war/modules/base/local_widgets/catalog/card_catalog.dart';
 import 'package:flutter_pet_war/modules/base/local_widgets/dialog/info_dialog.dart';
 import 'package:get/get.dart';
 
@@ -228,5 +229,9 @@ class BaseGameController extends GetxController {
         aimList[i + 1] = true;
       }
     }
+  }
+
+  void showCatalog() {
+    Get.dialog(const CardCatalog());
   }
 }

@@ -1,7 +1,8 @@
 const Data = require('../values/data');
 const DataTwo = require('../values/data_two');
-const DataSpinOff = require('../values/data_spin_off');
-const DataUltimateSeries = require('../values/data_ultimate_series');
+const DataExpansion = require('../values/data_expansion');
+const DataNaviBattle = require('../values/data_navi_battle');
+const DataLeader = require('../values/data_leader');
 const Util = require('./util');
 const CircularQueue = require('./circular_queue');
 

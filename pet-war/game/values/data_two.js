@@ -6,7 +6,7 @@ class DataTwo {
     static CANVAS_RANGER = [
         {
             "name": "Daiya",
-            "description": "",
+            "description": "\"Daiya\" is the owner of \"Soeharti\", their ability is to manipulate the pet line to create the worst scenario of their opponent.",
             "pet": "Soeharti",
             "color": "orange",
             "cardNum": 1
@@ -20,29 +20,29 @@ class DataTwo {
         },
         {
             "name": "Rei",
-            "description": "",
+            "description": "\"Rei\" is the owner of \"Giro\", their ability is gear charge. They can use charge to kill more than one pet in one action.",
             "pet": "Giro",
             "color": "green",
             "cardNum": 1
         },
         {
             "name": "Javelin",
-            "description": "",
+            "description": "\"Javelin\" is the owner of \"Vulcan\", their abilities are to scavenge the discard pile and the dead pet.",
             "pet": "Vulcan",
             "color": "red",
             "cardNum": 1
         },
         {
             "name": "Louise",
-            "description": "",
+            "description": "\"Louise\" is the owner of \'King\", their ability is to jump over. King has a dead penalty after three rounds, however he can flee and kill with ease.",
             "pet": "King",
             "color": "blue",
             "cardNum": 1
         },
         {
-            "name": "Bratz",
+            "name": "Bracula",
             "description": "",
-            "pet": "Bracula",
+            "pet": "Bratz",
             "color": "purple",
             "cardNum": 1
         }
@@ -97,11 +97,11 @@ class DataTwo {
             "life": 1,
             "cardNum": 5
         },
-        "Bracula": {
-            "name": "Bracula",
+        "Bratz": {
+            "name": "Bratz",
             "description": "",
             "color": "purple",
-            "ranger": "Bratz",
+            "ranger": "Bracula",
             "life": 1,
             "cardNum": 5
         }
@@ -269,7 +269,7 @@ class DataTwo {
                 "name": "Vampiric Move",
                 "description": "",
                 "color": "purple",
-                "ranger": "Bratz",
+                "ranger": "Bracula",
                 "ability": "VampiricMove"
             }
         },
@@ -284,7 +284,7 @@ class DataTwo {
                 "name": "Vampiric Bite",
                 "description": "",
                 "color": "purple",
-                "ranger": "Bratz",
+                "ranger": "Bracula",
                 "ability": "VampiricBite"
             }
         },

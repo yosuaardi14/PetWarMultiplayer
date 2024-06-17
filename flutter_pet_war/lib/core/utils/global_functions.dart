@@ -86,21 +86,57 @@ class GF {
     );
   }
 
-  static Color colorFromString(String color) {
+  static Color colorFromString(String color, [bool light = false]) {
     switch (color) {
       case "red":
+        if (light) {
+          return Colors.red.shade200;
+        }
         return Colors.red.shade400;
       case "orange":
+        if (light) {
+          return Colors.orangeAccent.shade200;
+        }
         return Colors.orangeAccent.shade700;
       case "deeppink":
+        if (light) {
+          return Colors.pink.shade100;
+        }
         return Colors.pink.shade300;
       case "purple":
+        if (light) {
+          return Colors.purple.shade200;
+        }
         return Colors.purple;
       case "blue":
+        if (light) {
+          return Colors.blueAccent.shade100;
+        }
         return Colors.blueAccent;
       case "yellowgreen":
+        if (light) {
+          return Colors.green.shade100;
+        }
         return Colors.green;
+      case "green":
+        if (light) {
+          return Colors.lightGreen.shade100;
+        }
+        return Colors.lightGreen;
+      case "black":
+        if (light) {
+          return Colors.black87;
+        }
+        return Colors.black;
+      case "silver":
+        if (light) {
+          return Colors.blueGrey.shade100;
+        }
+        return Colors.blueGrey;
       default:
+        if (light) {
+          return Colors.white54;
+        }
         return Colors.white;
     }
   }
@@ -114,7 +150,7 @@ class GF {
       case "MasterHide":
         return Icons.group;
       case "Hide":
-        return Icons.panorama_horizontal_select_rounded;
+        return Icons.bookmark;
       case "Armor":
         return Icons.shield_outlined;
       case "Shield":
@@ -160,7 +196,7 @@ class GF {
       case "Escape":
         return Icons.move_up_rounded;
       case "Typhoon":
-        return Icons.wifi_protected_setup;
+        return Icons.air;
       case "Ressurect":
         return Icons.plus_one;
       case "DoubleRessurect":

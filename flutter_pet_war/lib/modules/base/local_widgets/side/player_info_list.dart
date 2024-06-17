@@ -15,7 +15,7 @@ class PlayerInfoList<T extends BaseGameController> extends GetView<T> {
         borderRadius: BorderRadius.circular(8),
       ),
       elevation: 5,
-      color: Colors.black,
+      color: Colors.grey,
       child: Obx(
         () => Padding(
           padding: const EdgeInsets.all(3),
@@ -30,29 +30,21 @@ class PlayerInfoList<T extends BaseGameController> extends GetView<T> {
                         height: 75,
                         child: Obx(
                           () => ListTile(
-                            // contentPadding:
-                            //     const EdgeInsets.symmetric(horizontal: 5),
                             shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                width: 5,
-                                color: controller.nowTurnPlayerId() == e["id"]
-                                    ? Colors.yellow
-                                    : Colors.transparent,
-                              ),
                               borderRadius: BorderRadius.circular(6),
                             ),
                             isThreeLine: true,
                             tileColor: e["isDead"] == true
                                 ? Colors.grey
-                                : Colors.white,
-                            // textColor:
-                            //     controller.nowTurnPlayerName() == e["name"]
-                            //         ? Colors.white
-                            //         : null,
+                                : controller.nowTurnPlayerId() == e["id"]
+                                    ? GF.colorFromString(
+                                        jsonDecode(e["ranger"])["color"])
+                                    : Colors.white,
                             leading: CircleAvatar(
                               backgroundColor: GF.colorFromString(
                                   jsonDecode(e["ranger"])["color"]),
                             ),
+                            textColor: e["isDead"] == true ? Colors.red : null,
                             trailing: Text(
                               "${e["life"]}/${e["maxLife"]}",
                               style: TextStyle(

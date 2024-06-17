@@ -38,7 +38,7 @@ class ActionModel {
       specialAbility = SpecialAbility.fromJson(data["special"]);
     }
     return ActionModel(
-      id: data["id"],
+      id: data["id"] ?? "",
       name: data["name"], //normalName,
       description: data["description"],
       color: data["color"],

@@ -308,6 +308,20 @@ class BackCard extends StatelessWidget {
         ),
         child: Stack(
           children: [
+            Align(
+              alignment: Alignment.center,
+              child: Container(
+                width: 75,
+                height: 75,
+                decoration: BoxDecoration(
+                  border: const Border.symmetric(
+                    horizontal: BorderSide(color: Colors.white, width: 10),
+                    vertical: BorderSide(color: Colors.white, width: 10),
+                  ),
+                  borderRadius: BorderRadius.circular(75),
+                ),
+              ),
+            ),
             const Align(
               alignment: Alignment.center,
               child: Text(

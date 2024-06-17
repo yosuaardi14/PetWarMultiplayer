@@ -6,42 +6,42 @@ class Data {
     static CANVAS_RANGER = [
         {
             "name": "Dobel",
-            "description": "",
+            "description": "Ixora & Ixano, (known as \"Dobel\") are the owner of \"Sharpnell\" that has the ability of speed. They'll reach the safety zone in no time.",
             "pet": "Sharpnell",
             "color": "orange",
             "cardNum": 1
         },
         {
             "name": "Tsunaryo",
-            "description": "",
-            "pet": "Lpg-Zord",
+            "description": "\"Tsuna\" is the owner of \"LPG-Zord\" that has the ability of explosion. It/he can kill more than one pet in one action.",
+            "pet": "LPG-Zord",
             "color": "yellowgreen",
             "cardNum": 1
         },
         {
-            "name": "Von staire",
-            "description": "",
+            "name": "Vonstaire",
+            "description": "\"Vonstaire\" is the owner of \"Sunge\" that has the abilities to escape and resurrect. Prepare to face them again, and again, and again...",
             "pet": "Sunge",
             "color": "deeppink",
             "cardNum": 1
         },
         {
             "name": "Ashtray",
-            "description": "",
+            "description": "\"Ashtray\" is the owner of \"Minion\" that has the ability to disturb the other pet(s). Minion is the most annoying pet in this game.",
             "pet": "Minion",
             "color": "red",
             "cardNum": 1
         },
         {
             "name": "Bonci",
-            "description": "",
+            "description": "\"Bonci\" is the owner of \"Waung\" that has the ability to survive. One attack is not enough to get rid of them.",
             "pet": "Waung",
             "color": "blue",
             "cardNum": 1
         },
         {
             "name": "Neo",
-            "description": "",
+            "description": "\"Neo\" is the owner of \"Paleo\" that has the ability to kill another pet with its/his super power!",
             "pet": "Paleo",
             "color": "purple",
             "cardNum": 1
@@ -65,8 +65,8 @@ class Data {
             "life": 1,
             "cardNum": 5
         },
-        "Lpg-Zord": {
-            "name": "Lpg-Zord",
+        "LPG-Zord": {
+            "name": "LPG-Zord",
             "description": "",
             "color": "yellowgreen",
             "ranger": "Tsunaryo",
@@ -77,7 +77,7 @@ class Data {
             "name": "Sunge",
             "description": "",
             "color": "deeppink",
-            "ranger": "Von staire",
+            "ranger": "Vonstaire",
             "life": 1,
             "cardNum": 5
         },
@@ -284,7 +284,7 @@ class Data {
                 "name": "Double Resurrect",
                 "description": "",
                 "color": "deeppink",
-                "ranger": "Von staire",
+                "ranger": "Vonstaire",
                 "ability": "DoubleRessurect"
             }
         },
@@ -299,7 +299,7 @@ class Data {
                 "name": "Go Anyward",
                 "description": "",
                 "color": "deeppink",
-                "ranger": "Von staire",
+                "ranger": "Vonstaire",
                 "ability": "GoAnyward"
             }
         },
@@ -314,7 +314,7 @@ class Data {
                 "name": "Go Anyward",
                 "description": "",
                 "color": "deeppink",
-                "ranger": "Von staire",
+                "ranger": "Vonstaire",
                 "ability": "GoAnyward"
             }
         },

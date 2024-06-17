@@ -1,7 +1,5 @@
 const Data = require('./values/data');
 const DataTwo = require('./values/data_two');
-const DataSpinOff = require('./values/data_spin_off');
-const DataUltimateSeries = require('./values/data_ultimate_series');
 const Player = require('./models/player');
 const CircularQueue = require('./utils/circular_queue');
 const GameUtil = require('./utils/game_util');
@@ -142,7 +140,7 @@ class Main {
                 if (this.playerIdArr.indexOf(playerId) == 0 && this.devMode) {
                     let card = this.actionDeck.find(item => item.name === cardName[i]);
                     if (card === undefined) {
-                        card = this.actionDeck.find(item => item.special.name === cardName[i]);
+                        card = this.actionDeck.find(item => item.special != null && item.special.name === cardName[i]);
                         if (card === undefined) {
                             card = this.actionDeck.splice(0, 1)[0];
                         }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pet_war/modules/base/local_widgets/catalog/card_catalog.dart';
 import 'package:flutter_pet_war/modules/base/local_widgets/game_background.dart';
 import 'package:flutter_pet_war/modules/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
@@ -41,6 +42,17 @@ class HomeView extends GetView<HomeController> {
                           child: ElevatedButton(
                             onPressed: controller.showRoomListDialog,
                             child: const Text("Lihat Daftar Room"),
+                          ),
+                        ),
+                        const SizedBox(height: 30),
+                        SizedBox(
+                          width: 200,
+                          height: 30,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Get.dialog(const CardCatalog());
+                            },
+                            child: const Text("Katalog Kartu"),
                           ),
                         ),
                       ],

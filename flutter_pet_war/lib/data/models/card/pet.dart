@@ -3,6 +3,7 @@ class Pet {
   String description;
   String color;
   String ranger;
+  int life;
   int cardNum;
   Map<String, dynamic>? extraprop;
 
@@ -10,6 +11,7 @@ class Pet {
     required this.name,
     this.description = "",
     this.color = "",
+    this.life = 0,
     required this.ranger,
     this.cardNum = 1,
   });
@@ -28,6 +30,7 @@ class Pet {
       description: data["description"],
       color: data["color"],
       ranger: data["ranger"],
+      life: data["life"],
       cardNum: data["cardNum"],
     );
   }
@@ -38,6 +41,7 @@ class Pet {
       "description": description,
       "color": color,
       "ranger": ranger,
+      "life": life,
       "cardNum": cardNum
     };
   }

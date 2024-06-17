@@ -6,7 +6,7 @@ import 'package:flutter_pet_war/data/models/player.dart';
 class GameUtils {
   static List<Map<String, dynamic>> initActionDeck({bool shuffle = true}) {
     List<Map<String, dynamic>> actionDeck = [];
-    for (var action in Constant.ACTION_NEW.values) {
+    for (var action in Constant.ACTION.values) {
       var actionCard = Map<String, dynamic>.from(action);
       switch (actionCard["name"]) {
         case "Grenade":
@@ -238,16 +238,16 @@ class GameUtils {
       return WidgetMode.normal;
     }
 
-    var needKamikaze = [
-      "Boom",
-      "Doom",
-    ];
+    // var needKamikaze = [
+    //   "Boom",
+    //   "Doom",
+    // ];
 
-    if (checkAvailableCardOnPetLine(
-            "Kamikaze", controller.petLine(), cardIndex) &&
-        needKamikaze.contains(cardName)) {
-      return WidgetMode.dragTarget;
-    }
+    // if (checkAvailableCardOnPetLine(
+    //         "Kamikaze", controller.petLine(), cardIndex) &&
+    //     needKamikaze.contains(cardName)) {
+    //   return WidgetMode.dragTarget;
+    // }
 
     var needPetList = [
       "Armor",
