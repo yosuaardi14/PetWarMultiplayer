@@ -47,9 +47,9 @@ class DataExpansion {
     static PET = {
         "Enchanted Forest": {
             "name": "Enchanted Forest",
-            "description": "",
+            "description": "If any pet swaps with this forest, that player take one aim card in the discard pile and put in pet line in any order",
             "color": "grey",
-            "ranger": "If any pet swaps with this forest, that player take one aim card in the discard pile and put in pet line in any order",
+            "ranger": "",
             "life": 0,
             "cardNum": 1
         },
@@ -63,7 +63,7 @@ class DataExpansion {
         },
         "Thorn Forest": {
             "name": "Thorn Forest",
-            "description": "No pet can go through this forest, unless King while using \"banza\"",
+            "description": "No pet can go through this forest, unless King while using \"banzai\"",
             "color": "grey",
             "ranger": "",
             "life": 0,

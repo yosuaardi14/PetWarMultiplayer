@@ -289,10 +289,10 @@ class Constant {
     },
     "Enchanted Forest": {
       "name": "Enchanted Forest",
-      "description": "",
-      "color": "grey",
-      "ranger":
+      "description":
           "If any pet swaps with this forest, that player take one aim card in the discard pile and put in pet line in any order",
+      "color": "grey",
+      "ranger": "",
       "life": 0,
       "cardNum": 1
     },
@@ -308,7 +308,7 @@ class Constant {
     "Thorn Forest": {
       "name": "Thorn Forest",
       "description":
-          "No pet can go through this forest, unless King while using \"banza\"",
+          "No pet can go through this forest, unless King while using \"banzai\"",
       "color": "grey",
       "ranger": "",
       "life": 0,
