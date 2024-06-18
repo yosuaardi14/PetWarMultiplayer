@@ -26,7 +26,7 @@ class SocketService {
 
   late IO.Socket _socket;
 
-  String host = "http://localhost:3000";
+  String host = const String.fromEnvironment("wss"); // "http://localhost:3000";
   String? _sessionId;
   // String? _sessionId;
 
