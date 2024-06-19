@@ -41,6 +41,48 @@ class DataExpansion {
             "pet": "Paleo",
             "color": "purple",
             "cardNum": 1
+        },
+         {
+            "name": "Dewi Ruh Bengi",
+            "description": "\"Dewi Ruh Bengi\" is the owner of \"Soeharti\", their ability is to manipulate the pet line to create the worst scenario of their opponent.",
+            "pet": "Soeharti",
+            "color": "orange",
+            "cardNum": 1
+        },
+        {
+            "name": "Archetype",
+            "description": "\"Archetype\" is the owner of \"Marmar\", their abilities are to steal other pet's protection and discard aims.",
+            "pet": "Marmar",
+            "color": "yellowgreen",
+            "cardNum": 1
+        },
+        {
+            "name": "G.R.",
+            "description": "\"G.R.\" is the owner of \"Giro\", their ability is gear charge. They can use charge to kill more than one pet in one action.",
+            "pet": "Giro",
+            "color": "green",
+            "cardNum": 1
+        },
+        {
+            "name": "Zero-Arms",
+            "description": "\"Zero-Arms\" is the owner of \"Vulcan\", their abilities are to scavenge the discard pile and the dead pet.",
+            "pet": "Vulcan",
+            "color": "red",
+            "cardNum": 1
+        },
+        {
+            "name": "Camiere",
+            "description": "\"Camiere\" is the owner of \'King\", their ability is to jump over. King has a dead penalty after three rounds, however he can flee and kill with ease.",
+            "pet": "King",
+            "color": "blue",
+            "cardNum": 1
+        },
+        {
+            "name": "Braculla",
+            "description": "\"Braculla\" is the owner of \"Bratz\", their ability is vampiric skill that allows him to absorb other pet's life.",
+            "pet": "Bratz",
+            "color": "purple",
+            "cardNum": 1
         }
     ];
 
