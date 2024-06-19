@@ -59,7 +59,7 @@ class Constant {
       "description":
           "\"Bonci\" is the owner of \"Waung\" that has the ability to survive. One attack is not enough to get rid of them.",
       "pet": "Waung",
-      "color": "blue",
+      "color": "deepblue",
       "cardNum": 1
     },
     {
@@ -67,7 +67,7 @@ class Constant {
       "description":
           "\"Neo\" is the owner of \"Paleo\" that has the ability to kill another pet with its/his super power!",
       "pet": "Paleo",
-      "color": "purple",
+      "color": "deeppurple",
       "cardNum": 1
     },
     {
@@ -75,14 +75,15 @@ class Constant {
       "description":
           "\"Daiya\" is the owner of \"Soeharti\", their ability is to manipulate the pet line to create the worst scenario of their opponent.",
       "pet": "Soeharti",
-      "color": "orange",
+      "color": "yellow",
       "cardNum": 1
     },
     {
       "name": "Elliot",
-      "description": "",
+      "description":
+          "\"Elliot\" is the owner of \"Marmar\", their abilities are to steal other pet's protection and discard aims.",
       "pet": "Marmar",
-      "color": "yellowgreen",
+      "color": "lightgreen",
       "cardNum": 1
     },
     {
@@ -98,7 +99,7 @@ class Constant {
       "description":
           "\"Javelin\" is the owner of \"Vulcan\", their abilities are to scavenge the discard pile and the dead pet.",
       "pet": "Vulcan",
-      "color": "red",
+      "color": "brown",
       "cardNum": 1
     },
     {
@@ -111,9 +112,10 @@ class Constant {
     },
     {
       "name": "Bracula",
-      "description": "",
+      "description":
+          "\"Bracula\" is the owner of \"Bratz\", their ability is vampiric skill that allows him to absorb other pet's life.",
       "pet": "Bratz",
-      "color": "purple",
+      "color": "lightpurple",
       "cardNum": 1
     },
     {
@@ -137,7 +139,7 @@ class Constant {
       "description":
           "\"Visca\" is the owner of \"Lavu\". Their ability is to use and manipulate air as the source of their power.",
       "pet": "Lavu",
-      "color": "orange",
+      "color": "deeporange",
       "cardNum": 1
     },
     {
@@ -148,6 +150,102 @@ class Constant {
       "color": "purple",
       "cardNum": 1
     },
+    {
+      "name": "Double",
+      "description":
+          "Ixora & Ixano, (known as \"Double\") are the owner of \"Sharpnell\" that has the ability of speed. They'll reach the safety zone in no time.",
+      "pet": "Sharpnell",
+      "color": "orange",
+      "cardNum": 1
+    },
+    {
+      "name": "Kobong",
+      "description":
+          "\"Kobong\" is the owner of \"LPG-Zord\" that has the ability of explosion. It/he can kill more than one pet in one action.",
+      "pet": "LPG-Zord",
+      "color": "yellowgreen",
+      "cardNum": 1
+    },
+    {
+      "name": "Soulbender R",
+      "description":
+          "\"Soulbender R\" is the owner of \"Sunge\" that has the abilities to escape and resurrect. Prepare to face them again, and again, and again...",
+      "pet": "Sunge",
+      "color": "deeppink",
+      "cardNum": 1
+    },
+    {
+      "name": "Ashtranger",
+      "description":
+          "\"Ashtranger\" is the owner of \"Minion\" that has the ability to disturb the other pet(s). Minion is the most annoying pet in this game.",
+      "pet": "Minion",
+      "color": "red",
+      "cardNum": 1
+    },
+    {
+      "name": "Roxxeon Kaizer",
+      "description":
+          "\"Roxxeon Kaizer\" is the owner of \"Waung\" that has the ability to survive. One attack is not enough to get rid of them.",
+      "pet": "Waung",
+      "color": "deepblue",
+      "cardNum": 1
+    },
+    {
+      "name": "Electrode",
+      "description":
+          "\"Electrode\" is the owner of \"Paleo\" that has the ability to kill another pet with its/his super power!",
+      "pet": "Paleo",
+      "color": "purple",
+      "cardNum": 1
+    },
+    {
+      "name": "Dewi Ruh Bengi",
+      "description":
+          "\"Dewi Ruh Bengi\" is the owner of \"Soeharti\", their ability is to manipulate the pet line to create the worst scenario of their opponent.",
+      "pet": "Soeharti",
+      "color": "yellow",
+      "cardNum": 1
+    },
+    {
+      "name": "Archetype",
+      "description":
+          "\"Archetype\" is the owner of \"Marmar\", their abilities are to steal other pet's protection and discard aims.",
+      "pet": "Marmar",
+      "color": "lightgreen",
+      "cardNum": 1
+    },
+    {
+      "name": "G.R.",
+      "description":
+          "\"G.R.\" is the owner of \"Giro\", their ability is gear charge. They can use charge to kill more than one pet in one action.",
+      "pet": "Giro",
+      "color": "green",
+      "cardNum": 1
+    },
+    {
+      "name": "Zero-Arms",
+      "description":
+          "\"Zero-Arms\" is the owner of \"Vulcan\", their abilities are to scavenge the discard pile and the dead pet.",
+      "pet": "Vulcan",
+      "color": "brown",
+      "cardNum": 1
+    },
+    {
+      "name": "Camiere",
+      "description":
+          "\"Camiere\" is the owner of \'King\", their ability is to jump over. King has a dead penalty after three rounds, however he can flee and kill with ease.",
+      "pet": "King",
+      "color": "blue",
+      "cardNum": 1
+    },
+    {
+      "name": "Braculla",
+      "description":
+          "\"Braculla\" is the owner of \"Bratz\", their ability is vampiric skill that allows him to absorb other pet's life.",
+      "pet": "Bratz",
+      "color": "lightpurple",
+      "cardNum": 1
+    }
   ];
 
   static const Map<String, Map<String, dynamic>> PET = {
@@ -194,7 +292,7 @@ class Constant {
     "Waung": {
       "name": "Waung",
       "description": "",
-      "color": "blue",
+      "color": "deepblue",
       "ranger": "Bonci",
       "life": 1,
       "cardNum": 5
@@ -202,7 +300,7 @@ class Constant {
     "Paleo": {
       "name": "Paleo",
       "description": "",
-      "color": "purple",
+      "color": "deeppurple",
       "ranger": "Neo",
       "life": 1,
       "cardNum": 5
@@ -210,7 +308,7 @@ class Constant {
     "Soeharti": {
       "name": "Soeharti",
       "description": "",
-      "color": "orange",
+      "color": "yellow",
       "ranger": "Daiya",
       "life": 1,
       "cardNum": 5
@@ -218,7 +316,7 @@ class Constant {
     "Marmar": {
       "name": "Marmar",
       "description": "",
-      "color": "yellowgreen",
+      "color": "lightgreen",
       "ranger": "Elliot",
       "life": 1,
       "cardNum": 5
@@ -234,7 +332,7 @@ class Constant {
     "Vulcan": {
       "name": "Vulcan",
       "description": "",
-      "color": "red",
+      "color": "brown",
       "ranger": "Javelin",
       "life": 1,
       "cardNum": 5
@@ -250,7 +348,7 @@ class Constant {
     "Bratz": {
       "name": "Bratz",
       "description": "",
-      "color": "purple",
+      "color": "lightpurple",
       "ranger": "Bracula",
       "life": 1,
       "cardNum": 5
@@ -274,7 +372,7 @@ class Constant {
     "Lavu": {
       "name": "Lavu",
       "description": "",
-      "color": "orange",
+      "color": "deeporange",
       "ranger": "Visca",
       "life": 1,
       "cardNum": 5
@@ -338,7 +436,8 @@ class Constant {
     "Aim": {
       "name": "Aim",
       "block": 1,
-      "description": "",
+      "description":
+          "Put this card above the pet you want to be targeted in the \"Pet Line\"",
       "color": "gold",
       "cardNum": 8, //5,
       "ability": "Aim",
@@ -347,7 +446,8 @@ class Constant {
     "Boom": {
       "name": "Boom",
       "block": 1,
-      "description": "",
+      "description":
+          "Use this card to destroy the targeted pet. Remove the aim card",
       "color": "gold",
       "cardNum": 8, //6,
       "ability": "Boom",
@@ -356,25 +456,28 @@ class Constant {
     "Doom": {
       "name": "Doom",
       "block": 1,
-      "description": "",
+      "description":
+          "Destroying target whether it was aimed or not. If the card was aimed, remove the aim card also",
       "color": "gold",
       "cardNum": 1,
       "ability": "Doom",
       "special": null
     },
-    "Two Aim": {
-      "name": "Two Aim",
+    "Two Aims": {
+      "name": "Two Aims",
       "block": 2,
-      "description": "",
+      "description":
+          "Put TWO AIMS card sideways above any adjacent pets, tilt back to the normal position if one of them was destroyed",
       "color": "gold",
       "cardNum": 2, //1,
       "ability": "TwoAim",
       "special": null
     },
-    "Two Boom": {
-      "name": "Two Boom",
+    "Two Booms": {
+      "name": "Two Booms",
       "block": 2,
-      "description": "",
+      "description":
+          "Destory any two adjacent targeted pets, both with aim cards above them. Remove the aim cards. If there's no any adjacent aim card if become single boom",
       "color": "gold",
       "cardNum": 1,
       "ability": "TwoBoom",
@@ -383,7 +486,8 @@ class Constant {
     "Miss": {
       "name": "Miss",
       "block": 1,
-      "description": "",
+      "description":
+          "Destroy the pet next to the targeted pet (left or right) and the remove the used aim card",
       "color": "gold",
       "cardNum": 1,
       "ability": "Miss",
@@ -392,7 +496,8 @@ class Constant {
     "Hide": {
       "name": "Hide",
       "block": 1,
-      "description": "",
+      "description":
+          "Cover your chosen pet with this card. The covered pet can't be destroyed until this card removed after one round",
       "color": "gold",
       "cardNum": 1,
       "ability": "Hide",
@@ -401,7 +506,8 @@ class Constant {
     "Running": {
       "name": "Running",
       "block": 1,
-      "description": "",
+      "description":
+          "Move forward all cards in the \"pet line\" remove the card in the very from of the line to the bottom of the deck, replace the blank spot with new card from deck",
       "color": "gold",
       "cardNum": 3,
       "ability": "Running",
@@ -410,7 +516,7 @@ class Constant {
     "Go Forward": {
       "name": "Go Forward",
       "block": 1,
-      "description": "",
+      "description": "Swap YOUR pet with any card on the left side",
       "color": "gold",
       "cardNum": 2, //1,
       "ability": "GoForward",
@@ -419,7 +525,7 @@ class Constant {
     "Go Backward": {
       "name": "Go Backward",
       "block": 1,
-      "description": "",
+      "description": "Swap YOUR pet with any card on the right side",
       "color": "gold",
       "cardNum": 2,
       "ability": "GoBackward",
@@ -428,7 +534,8 @@ class Constant {
     "Move The Pet": {
       "name": "Move The Pet",
       "block": 1,
-      "description": "",
+      "description":
+          "Rearrange all pet cards in the \"Pet Line\" anyway you like. Aim cards don't move",
       "color": "gold",
       "cardNum": 2, //1,
       "ability": "MoveThePet",
@@ -437,7 +544,8 @@ class Constant {
     "Typhoon": {
       "name": "Typhoon",
       "block": 1,
-      "description": "",
+      "description":
+          "Reshuffle all the pet cards in the \"Pet Line\" and the pet deck. Draw six new pet cards into the line",
       "color": "gold",
       "cardNum": 1,
       "ability": "Typhoon",
@@ -446,7 +554,8 @@ class Constant {
     "Get Cover": {
       "name": "Get Cover",
       "block": 1,
-      "description": "",
+      "description":
+          "Put YOUR pet underneath the nearest pet. Your pet moves along with the covering pet, and remain hidden until the covering is destroyed",
       "color": "gold",
       "cardNum": 2,
       "ability": "GetCover",
@@ -455,7 +564,7 @@ class Constant {
     "Armor": {
       "name": "Armor",
       "block": 1,
-      "description": "",
+      "description": "Cover your chosen pet to get additional life +1",
       "color": "gold",
       "cardNum": 3, //1,
       "ability": "Armor",
@@ -464,7 +573,7 @@ class Constant {
     "Lunch Time": {
       "name": "Lunch Time",
       "block": 1,
-      "description": "",
+      "description": "Remove all aim cards in the \"Pet Line\"",
       "color": "gold",
       "cardNum": 2, //1,
       "ability": "LunchTime",
@@ -473,13 +582,15 @@ class Constant {
     "Grenade-Mega Grenade": {
       "name": "Grenade",
       "block": 1,
-      "description": "",
+      "description":
+          "Put this card below any pet card in the \"Pet Line\". When the third player ends their turn after this card was placed, remove the grenade card and the pet above it. (has no effect to the forest card)",
       "color": "gold",
       "cardNum": 2,
       "ability": "Grenade",
       "special": {
         "name": "Mega Grenade",
-        "description": "",
+        "description":
+            "Put this card below any pet card in the \"Pet Line\". When the third player ends their turn after this card was placed, remove the grenade card and three pet above it. (has no effect to the forest card), if u are Tsuna",
         "color": "yellowgreen",
         "ranger": "Tsunaryo",
         "ability": "MegaGrenade"
@@ -488,13 +599,15 @@ class Constant {
     "Aim-Kamikaze": {
       "name": "Aim",
       "block": 1,
-      "description": "",
+      "description":
+          "Put this card above the pet you want to be targeted in the \"Pet Line\"",
       "color": "gold",
       "cardNum": 3,
       "ability": "Aim",
       "special": {
         "name": "Kamikaze",
-        "description": "",
+        "description":
+            "Cover LPG-Zord with this card. If LPG-Zord was destroyed, it and its both sides including all attached to the are destroyed, if u are Tsuna",
         "color": "yellowgreen",
         "ranger": "Tsunaryo",
         "ability": "Kamikaze"
@@ -503,13 +616,15 @@ class Constant {
     "Ressurect-Double Resurrect": {
       "name": "Ressurect",
       "block": 1,
-      "description": "",
+      "description":
+          "Revive one of your pet that has been removed from the game to the bottom of the pet deck",
       "color": "gold",
       "cardNum": 2,
       "ability": "Ressurect",
       "special": {
         "name": "Double Resurrect",
-        "description": "",
+        "description":
+            "Put two 'Sunge' that has been removed from the game to the bottom of the pet deck, if u are Vonstaire",
         "color": "deeppink",
         "ranger": "Vonstaire",
         "ability": "DoubleRessurect"
@@ -518,13 +633,14 @@ class Constant {
     "Go Forward-Go Anyward": {
       "name": "Go Forward",
       "block": 1,
-      "description": "",
+      "description": "Swap YOUR pet with any card on the left side",
       "color": "gold",
       "cardNum": 2,
       "ability": "GoForward",
       "special": {
         "name": "Go Anyward",
-        "description": "",
+        "description":
+            "Swap 'Sunge' to any direction within two steps ahead if u are Vonstaire",
         "color": "deeppink",
         "ranger": "Vonstaire",
         "ability": "GoAnyward"
@@ -533,13 +649,14 @@ class Constant {
     "Go Backward-Go Anyward": {
       "name": "Go Backward",
       "block": 1,
-      "description": "",
+      "description": "Swap YOUR pet with any card on the right side",
       "color": "gold",
       "cardNum": 1,
       "ability": "GoBackward",
       "special": {
         "name": "Go Anyward",
-        "description": "",
+        "description":
+            "Swap 'Sunge' to any direction within two steps ahead if u are Vonstaire",
         "color": "deeppink",
         "ranger": "Vonstaire",
         "ability": "GoAnyward"
@@ -548,14 +665,16 @@ class Constant {
     "Boom-Over Shock": {
       "name": "Boom",
       "block": 1,
-      "description": "",
+      "description":
+          "Use this card to destroy the targeted pet. Remove the aim card",
       "color": "gold",
       "cardNum": 3,
       "ability": "Boom",
       "special": {
         "name": "Over Shock",
-        "description": "",
-        "color": "purple",
+        "description":
+            "Destroying target whether it was aimed or not. If the card was aimed, remove the aim card also, if u are Neo",
+        "color": "deeppurple",
         "ranger": "Neo",
         "ability": "OverShock"
       }
@@ -563,14 +682,15 @@ class Constant {
     "Armor-Shield": {
       "name": "Armor",
       "block": 1,
-      "description": "",
+      "description": "Cover your chosen pet to get additional life +1",
       "color": "gold",
       "cardNum": 1,
       "ability": "Armor",
       "special": {
         "name": "Shield",
-        "description": "",
-        "color": "blue",
+        "description":
+            "Cover 'Waung' to get additional life +2, if u are Bonci",
+        "color": "deepblue",
         "ranger": "Bonci",
         "ability": "Shield"
       }
@@ -578,14 +698,16 @@ class Constant {
     "Hide-Master Hide": {
       "name": "Hide",
       "block": 1,
-      "description": "",
+      "description":
+          "Cover your chosen pet with this card. The covered pet can't be destroyed until this card removed after one round",
       "color": "gold",
       "cardNum": 2,
       "ability": "Hide",
       "special": {
         "name": "Master Hide",
-        "description": "",
-        "color": "blue",
+        "description":
+            "Put \"Waung\" underneath any pet. It moves along with the covering and remains hidden until the pet that cover it is removed, if u are Bonci",
+        "color": "deepblue",
         "ranger": "Bonci",
         "ability": "MasterHide"
       }
@@ -593,13 +715,15 @@ class Constant {
     "Aim-Trap": {
       "name": "Aim",
       "block": 1,
-      "description": "",
+      "description":
+          "Put this card above the pet you want to be targeted in the \"Pet Line\"",
       "color": "gold",
       "cardNum": 4,
       "ability": "Aim",
       "special": {
         "name": "Trap",
-        "description": "",
+        "description":
+            "Cover your targeted pet with this card, the pet can't be moved by any action cards until the end of the Ashtray's next turn, if u are Ashtray",
         "color": "red",
         "ranger": "Ashtray",
         "ability": "Trap"
@@ -608,13 +732,15 @@ class Constant {
     "Bump Left-Moving Aim": {
       "name": "Bump Left",
       "block": 1,
-      "description": "",
+      "description":
+          "Move any aim card one step to the left. If there is another aim card on the position, nothing happens",
       "color": "gold",
       "cardNum": 2,
       "ability": "BumpLeft",
       "special": {
         "name": "Moving Aim",
-        "description": "",
+        "description":
+            "You can move one aim card anywhere you like, if u are Ashtray",
         "color": "red",
         "ranger": "Ashtray",
         "ability": "MovingAim"
@@ -623,13 +749,15 @@ class Constant {
     "Bump Right-Moving Aim": {
       "name": "Bump Right",
       "block": 1,
-      "description": "",
+      "description":
+          "Move any aim card one step to the right. If there is another aim card on the position, nothing happens",
       "color": "gold",
       "cardNum": 2,
       "ability": "BumpRight",
       "special": {
         "name": "Moving Aim",
-        "description": "",
+        "description":
+            "You can move one aim card anywhere you like, if u are Ashtray",
         "color": "red",
         "ranger": "Ashtray",
         "ability": "MovingAim"
@@ -638,13 +766,15 @@ class Constant {
     "Running-Escape": {
       "name": "Running",
       "block": 1,
-      "description": "",
+      "description":
+          "Move forward all cards in the \"pet line\" remove the card in the very from of the line to the bottom of the deck, replace the blank spot with new card from deck",
       "color": "gold",
       "cardNum": 3,
       "ability": "Running",
       "special": {
         "name": "Escape",
-        "description": "",
+        "description":
+            "Take \"Sharpnell\" from the \"Pet Line\" put it in the pet deck and reshuffle, take one card from the pet deck to fill the blank spot, if u are Dobel",
         "color": "orange",
         "ranger": "Dobel",
         "ability": "Escape"
@@ -653,13 +783,15 @@ class Constant {
     "Running-Double Run": {
       "name": "Running",
       "block": 1,
-      "description": "",
+      "description":
+          "Move forward all cards in the \"pet line\" remove the card in the very from of the line to the bottom of the deck, replace the blank spot with new card from deck",
       "color": "gold",
       "cardNum": 2,
       "ability": "Running",
       "special": {
         "name": "Double Run",
-        "description": "",
+        "description":
+            "Move forward all cards in the \"pet line\" remove two cards in the very front of the line to the bottom of the deck, replace the blank spot with two new card from deck, if u are Dobel",
         "color": "orange",
         "ranger": "Dobel",
         "ability": "DoubleRun"
@@ -669,34 +801,38 @@ class Constant {
     // "Doom": {
     //   "name": "Doom",
     //   "block": 1,
-    //   "description": "",
+    //   "description":
+    //       "Destroying target whether it was aimed or not. If the card was aimed, remove the aim card also",
     //   "color": "gold",
     //   "cardNum": 1,
     //   "ability": "Doom",
     //   "special": null
     // },
-    // "Two Boom": {
-    //   "name": "Two Boom",
+    // "Two Booms": {
+    //   "name": "Two Booms",
     //   "block": 2,
-    //   "description": "",
+    //   "description":
+    //       "Destory any two adjacent targeted pets, both with aim cards above them. Remove the aim cards. If there's no any adjacent aim card if become single boom",
     //   "color": "gold",
     //   "cardNum": 1,
     //   "ability": "TwoBoom",
     //   "special": null
     // },
-    // "Miss": {
-    //   "name": "Miss",
-    //   "block": 1,
-    //   "description": "",
-    //   "color": "gold",
-    //   "cardNum": 1,
-    //   "ability": "Miss",
-    //   "special": null
-    // },
+    "Miss Fire": {
+      "name": "Miss Fire",
+      "block": 1,
+      "description":
+          "Destroy the pet next to the aimed pet (left or right). Remove the used aim card",
+      "color": "gold",
+      "cardNum": 1,
+      "ability": "Miss",
+      "special": null
+    },
     // "Hide": {
     //   "name": "Hide",
     //   "block": 1,
-    //   "description": "",
+    //   "description":
+    //       "Cover your chosen pet with this card. The covered pet can't be destroyed until this card removed after one round",
     //   "color": "gold",
     //   "cardNum": 1,
     //   "ability": "Hide",
@@ -705,7 +841,8 @@ class Constant {
     // "Typhoon": {
     //   "name": "Typhoon",
     //   "block": 1,
-    //   "description": "",
+    //   "description":
+    //       "Reshuffle all the pet cards in the \"Pet Line\" and the pet deck. Draw six new pet cards into the line",
     //   "color": "gold",
     //   "cardNum": 1,
     //   "ability": "Typhoon",
@@ -714,7 +851,7 @@ class Constant {
     // "Lunch Time": {
     //   "name": "Lunch Time",
     //   "block": 1,
-    //   "description": "",
+    //   "description": "Remove all aim cards in the \"Pet Line\"",
     //   "color": "gold",
     //   "cardNum": 1,
     //   "ability": "LunchTime",
@@ -723,7 +860,8 @@ class Constant {
     "Reshuffle Hand": {
       "name": "Reshuffle Hand",
       "block": 1,
-      "description": "",
+      "description":
+          "Collect all action card in hands from all players and shuffle it (action deck not included) and deal the action cards",
       "color": "gold",
       "cardNum": 1,
       "ability": "ReshuffleHand",
@@ -732,25 +870,27 @@ class Constant {
     "Switch Ranger": {
       "name": "Switch Ranger",
       "block": 1,
-      "description": "",
+      "description": "Switch your character with another player of your choice",
       "color": "gold",
       "cardNum": 1,
       "ability": "SwitchRanger",
       "special": null
     },
-    // "Ressurect": {
-    //   "name": "Ressurect",
-    //   "block": 1,
-    //   "description": "",
-    //   "color": "gold",
-    //   "cardNum": 2,
-    //   "ability": "Ressurect",
-    //   "special": null,
-    // },
+    "Ressurect": {
+      "name": "Ressurect",
+      "block": 1,
+      "description":
+          "Revive one of your pet that has been removed from the game to the bottom of the pet deck",
+      "color": "gold",
+      "cardNum": 2,
+      "ability": "Ressurect",
+      "special": null,
+    },
     // "Running": {
     //   "name": "Running",
     //   "block": 1,
-    //   "description": "",
+    //   "description":
+    //       "Move forward all cards in the \"pet line\" remove the card in the very from of the line to the bottom of the deck, replace the blank spot with new card from deck",
     //   "color": "gold",
     //   "cardNum": 3,
     //   "ability": "Running",
@@ -759,13 +899,14 @@ class Constant {
     "Go Forward-Banzai": {
       "name": "Go Forward",
       "block": 1,
-      "description": "",
+      "description": "Swap YOUR pet with any card on the left side",
       "color": "gold",
       "cardNum": 3,
       "ability": "GoForward",
       "special": {
         "name": "Banzai",
-        "description": "",
+        "description":
+            "King can jump 2 steps forward (If it's pet, the second card it passes destroyed). If King jump over the Pet Line, he'll return to the bottom of the pet deck, if u are Louise",
         "color": "blue",
         "ranger": "Louise",
         "ability": "Banzai"
@@ -774,13 +915,14 @@ class Constant {
     "Go Backward-Banzai": {
       "name": "Go Backward",
       "block": 1,
-      "description": "",
+      "description": "Swap YOUR pet with any card on the right side",
       "color": "gold",
       "cardNum": 2,
       "ability": "GoBackward",
       "special": {
         "name": "Banzai",
-        "description": "",
+        "description":
+            "King can jump 2 steps forward (If it's pet, the second card it passes destroyed). If King jump over the Pet Line, he'll return to the bottom of the pet deck, if u are Louise",
         "color": "blue",
         "ranger": "Louise",
         "ability": "Banzai"
@@ -789,13 +931,15 @@ class Constant {
     "Boom-Banzai": {
       "name": "Boom",
       "block": 1,
-      "description": "",
+      "description":
+          "Use this card to destroy the targeted pet. Remove the aim card",
       "color": "gold",
       "cardNum": 5,
       "ability": "Boom",
       "special": {
         "name": "Banzai",
-        "description": "",
+        "description":
+            "King can jump 2 steps forward (If it's pet, the second card it passes destroyed). If King jump over the Pet Line, he'll return to the bottom of the pet deck, if u are Louise",
         "color": "blue",
         "ranger": "Louise",
         "ability": "Banzai"
@@ -804,13 +948,15 @@ class Constant {
     "Get Cover-Water Bulb": {
       "name": "Get Cover",
       "block": 1,
-      "description": "",
+      "description":
+          "Put YOUR pet underneath the nearest pet. Your pet moves along with the covering pet, and remain hidden until the covering is destroyed",
       "color": "gold",
       "cardNum": 2,
       "ability": "GetCover",
       "special": {
         "name": "Water Bulb",
-        "description": "",
+        "description":
+            "Cover King with this card to nullify the 3 rounds death, if u are Louise",
         "color": "blue",
         "ranger": "Louise",
         "ability": "WaterBulb"
@@ -819,14 +965,15 @@ class Constant {
     "Armor-Vampiric Move": {
       "name": "Armor",
       "block": 1,
-      "description": "",
+      "description": "Cover your chosen pet to get additional life +1",
       "color": "gold",
       "cardNum": 2,
       "ability": "Armor",
       "special": {
         "name": "Vampiric Move",
-        "description": "",
-        "color": "purple",
+        "description":
+            "Draw two cards from the Action Deck and play an extra action card from your hand, if u are Bracula",
+        "color": "lightpurple",
         "ranger": "Bracula",
         "ability": "VampiricMove"
       }
@@ -834,14 +981,16 @@ class Constant {
     "Boom-Vampiric Bite": {
       "name": "Boom",
       "block": 1,
-      "description": "",
+      "description":
+          "Use this card to destroy the targeted pet. Remove the aim card",
       "color": "gold",
       "cardNum": 5,
       "ability": "Boom",
       "special": {
         "name": "Vampiric Bite",
-        "description": "",
-        "color": "purple",
+        "description":
+            "Use this card to destroy the pet below the aim card. Put one destroyed Bratz to replace the targeted pet, if u are Bracula",
+        "color": "lightpurple",
         "ranger": "Bracula",
         "ability": "VampiricBite"
       }
@@ -849,14 +998,16 @@ class Constant {
     "Hide-Corpse Cover": {
       "name": "Hide",
       "block": 1,
-      "description": "",
+      "description":
+          "Cover your chosen pet with this card. The covered pet can't be destroyed until this card removed after one round",
       "color": "gold",
       "cardNum": 2,
       "ability": "Hide",
       "special": {
         "name": "Corpse Cover",
-        "description": "",
-        "color": "red",
+        "description":
+            "Cover Vulcan with any discarded pet from your opponent's graveyard, put it faced down. The used pet corpse is removed from game, it can't be resurrected, if u are Javelin",
+        "color": "brown",
         "ranger": "Javelin",
         "ability": "CorpseCover"
       }
@@ -864,14 +1015,16 @@ class Constant {
     "Aim-Scavenge": {
       "name": "Aim",
       "block": 1,
-      "description": "",
+      "description":
+          "Put this card above the pet you want to be targeted in the \"Pet Line\"",
       "color": "gold",
       "cardNum": 3,
       "ability": "Aim",
       "special": {
         "name": "Scavenge",
-        "description": "",
-        "color": "red",
+        "description":
+            "Take ALL aim cards from discard pile, and place them all on the pet line in any way you like. Discard the rest if the slot is full, if you are Javelin",
+        "color": "brown",
         "ranger": "Javelin",
         "ability": "Scavenge"
       }
@@ -879,14 +1032,15 @@ class Constant {
     "Aim-Avoid": {
       "name": "Aim",
       "block": 1,
-      "description": "",
+      "description":
+          "Put this card above the pet you want to be targeted in the \"Pet Line\"",
       "color": "gold",
       "cardNum": 6,
       "ability": "Aim",
       "special": {
         "name": "Avoid",
-        "description": "",
-        "color": "yellowgreen",
+        "description": "Remove up to 6 aim cards, if u are Elliot",
+        "color": "lightgreen",
         "ranger": "Elliot",
         "ability": "Avoid"
       }
@@ -894,14 +1048,16 @@ class Constant {
     "Bump Left-Steal": {
       "name": "Bump Left",
       "block": 1,
-      "description": "",
+      "description":
+          "Move any aim card one step to the left. If there is another aim card on the position, nothing happens",
       "color": "gold",
       "cardNum": 2,
       "ability": "BumpLeft",
       "special": {
         "name": "Steal",
-        "description": "",
-        "color": "yellowgreen",
+        "description":
+            "Steal any hide or armor card or even a pet that covers other pet, if u are Elliot",
+        "color": "lightgreen",
         "ranger": "Elliot",
         "ability": "Steal"
       }
@@ -909,13 +1065,15 @@ class Constant {
     "Bump Right-Charge": {
       "name": "Bump Right",
       "block": 1,
-      "description": "",
+      "description":
+          "Move any aim card one step to the right. If there is another aim card on the position, nothing happens",
       "color": "gold",
       "cardNum": 2,
       "ability": "BumpRight",
       "special": {
         "name": "Charge",
-        "description": "",
+        "description":
+            "Cover Giro with this card and it is considered to have an AIM on top of it. If Giro survives one whole turn, Giro moves two steps forward and destroy all pets that passed by Giro, if u are Rei",
         "color": "green",
         "ranger": "Rei",
         "ability": "Charge"
@@ -924,13 +1082,15 @@ class Constant {
     "Mine-Mega Mine": {
       "name": "Mine",
       "block": 1,
-      "description": "",
+      "description":
+          "Put this card under any pet card on the Pet Line. When a Running or Boo card played, destroy the pet above the mine card",
       "color": "gold",
       "cardNum": 2,
       "ability": "Mine",
       "special": {
         "name": "Mega Mine",
-        "description": "",
+        "description":
+            "Put this card under any pet card on the Pet Line. When a Running or Boo card played, destroy the pet above the mine card along with adjacent pets, if u are Rei",
         "color": "green",
         "ranger": "Rei",
         "ability": "MegaMine"
@@ -939,14 +1099,15 @@ class Constant {
     "Aim-Haunted": {
       "name": "Aim",
       "block": 1,
-      "description": "",
+      "description":
+          "Put this card above the pet you want to be targeted in the \"Pet Line\"",
       "color": "gold",
       "cardNum": 3,
       "ability": "Aim",
       "special": {
         "name": "Haunted",
-        "description": "",
-        "color": "orange",
+        "description": "Swap Soeharti with any pet you like, if u are Daiya",
+        "color": "yellow",
         "ranger": "Daiya",
         "ability": "Haunted"
       }
@@ -954,14 +1115,16 @@ class Constant {
     "Running-Boo": {
       "name": "Running",
       "block": 1,
-      "description": "",
+      "description":
+          "Move forward all cards in the \"pet line\" remove the card in the very from of the line to the bottom of the deck, replace the blank spot with new card from deck",
       "color": "gold",
       "cardNum": 3,
       "ability": "Running",
       "special": {
         "name": "Boo",
-        "description": "",
-        "color": "orange",
+        "description":
+            "Move all cards on the pet line backward. Move the card in the back of the line to the top of the deck. Take the card from the bottom of the deck and put back in the front of the line, if u are Daiya",
+        "color": "yellow",
         "ranger": "Daiya",
         "ability": "Boo"
       }
@@ -970,7 +1133,8 @@ class Constant {
     "Aim-Voodoo": {
       "name": "Aim",
       "block": 1,
-      "description": "",
+      "description":
+          "Put this card above the pet you want to be targeted in the \"Pet Line\"",
       "color": "gold",
       "cardNum": 4,
       "ability": "Aim",
@@ -986,7 +1150,8 @@ class Constant {
     "Boom-Apocalypse": {
       "name": "Boom",
       "block": 1,
-      "description": "",
+      "description":
+          "Use this card to destroy the targeted pet. Remove the aim card",
       "color": "gold",
       "cardNum": 3,
       "ability": "Boom",
@@ -1013,7 +1178,7 @@ class Constant {
     "Boom-Poison Darts": {
       "name": "Boom",
       "block": 1,
-      "description": "",
+      "description": "Use this card to destroy the targeted pet. Remove the aim card",
       "color": "gold",
       "cardNum": 3,
       "ability": "Boom",
@@ -1029,7 +1194,8 @@ class Constant {
     "Running-Air Shield": {
       "name": "Running",
       "block": 1,
-      "description": "",
+      "description":
+          "Move forward all cards in the \"pet line\" remove the card in the very from of the line to the bottom of the deck, replace the blank spot with new card from deck",
       "color": "gold",
       "cardNum": 2,
       "ability": "Running",
@@ -1037,7 +1203,7 @@ class Constant {
         "name": "Air Shield",
         "description":
             "Destroy the pet next to targeted pet (you can choose left or right) and the remove the used aim card, if u are Visca",
-        "color": "orange",
+        "color": "deeporange",
         "ranger": "Visca",
         "ability": "AirShield"
       }
@@ -1045,7 +1211,8 @@ class Constant {
     "Running-Air Compressor": {
       "name": "Running",
       "block": 1,
-      "description": "",
+      "description":
+          "Move forward all cards in the \"pet line\" remove the card in the very from of the line to the bottom of the deck, replace the blank spot with new card from deck",
       "color": "gold",
       "cardNum": 3,
       "ability": "Running",
@@ -1053,7 +1220,7 @@ class Constant {
         "name": "Air Compressor",
         "description":
             "Reshuffle 3 card of your chosen area which are side by side that side by side in the pet line with the pet deck. Put 3 new cards in the blank area, if u are Visca",
-        "color": "orange",
+        "color": "deeporange",
         "ranger": "Visca",
         "ability": "AirCompressor"
       }
@@ -1063,7 +1230,7 @@ class Constant {
       "name": "Fogging",
       "block": 1,
       "description":
-          "Collect all pet cards that are in the \"Pet Line\" ( not including pet deck), reshuffle, and place the back in the \"Pet Line\" facing down",
+          "Collect all pet cards that are in the \"Pet Line\" (not including pet deck), reshuffle, and place the back in the \"Pet Line\" facing down",
       "color": "gold",
       "cardNum": 1,
       "ability": "Fogging",
@@ -1095,6 +1262,118 @@ class Constant {
       "cardNum": 1,
       "ability": "Hypnotize",
       "special": null
+    },
+  };
+
+  static const Map<String, Map<String, dynamic>> CANVAS_ACTIVATION = {
+    "Instant Escape": {
+      "name": "Instant Escape",
+      "block": 1,
+      "description": "",
+      "color": "orange",
+      "cardNum": 1,
+      "ranger": "Double",
+      "ability": "InstantEscape"
+    },
+    "Deflect": {
+      "name": "Deflect",
+      "block": 1,
+      "description": "",
+      "color": "deepblue",
+      "cardNum": 1,
+      "ranger": "Roxxeon Kaizer",
+      "ability": "Deflect"
+    },
+    "Outbreak": {
+      "name": "Outbreak",
+      "block": 1,
+      "description": "",
+      "color": "deeppink",
+      "cardNum": 1,
+      "ranger": "Soulbender R",
+      "ability": "Outbreak"
+    },
+    "Vortex": {
+      "name": "Vortex",
+      "block": 1,
+      "description": "",
+      "color": "yellowgreen",
+      "cardNum": 1,
+      "ranger": "Kobong",
+      "ability": "Vortex"
+    },
+    "Copycat": {
+      "name": "Copycat",
+      "block": 1,
+      "description": "",
+      "color": "red",
+      "cardNum": 1,
+      "ranger": "Ashtranger",
+      "ability": "Copycat"
+    },
+    "Multishock": {
+      "name": "Multishock",
+      "block": 1,
+      "description": "",
+      "color": "deeppurple",
+      "cardNum": 1,
+      "ranger": "Electrode",
+      "ability": "MultiShock"
+    },
+    // II
+    "Thievery": {
+      "name": "Thievery",
+      "block": 1,
+      "description": "",
+      "color": "lightgreen",
+      "cardNum": 1,
+      "ranger": "Archetype",
+      "ability": "Thievery"
+    },
+    "Mega Charge": {
+      "name": "Mega Charge",
+      "block": 1,
+      "description": "",
+      "color": "green",
+      "cardNum": 1,
+      "ranger": "G.R.",
+      "ability": "MegaCharge"
+    },
+    "Junk Yard Master": {
+      "name": "Junk Yard Master",
+      "block": 1,
+      "description": "",
+      "color": "brown",
+      "cardNum": 1,
+      "ranger": "Zero-Arms",
+      "ability": "Junk Yard Master"
+    },
+    "Manipulation": {
+      "name": "Manipulation",
+      "block": 1,
+      "description": "",
+      "color": "yellow",
+      "cardNum": 1,
+      "ranger": "Dewi Ruh Bengi",
+      "ability": "Manipulation"
+    },
+    "Tsunami": {
+      "name": "Tsunami",
+      "block": 1,
+      "description": "",
+      "color": "blue",
+      "cardNum": 1,
+      "ranger": "Camiere",
+      "ability": "Tsunami"
+    },
+    "Dark Terror": {
+      "name": "Dark Terror",
+      "block": 1,
+      "description": "",
+      "color": "lightpurple",
+      "cardNum": 1,
+      "ranger": "Braculla",
+      "ability": "DarkTerror"
     },
   };
 }

@@ -8,7 +8,7 @@ class DataNaviBattle {
             "name": "Visca",
             "description": "\"Visca\" is the owner of \"Lavu\". Their ability is to use and manipulate air as the source of their power.",
             "pet": "Lavu",
-            "color": "orange",
+            "color": "deeporange",
             "cardNum": 1
         },
         {
@@ -24,7 +24,7 @@ class DataNaviBattle {
         "Lavu": {
             "name": "Lavu",
             "description": "",
-            "color": "orange",
+            "color": "deeporange",
             "ranger": "Visca",
             "life": 1,
             "cardNum": 5
@@ -74,7 +74,7 @@ class DataNaviBattle {
             "special": {
                 "name": "Air Shield",
                 "description": "Destroy the pet next to targeted pet (you can choose left or right) and the remove the used aim card, if u are Visca",
-                "color": "orange",
+                "color": "deeporange",
                 "ranger": "Visca",
                 "ability": "AirShield"
             }
@@ -89,7 +89,7 @@ class DataNaviBattle {
             "special": {
                 "name": "Air Compressor",
                 "description": "Reshuffle 3 card of your chosen area which are side by side that side by side in the pet line with the pet deck. Put 3 new cards in the blank area, if u are Visca",
-                "color": "orange",
+                "color": "deeporange",
                 "ranger": "Visca",
                 "ability": "AirCompressor"
             }

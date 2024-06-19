@@ -98,17 +98,37 @@ class GF {
           return Colors.orangeAccent.shade200;
         }
         return Colors.orangeAccent.shade700;
+      case "deeporange":
+        if (light) {
+          return Colors.orange.shade200;
+        }
+        return Colors.orange.shade700;
       case "deeppink":
         if (light) {
           return Colors.pink.shade100;
         }
         return Colors.pink.shade300;
+      case "lightpurple":
+        if (light) {
+          return Colors.purpleAccent.shade100;
+        }
+        return Colors.purpleAccent;
       case "purple":
         if (light) {
           return Colors.purple.shade200;
         }
         return Colors.purple;
+      case "deeppurple":
+        if (light) {
+          return Colors.deepPurple.shade100;
+        }
+        return Colors.deepPurple;
       case "blue":
+        if (light) {
+          return Colors.lightBlue.shade100;
+        }
+        return Colors.lightBlue;
+      case "deepblue":
         if (light) {
           return Colors.blueAccent.shade100;
         }
@@ -123,6 +143,21 @@ class GF {
           return Colors.lightGreen.shade100;
         }
         return Colors.lightGreen;
+      case "lightgreen":
+        if (light) {
+          return Colors.greenAccent.shade100;
+        }
+        return Colors.greenAccent;
+      case "yellow":
+        if (light) {
+          return Colors.yellow.shade100;
+        }
+        return Colors.yellowAccent.shade700;
+      case "brown":
+        if (light) {
+          return Colors.brown.shade100;
+        }
+        return Colors.brown;
       case "black":
         if (light) {
           return Colors.black87;

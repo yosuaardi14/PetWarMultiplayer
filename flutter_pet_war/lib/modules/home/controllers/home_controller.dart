@@ -105,14 +105,21 @@ class HomeController extends GetxController {
   }
 
   void navigateToGame([String data = ""]) {
-    Get.toNamed(Routes.GAME, arguments: data == "Created", parameters: {
-      "roomid": roomId(),
-    });
+    Get.offNamed(
+      Routes.GAME,
+      arguments: data == "Created",
+      parameters: {
+        "roomid": roomId(),
+      },
+    );
   }
 
   void navigateToSpectate() {
-    Get.toNamed(Routes.SPECTATOR, parameters: {
-      "roomid": roomId(),
-    });
+    Get.offNamed(
+      Routes.SPECTATOR,
+      parameters: {
+        "roomid": roomId(),
+      },
+    );
   }
 }

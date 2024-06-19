@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_pet_war/modules/base/controllers/base_game_controller.dart';
 import 'package:get/get.dart';
 
@@ -15,41 +16,47 @@ class ActionHistory<T extends BaseGameController> extends GetView<T> {
         child: SizedBox(
           width: 200,
           height: 75 * 3,
-          child: Obx(
-            () => ListView(
-              controller: controller.actionHistoryScrollController,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    print("object");
-                    controller.showCatalog();
-                  },
-                  child: const Text("Katalog Kartu"),
-                ),
-                const Text(
-                  "History",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.white),
-                ),
-                ...controller.playerRoomList().entries.map(
-                      (e) => Text(
-                        e.value + " bergabung",
-                        style:
-                            const TextStyle(fontSize: 14, color: Colors.white),
+          child: Column(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  print("object");
+                  controller.showCatalog();
+                },
+                child: const Text("Katalog Kartu"),
+              ),
+              Expanded(
+                child: Obx(
+                  () => ListView(
+                    controller: controller.actionHistoryScrollController,
+                    children: [
+                      const Text(
+                        "History",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.white),
                       ),
-                    ),
-                const Divider(),
-                ...controller.actionHistory().split("\n").map(
-                      (e) => Text(
-                        e,
-                        style:
-                            const TextStyle(fontSize: 14, color: Colors.white),
-                      ),
-                    ),
-              ],
-            ),
+                      ...controller.playerRoomList().entries.map(
+                            (e) => Text(
+                              e.value + " bergabung",
+                              style: const TextStyle(
+                                  fontSize: 14, color: Colors.white),
+                            ),
+                          ),
+                      const Divider(),
+                      ...controller.actionHistory().split("\n").map(
+                            (e) => Text(
+                              e,
+                              style: const TextStyle(
+                                  fontSize: 14, color: Colors.white),
+                            ),
+                          ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

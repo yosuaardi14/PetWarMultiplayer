@@ -14,7 +14,8 @@ class SpectatorController extends BaseGameController {
   checkSocketStatus() {
     if (!SocketService.isInit) {
       socketService.initSocket();
+    } else {
+      socketService.socket.emit("spectatorData", Get.parameters["roomid"]);
     }
-    socketService.socket.emit("spectatorData", Get.parameters["roomid"]);
   }
 }

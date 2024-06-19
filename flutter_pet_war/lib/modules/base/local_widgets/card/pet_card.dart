@@ -245,7 +245,7 @@ class SpecialPetCard extends StatelessWidget {
                     maxRadius: 10,
                     backgroundColor: GF.colorFromString(pet.color),
                     child: Text(
-                      pet.name == "Menejeur" ? "I" : "II",
+                      pet.name == "Menejeur" ? "II" : "I",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 12,
@@ -308,7 +308,7 @@ class SpecialPetCard extends StatelessWidget {
                       maxRadius: 10,
                       backgroundColor: GF.colorFromString(pet.color),
                       child: Text(
-                        pet.name != "Menejeur" ? "I" : "II",
+                        pet.name != "Menejeur" ? "II" : "I",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 12,

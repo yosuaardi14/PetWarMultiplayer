@@ -8,14 +8,14 @@ class DataTwo {
             "name": "Daiya",
             "description": "\"Daiya\" is the owner of \"Soeharti\", their ability is to manipulate the pet line to create the worst scenario of their opponent.",
             "pet": "Soeharti",
-            "color": "orange",
+            "color": "yellow",
             "cardNum": 1
         },
         {
             "name": "Elliot",
             "description": "\"Elliot\" is the owner of \"Marmar\", their abilities are to steal other pet's protection and discard aims.",
             "pet": "Marmar",
-            "color": "yellowgreen",
+            "color": "lightgreen",
             "cardNum": 1
         },
         {
@@ -29,7 +29,7 @@ class DataTwo {
             "name": "Javelin",
             "description": "\"Javelin\" is the owner of \"Vulcan\", their abilities are to scavenge the discard pile and the dead pet.",
             "pet": "Vulcan",
-            "color": "red",
+            "color": "brown",
             "cardNum": 1
         },
         {
@@ -43,7 +43,7 @@ class DataTwo {
             "name": "Bracula",
             "description": "\"Bracula\" is the owner of \"Bratz\", their ability is vampiric skill that allows him to absorb other pet's life.",
             "pet": "Bratz",
-            "color": "purple",
+            "color": "lightpurple",
             "cardNum": 1
         }
     ];
@@ -60,7 +60,7 @@ class DataTwo {
         "Soeharti": {
             "name": "Soeharti",
             "description": "",
-            "color": "orange",
+            "color": "yellow",
             "ranger": "Daiya",
             "life": 1,
             "cardNum": 5
@@ -68,7 +68,7 @@ class DataTwo {
         "Marmar": {
             "name": "Marmar",
             "description": "",
-            "color": "yellowgreen",
+            "color": "lightgreen",
             "ranger": "Elliot",
             "life": 1,
             "cardNum": 5
@@ -84,7 +84,7 @@ class DataTwo {
         "Vulcan": {
             "name": "Vulcan",
             "description": "",
-            "color": "red",
+            "color": "brown",
             "ranger": "Javelin",
             "life": 1,
             "cardNum": 5
@@ -100,7 +100,7 @@ class DataTwo {
         "Bratz": {
             "name": "Bratz",
             "description": "",
-            "color": "purple",
+            "color": "lightpurple",
             "ranger": "Bracula",
             "life": 1,
             "cardNum": 5
@@ -117,8 +117,8 @@ class DataTwo {
             "ability": "Doom",
             "special": null
         },
-        "Two Boom": {
-            "name": "Two Boom",
+        "Two Booms": {
+            "name": "Two Booms",
             "block": 2,
             "description": "Destory any two adjacent targeted pets, both with aim cards above them. Remove the aim cards. If there's no any adjacent aim card if become single boom",
             "color": "gold",
@@ -268,7 +268,7 @@ class DataTwo {
             "special": {
                 "name": "Vampiric Move",
                 "description": "Draw two cards from the Action Deck and play an extra action card from your hand, if u are Bracula",
-                "color": "purple",
+                "color": "lightpurple",
                 "ranger": "Bracula",
                 "ability": "VampiricMove"
             }
@@ -283,7 +283,7 @@ class DataTwo {
             "special": {
                 "name": "Vampiric Bite",
                 "description": "Use this card to destroy the pet below the aim card. Put one destroyed Bratz to replace the targeted pet, if u are Bracula",
-                "color": "purple",
+                "color": "lightpurple",
                 "ranger": "Bracula",
                 "ability": "VampiricBite"
             }
@@ -298,7 +298,7 @@ class DataTwo {
             "special": {
                 "name": "Corpse Cover",
                 "description": "Cover Vulcan with any discarded pet from your opponent's graveyard, put it faced down. The used pet corpse is removed from game, it can't be resurrected, if u are Javelin",
-                "color": "red",
+                "color": "brown",
                 "ranger": "Javelin",
                 "ability": "CorpseCover"
             }
@@ -313,7 +313,7 @@ class DataTwo {
             "special": {
                 "name": "Scavenge",
                 "description": "Take ALL aim cards from discard pile, and place them all on the pet line in any way you like. Discard the rest if the slot is full, if you are Javelin",
-                "color": "red",
+                "color": "brown",
                 "ranger": "Javelin",
                 "ability": "Scavenge"
             }
@@ -328,7 +328,7 @@ class DataTwo {
             "special": {
                 "name": "Avoid",
                 "description": "Remove up to 6 aim cards, if u are Elliot",
-                "color": "yellowgreen",
+                "color": "lightgreen",
                 "ranger": "Elliot",
                 "ability": "Avoid"
             }
@@ -343,7 +343,7 @@ class DataTwo {
             "special": {
                 "name": "Steal",
                 "description": "Steal any hide or armor card or even a pet that covers other pet, if u are Elliot",
-                "color": "yellowgreen",
+                "color": "lightgreen",
                 "ranger": "Elliot",
                 "ability": "Steal"
             }
@@ -388,7 +388,7 @@ class DataTwo {
             "special": {
                 "name": "Haunted",
                 "description": "Swap Soeharti with any pet you like, if u are Daiya",
-                "color": "orange",
+                "color": "yellow",
                 "ranger": "Daiya",
                 "ability": "Haunted"
             }
@@ -403,7 +403,7 @@ class DataTwo {
             "special": {
                 "name": "Boo",
                 "description": "Move all cards on the pet line backward. Move the card in the back of the line to the top of the deck. Take the card from the bottom of the deck and put back in the front of the line, if u are Daiya",
-                "color": "orange",
+                "color": "yellow",
                 "ranger": "Daiya",
                 "ability": "Boo"
             }

@@ -36,14 +36,14 @@ class Data {
             "name": "Bonci",
             "description": "\"Bonci\" is the owner of \"Waung\" that has the ability to survive. One attack is not enough to get rid of them.",
             "pet": "Waung",
-            "color": "blue",
+            "color": "deepblue",
             "cardNum": 1
         },
         {
             "name": "Neo",
             "description": "\"Neo\" is the owner of \"Paleo\" that has the ability to kill another pet with its/his super power!",
             "pet": "Paleo",
-            "color": "purple",
+            "color": "deeppurple",
             "cardNum": 1
         }
     ];
@@ -92,7 +92,7 @@ class Data {
         "Waung": {
             "name": "Waung",
             "description": "",
-            "color": "blue",
+            "color": "deepblue",
             "ranger": "Bonci",
             "life": 1,
             "cardNum": 5
@@ -100,7 +100,7 @@ class Data {
         "Paleo": {
             "name": "Paleo",
             "description": "",
-            "color": "purple",
+            "color": "deeppurple",
             "ranger": "Neo",
             "life": 1,
             "cardNum": 5
@@ -135,8 +135,8 @@ class Data {
             "ability": "Doom",
             "special": null
         },
-        "Two Aim": {
-            "name": "Two Aim",
+        "Two Aims": {
+            "name": "Two Aims",
             "block": 2,
             "description": "Put TWO AIMS card sideways above any adjacent pets, tilt back to the normal position if one of them was destroyed",
             "color": "gold",
@@ -144,8 +144,8 @@ class Data {
             "ability": "TwoAim",
             "special": null
         },
-        "Two Boom": {
-            "name": "Two Boom",
+        "Two Booms": {
+            "name": "Two Booms",
             "block": 2,
             "description": "Destory any two adjacent targeted pets, both with aim cards above them. Remove the aim cards. If there's no any adjacent aim card if become single boom",
             "color": "gold",
@@ -328,7 +328,7 @@ class Data {
             "special": {
                 "name": "Over Shock",
                 "description": "Destroying target whether it was aimed or not. If the card was aimed, remove the aim card also, if u are Neo",
-                "color": "purple",
+                "color": "deeppurple",
                 "ranger": "Neo",
                 "ability": "OverShock"
             }
@@ -343,7 +343,7 @@ class Data {
             "special": {
                 "name": "Shield",
                 "description": "Cover 'Waung' to get additional life +2, if u are Bonci",
-                "color": "blue",
+                "color": "deepblue",
                 "ranger": "Bonci",
                 "ability": "Shield"
             }
@@ -358,7 +358,7 @@ class Data {
             "special": {
                 "name": "Master Hide",
                 "description": "Put \"Waung\" underneath any pet. It moves along with the covering and remains hidden until the pet that cover it is removed, if u are Bonci",
-                "color": "blue",
+                "color": "deepblue",
                 "ranger": "Bonci",
                 "ability": "MasterHide"
             }

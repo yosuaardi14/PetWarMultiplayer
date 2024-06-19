@@ -127,7 +127,7 @@ class GameUtil {
 
     static resetCard(card) {
         card.useSpecial = false;
-        if (card.name == "Two Aim" || card.name == "Two Boom") {
+        if (card.name == "Two Aims" || card.name == "Two Booms") {
             card.block = 2;
         }
         // TODO CHECK

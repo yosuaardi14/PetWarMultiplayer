@@ -257,6 +257,7 @@ class GameUtils {
       //Special
       "Shield",
       "Trap",
+      "Over Shock",
 
       // Special II
       "Vampiric Bite", // Need Aim too

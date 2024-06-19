@@ -32,28 +32,28 @@ class DataExpansion {
             "name": "Roxxeon Kaizer",
             "description": "\"Roxxeon Kaizer\" is the owner of \"Waung\" that has the ability to survive. One attack is not enough to get rid of them.",
             "pet": "Waung",
-            "color": "blue",
+            "color": "deepblue",
             "cardNum": 1
         },
         {
             "name": "Electrode",
             "description": "\"Electrode\" is the owner of \"Paleo\" that has the ability to kill another pet with its/his super power!",
             "pet": "Paleo",
-            "color": "purple",
+            "color": "deeppurple",
             "cardNum": 1
         },
          {
             "name": "Dewi Ruh Bengi",
             "description": "\"Dewi Ruh Bengi\" is the owner of \"Soeharti\", their ability is to manipulate the pet line to create the worst scenario of their opponent.",
             "pet": "Soeharti",
-            "color": "orange",
+            "color": "yellow",
             "cardNum": 1
         },
         {
             "name": "Archetype",
             "description": "\"Archetype\" is the owner of \"Marmar\", their abilities are to steal other pet's protection and discard aims.",
             "pet": "Marmar",
-            "color": "yellowgreen",
+            "color": "lightgreen",
             "cardNum": 1
         },
         {
@@ -67,7 +67,7 @@ class DataExpansion {
             "name": "Zero-Arms",
             "description": "\"Zero-Arms\" is the owner of \"Vulcan\", their abilities are to scavenge the discard pile and the dead pet.",
             "pet": "Vulcan",
-            "color": "red",
+            "color": "brown",
             "cardNum": 1
         },
         {
@@ -81,7 +81,7 @@ class DataExpansion {
             "name": "Braculla",
             "description": "\"Braculla\" is the owner of \"Bratz\", their ability is vampiric skill that allows him to absorb other pet's life.",
             "pet": "Bratz",
-            "color": "purple",
+            "color": "lightpurple",
             "cardNum": 1
         }
     ];
@@ -133,7 +133,7 @@ class DataExpansion {
         "Fogging": {
             "name": "Fogging",
             "block": 1,
-            "description": "Collect all pet cards that are in the \"Pet Line\" ( not including pet deck), reshuffle, and place the back in the \"Pet Line\" facing down",
+            "description": "Collect all pet cards that are in the \"Pet Line\" (not including pet deck), reshuffle, and place the back in the \"Pet Line\" facing down",
             "color": "gold",
             "cardNum": 1,
             "ability": "Fogging",
@@ -182,7 +182,7 @@ class DataExpansion {
             "name": "Deflect",
             "block": 1,
             "description": "",
-            "color": "blue",
+            "color": "deepblue",
             "cardNum": 1,
             "ranger": "Roxxeon Kaizer",
             "ability": "Deflect"
@@ -218,7 +218,7 @@ class DataExpansion {
             "name": "Multishock",
             "block": 1,
             "description": "",
-            "color": "purple",
+            "color": "deeppurple",
             "cardNum": 1,
             "ranger": "Electrode",
             "ability": "MultiShock"
@@ -228,7 +228,7 @@ class DataExpansion {
             "name": "Thievery",
             "block": 1,
             "description": "",
-            "color": "green",
+            "color": "lightgreen",
             "cardNum": 1,
             "ranger": "Archetype",
             "ability": "Thievery"
@@ -246,7 +246,7 @@ class DataExpansion {
             "name": "Junk Yard Master",
             "block": 1,
             "description": "",
-            "color": "red",
+            "color": "brown",
             "cardNum": 1,
             "ranger": "Zero-Arms",
             "ability": "Junk Yard Master"
@@ -273,7 +273,7 @@ class DataExpansion {
             "name": "Dark Terror",
             "block": 1,
             "description": "",
-            "color": "purple",
+            "color": "lightpurple",
             "cardNum": 1,
             "ranger": "Braculla",
             "ability": "DarkTerror"

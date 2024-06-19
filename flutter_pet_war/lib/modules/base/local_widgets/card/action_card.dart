@@ -40,7 +40,7 @@ class ActionCard extends StatelessWidget {
               // padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: Colors.white,
+                color: Colors.yellow,
               ),
               child: Stack(
                 children: [
@@ -50,7 +50,7 @@ class ActionCard extends StatelessWidget {
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: Colors.white,
+                      color: Colors.yellow,
                     ),
                   ),
                   Padding(
@@ -64,7 +64,7 @@ class ActionCard extends StatelessWidget {
                     ),
                   ),
                   Align(
-                    alignment: Alignment.topLeft,
+                    alignment: Alignment.topRight,
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -85,7 +85,7 @@ class ActionCard extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: Constant.ACTION_FONT_SIZE,
                               fontWeight: FontWeight.bold,
-                              color: Colors.green,
+                              color: Colors.black,
                             ),
                           ),
                         ),

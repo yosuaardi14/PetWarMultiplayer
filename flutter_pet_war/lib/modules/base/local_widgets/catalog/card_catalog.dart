@@ -133,15 +133,20 @@ class CardCatalog extends StatelessWidget {
                               isThreeLine: true,
                               title: Text(controller.selectedCard()["name"]),
                               subtitle: Text(
-                                  controller.selectedCard()["description"]),
+                                controller.selectedCard()["description"],
+                                textAlign: TextAlign.justify,
+                              ),
                             ),
                             if (controller.selectedCard()["special"] != null)
                               ListTile(
                                 isThreeLine: true,
                                 title: Text(controller.selectedCard()["special"]
                                     ["name"]),
-                                subtitle: Text(controller
-                                    .selectedCard()["special"]["description"]),
+                                subtitle: Text(
+                                  controller.selectedCard()["special"]
+                                      ["description"],
+                                  textAlign: TextAlign.justify,
+                                ),
                               ),
                           ],
                           if (controller.selectedCard().containsKey("pet")) ...[
@@ -156,7 +161,9 @@ class CardCatalog extends StatelessWidget {
                               isThreeLine: true,
                               title: Text(controller.selectedCard()["name"]),
                               subtitle: Text(
-                                  controller.selectedCard()["description"]),
+                                controller.selectedCard()["description"],
+                                textAlign: TextAlign.justify,
+                              ),
                             ),
                           ],
                           if (controller
@@ -184,8 +191,11 @@ class CardCatalog extends StatelessWidget {
                                             .toString()
                                             .contains("Jungle")
                                     ? [
-                                        Text(controller
-                                            .selectedCard()["description"]),
+                                        Text(
+                                          controller
+                                              .selectedCard()["description"],
+                                          textAlign: TextAlign.justify,
+                                        ),
                                       ]
                                     : [
                                         Text(
