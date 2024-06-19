@@ -604,13 +604,13 @@ class AbilityUtil {
             let lpgZordIndex = -1;
             for (let i = 0; i < main.petDeck[targetIndex].length; i++) {
                 let petName = main.petDeck[targetIndex][i].name;
-                if (petName == Data.PET["Lpg-Zord"].name) {
+                if (petName == Data.PET["LPG-Zord"].name) {
                     lpgZordIndex = i;
                     break;
                 }
             }
             if (lpgZordIndex != -1) {
-                let playerId = GameUtil.getPlayerIdByPet(Data.PET["Lpg-Zord"].name, main.playerObj);
+                let playerId = GameUtil.getPlayerIdByPet(Data.PET["LPG-Zord"].name, main.playerObj);
                 main.io.to(main.roomID).emit("infoAction", main.petDeck[targetIndex][lpgZordIndex].name + " mati");
                 main.playerObj[playerId].life--;
                 main.playerObj[playerId].defeatedPet.push(main.petDeck[targetIndex][lpgZordIndex]);
@@ -720,13 +720,13 @@ class AbilityUtil {
             let lpgZordIndex = -1;
             for (let i = 0; i < main.petDeck[targetIndex].length; i++) {
                 let petName = main.petDeck[targetIndex][i].name;
-                if (petName == Data.PET["Lpg-Zord"].name) {
+                if (petName == Data.PET["LPG-Zord"].name) {
                     lpgZordIndex = i;
                     break;
                 }
             }
             if (lpgZordIndex != -1) {
-                let playerId = GameUtil.getPlayerIdByPet(Data.PET["Lpg-Zord"].name, main.playerObj);
+                let playerId = GameUtil.getPlayerIdByPet(Data.PET["LPG-Zord"].name, main.playerObj);
                 main.playerObj[playerId].life--;
                 main.playerObj[playerId].defeatedPet.push(main.petDeck[targetIndex][lpgZordIndex]);
                 let emptyBlock = false;
@@ -1534,13 +1534,13 @@ class AbilityUtil {
                 let lpgZordIndex = -1;
                 for (let i = 0; i < main.petDeck[targetIndex].length; i++) {
                     let petName = main.petDeck[targetIndex][i].name;
-                    if (petName == Data.PET["Lpg-Zord"].name) {
+                    if (petName == Data.PET["LPG-Zord"].name) {
                         lpgZordIndex = i;
                         break;
                     }
                 }
                 if (lpgZordIndex != -1) {
-                    let playerId = GameUtil.getPlayerIdByPet(Data.PET["Lpg-Zord"].name, main.playerObj);
+                    let playerId = GameUtil.getPlayerIdByPet(Data.PET["LPG-Zord"].name, main.playerObj);
                     main.io.to(main.roomID).emit("infoAction", main.petDeck[targetIndex][lpgZordIndex].name + " mati");
                     main.playerObj[playerId].life--;
                     main.playerObj[playerId].defeatedPet.push(main.petDeck[targetIndex][lpgZordIndex]);

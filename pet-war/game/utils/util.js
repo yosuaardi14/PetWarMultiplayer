@@ -41,6 +41,7 @@ class Util {
             // Swap elements at indices i and rand
             [data[i], data[rand]] = [data[rand], data[i]];
         }
+        return data;
     }
 
     static generateRandomString(length = 12) {
