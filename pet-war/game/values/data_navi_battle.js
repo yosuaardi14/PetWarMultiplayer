@@ -52,7 +52,7 @@ class DataNaviBattle {
         "Boom-Poison Darts": {
             "name": "Boom",
             "block": 1,
-            "description": "",
+            "description": "Use this card to destroy the targeted pet. Remove the aim card",
             "color": "gold",
             "cardNum": 3,
             "ability": "Boom",
@@ -67,7 +67,7 @@ class DataNaviBattle {
         "Running-Air Shield": {
             "name": "Running",
             "block": 1,
-            "description": "",
+            "description": "Move forward all cards in the \"pet line\" remove the card in the very from of the line to the bottom of the deck, replace the blank spot with new card from deck",
             "color": "gold",
             "cardNum": 2,
             "ability": "Running",
@@ -82,7 +82,7 @@ class DataNaviBattle {
         "Running-Air Compressor": {
             "name": "Running",
             "block": 1,
-            "description": "",
+            "description": "Move forward all cards in the \"pet line\" remove the card in the very from of the line to the bottom of the deck, replace the blank spot with new card from deck",
             "color": "gold",
             "cardNum": 3,
             "ability": "Running",
