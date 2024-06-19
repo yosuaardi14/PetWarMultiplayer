@@ -13,7 +13,7 @@ class DataTwo {
         },
         {
             "name": "Elliot",
-            "description": "",
+            "description": "\"Elliot\" is the owner of \"Marmar\", their abilities are to steal other pet's protection and discard aims.",
             "pet": "Marmar",
             "color": "yellowgreen",
             "cardNum": 1
@@ -41,7 +41,7 @@ class DataTwo {
         },
         {
             "name": "Bracula",
-            "description": "",
+            "description": "\"Bracula\" is the owner of \"Bratz\", their ability is vampiric skill that allows him to absorb other pet's life.",
             "pet": "Bratz",
             "color": "purple",
             "cardNum": 1
@@ -111,7 +111,7 @@ class DataTwo {
         "Doom": {
             "name": "Doom",
             "block": 1,
-            "description": "",
+            "description": "Destroying target whether it was aimed or not. If the card was aimed, remove the aim card also",
             "color": "gold",
             "cardNum": 1,
             "ability": "Doom",
@@ -120,7 +120,7 @@ class DataTwo {
         "Two Boom": {
             "name": "Two Boom",
             "block": 2,
-            "description": "",
+            "description": "Destory any two adjacent targeted pets, both with aim cards above them. Remove the aim cards. If there's no any adjacent aim card if become single boom",
             "color": "gold",
             "cardNum": 1,
             "ability": "TwoBoom",
@@ -129,7 +129,16 @@ class DataTwo {
         "Miss": {
             "name": "Miss",
             "block": 1,
-            "description": "",
+            "description": "Destroy the pet next to the targeted pet (left or right) and the remove the used aim card",
+            "color": "gold",
+            "cardNum": 1,
+            "ability": "Miss",
+            "special": null
+        },
+        "Miss Fire": {
+            "name": "Miss Fire",
+            "block": 1,
+            "description": "Destroy the pet next to the aimed pet (left or right). Remove the used aim card",
             "color": "gold",
             "cardNum": 1,
             "ability": "Miss",
@@ -138,7 +147,7 @@ class DataTwo {
         "Hide": {
             "name": "Hide",
             "block": 1,
-            "description": "",
+            "description": "Cover your chosen pet with this card. The covered pet can't be destroyed until this card removed after one round",
             "color": "gold",
             "cardNum": 1,
             "ability": "Hide",
@@ -147,7 +156,7 @@ class DataTwo {
         "Typhoon": {
             "name": "Typhoon",
             "block": 1,
-            "description": "",
+            "description": "Reshuffle all the pet cards in the \"Pet Line\" and the pet deck. Draw six new pet cards into the line",
             "color": "gold",
             "cardNum": 1,
             "ability": "Typhoon",
@@ -156,7 +165,7 @@ class DataTwo {
         "Lunch Time": {
             "name": "Lunch Time",
             "block": 1,
-            "description": "",
+            "description": "Remove all aim cards in the \"Pet Line\"",
             "color": "gold",
             "cardNum": 1,
             "ability": "LunchTime",
@@ -165,7 +174,7 @@ class DataTwo {
         "Reshuffle Hand": {
             "name": "Reshuffle Hand",
             "block": 1,
-            "description": "",
+            "description": "Collect all action card in hands from all players and shuffle it (action deck not included) and deal the action cards",
             "color": "gold",
             "cardNum": 1,
             "ability": "ReshuffleHand",
@@ -174,7 +183,7 @@ class DataTwo {
         "Switch Ranger": {
             "name": "Switch Ranger",
             "block": 1,
-            "description": "",
+            "description": "Switch your character with another player of your choice",
             "color": "gold",
             "cardNum": 1,
             "ability": "SwitchRanger",
@@ -183,7 +192,7 @@ class DataTwo {
         "Ressurect": {
             "name": "Ressurect",
             "block": 1,
-            "description": "",
+            "description": "Revive one of your pet that has been removed from the game to the bottom of the pet deck",
             "color": "gold",
             "cardNum": 2,
             "ability": "Ressurect",
@@ -192,7 +201,7 @@ class DataTwo {
         "Running": {
             "name": "Running",
             "block": 1,
-            "description": "",
+            "description": "Move forward all cards in the \"pet line\" remove the card in the very from of the line to the bottom of the deck, replace the blank spot with new card from deck",
             "color": "gold",
             "cardNum": 3,
             "ability": "Running",
@@ -201,13 +210,13 @@ class DataTwo {
         "Go Forward-Banzai": {
             "name": "Go Forward",
             "block": 1,
-            "description": "",
+            "description": "Swap YOUR pet with any card on the left side",
             "color": "gold",
             "cardNum": 3,
             "ability": "GoForward",
             "special": {
                 "name": "Banzai",
-                "description": "",
+                "description": "King can jump 2 steps forward (If it's pet, the second card it passes destroyed). If King jump over the Pet Line, he'll return to the bottom of the pet deck, if u are Louise",
                 "color": "blue",
                 "ranger": "Louise",
                 "ability": "Banzai"
@@ -216,13 +225,13 @@ class DataTwo {
         "Go Backward-Banzai": {
             "name": "Go Backward",
             "block": 1,
-            "description": "",
+            "description": "Swap YOUR pet with any card on the right side",
             "color": "gold",
             "cardNum": 2,
             "ability": "GoBackward",
             "special": {
                 "name": "Banzai",
-                "description": "",
+                "description": "King can jump 2 steps forward (If it's pet, the second card it passes destroyed). If King jump over the Pet Line, he'll return to the bottom of the pet deck, if u are Louise",
                 "color": "blue",
                 "ranger": "Louise",
                 "ability": "Banzai"
@@ -231,13 +240,13 @@ class DataTwo {
         "Boom-Banzai": {
             "name": "Boom",
             "block": 1,
-            "description": "",
+            "description": "Use this card to destroy the targeted pet. Remove the aim card",
             "color": "gold",
             "cardNum": 5,
             "ability": "Boom",
             "special": {
                 "name": "Banzai",
-                "description": "",
+                "description": "King can jump 2 steps forward (If it's pet, the second card it passes destroyed). If King jump over the Pet Line, he'll return to the bottom of the pet deck, if u are Louise",
                 "color": "blue",
                 "ranger": "Louise",
                 "ability": "Banzai"
@@ -246,13 +255,13 @@ class DataTwo {
         "Get Cover-Water Bulb": {
             "name": "Get Cover",
             "block": 1,
-            "description": "",
+            "description": "Put YOUR pet underneath the nearest pet. Your pet moves along with the covering pet, and remain hidden until the covering is destroyed",
             "color": "gold",
             "cardNum": 2,
             "ability": "GetCover",
             "special": {
                 "name": "Water Bulb",
-                "description": "",
+                "description": "Cover King with this card to nullify the 3 rounds death, if u are Louise",
                 "color": "blue",
                 "ranger": "Louise",
                 "ability": "WaterBulb"
@@ -261,13 +270,13 @@ class DataTwo {
         "Armor-Vampiric Move": {
             "name": "Armor",
             "block": 1,
-            "description": "",
+            "description": "Cover your chosen pet to get additional life +1",
             "color": "gold",
             "cardNum": 2,
             "ability": "Armor",
             "special": {
                 "name": "Vampiric Move",
-                "description": "",
+                "description": "Draw two cards from the Action Deck and play an extra action card from your hand, if u are Bracula",
                 "color": "purple",
                 "ranger": "Bracula",
                 "ability": "VampiricMove"
@@ -276,13 +285,13 @@ class DataTwo {
         "Boom-Vampiric Bite": {
             "name": "Boom",
             "block": 1,
-            "description": "",
+            "description": "Use this card to destroy the targeted pet. Remove the aim card",
             "color": "gold",
             "cardNum": 5,
             "ability": "Boom",
             "special": {
                 "name": "Vampiric Bite",
-                "description": "",
+                "description": "Use this card to destroy the pet below the aim card. Put one destroyed Bratz to replace the targeted pet, if u are Bracula",
                 "color": "purple",
                 "ranger": "Bracula",
                 "ability": "VampiricBite"
@@ -291,13 +300,13 @@ class DataTwo {
         "Hide-Corpse Cover": {
             "name": "Hide",
             "block": 1,
-            "description": "",
+            "description": "Cover your chosen pet with this card. The covered pet can't be destroyed until this card removed after one round",
             "color": "gold",
             "cardNum": 2,
             "ability": "Hide",
             "special": {
                 "name": "Corpse Cover",
-                "description": "",
+                "description": "Cover Vulcan with any discarded pet from your opponent's graveyard, put it faced down. The used pet corpse is removed from game, it can't be resurrected, if u are Javelin",
                 "color": "red",
                 "ranger": "Javelin",
                 "ability": "CorpseCover"
@@ -306,13 +315,13 @@ class DataTwo {
         "Aim-Scavenge": {
             "name": "Aim",
             "block": 1,
-            "description": "",
+            "description": "Put this card above the pet you want to be targeted in the \"Pet Line\"",
             "color": "gold",
             "cardNum": 3,
             "ability": "Aim",
             "special": {
                 "name": "Scavenge",
-                "description": "",
+                "description": "Take ALL aim cards from discard pile, and place them all on the pet line in any way you like. Discard the rest if the slot is full, if you are Javelin",
                 "color": "red",
                 "ranger": "Javelin",
                 "ability": "Scavenge"
@@ -321,13 +330,13 @@ class DataTwo {
         "Aim-Avoid": {
             "name": "Aim",
             "block": 1,
-            "description": "",
+            "description": "Put this card above the pet you want to be targeted in the \"Pet Line\"",
             "color": "gold",
             "cardNum": 6,
             "ability": "Aim",
             "special": {
                 "name": "Avoid",
-                "description": "",
+                "description": "Remove up to 6 aim cards, if u are Elliot",
                 "color": "yellowgreen",
                 "ranger": "Elliot",
                 "ability": "Avoid"
@@ -336,13 +345,13 @@ class DataTwo {
         "Bump Left-Steal": {
             "name": "Bump Left",
             "block": 1,
-            "description": "",
+            "description": "Move any aim card one step to the left. If there is another aim card on the position, nothing happens",
             "color": "gold",
             "cardNum": 2,
             "ability": "BumpLeft",
             "special": {
                 "name": "Steal",
-                "description": "",
+                "description": "Steal any hide or armor card or even a pet that covers other pet, if u are Elliot",
                 "color": "yellowgreen",
                 "ranger": "Elliot",
                 "ability": "Steal"
@@ -351,13 +360,13 @@ class DataTwo {
         "Bump Right-Charge": {
             "name": "Bump Right",
             "block": 1,
-            "description": "",
+            "description": "Move any aim card one step to the right. If there is another aim card on the position, nothing happens",
             "color": "gold",
             "cardNum": 2,
             "ability": "BumpRight",
             "special": {
                 "name": "Charge",
-                "description": "",
+                "description": "Cover Giro with this card and it is considered to have an AIM on top of it. If Giro survives one whole turn, Giro moves two steps forward and destroy all pets that passed by Giro, if u are Rei",
                 "color": "green",
                 "ranger": "Rei",
                 "ability": "Charge"
@@ -366,13 +375,13 @@ class DataTwo {
         "Mine-Mega Mine": {
             "name": "Mine",
             "block": 1,
-            "description": "",
+            "description": "Put this card under any pet card on the Pet Line. When a Running or Boo card played, destroy the pet above the mine card",
             "color": "gold",
             "cardNum": 2,
             "ability": "Mine",
             "special": {
                 "name": "Mega Mine",
-                "description": "",
+                "description": "Put this card under any pet card on the Pet Line. When a Running or Boo card played, destroy the pet above the mine card along with adjacent pets, if u are Rei",
                 "color": "green",
                 "ranger": "Rei",
                 "ability": "MegaMine"
@@ -381,13 +390,13 @@ class DataTwo {
         "Aim-Haunted": {
             "name": "Aim",
             "block": 1,
-            "description": "",
+            "description": "Put this card above the pet you want to be targeted in the \"Pet Line\"",
             "color": "gold",
             "cardNum": 3,
             "ability": "Aim",
             "special": {
                 "name": "Haunted",
-                "description": "",
+                "description": "Swap Soeharti with any pet you like, if u are Daiya",
                 "color": "orange",
                 "ranger": "Daiya",
                 "ability": "Haunted"
@@ -396,13 +405,13 @@ class DataTwo {
         "Running-Boo": {
             "name": "Running",
             "block": 1,
-            "description": "",
+            "description": "Move forward all cards in the \"pet line\" remove the card in the very from of the line to the bottom of the deck, replace the blank spot with new card from deck",
             "color": "gold",
             "cardNum": 3,
             "ability": "Running",
             "special": {
                 "name": "Boo",
-                "description": "",
+                "description": "Move all cards on the pet line backward. Move the card in the back of the line to the top of the deck. Take the card from the bottom of the deck and put back in the front of the line, if u are Daiya",
                 "color": "orange",
                 "ranger": "Daiya",
                 "ability": "Boo"
