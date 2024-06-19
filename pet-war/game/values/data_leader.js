@@ -41,7 +41,7 @@ class DataLeader {
         "Aim-Voodoo": {
             "name": "Aim",
             "block": 1,
-            "description": "",
+            "description": "Put this card above the pet you want to be targeted in the \"Pet Line\"",
             "color": "gold",
             "cardNum": 4,
             "ability": "Aim",
@@ -56,7 +56,7 @@ class DataLeader {
         "Boom-Apocalypse": {
             "name": "Boom",
             "block": 1,
-            "description": "",
+            "description": "Use this card to destroy the targeted pet. Remove the aim card",
             "color": "gold",
             "cardNum": 3,
             "ability": "Boom",
