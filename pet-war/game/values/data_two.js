@@ -126,15 +126,6 @@ class DataTwo {
             "ability": "TwoBoom",
             "special": null
         },
-        "Miss": {
-            "name": "Miss",
-            "block": 1,
-            "description": "Destroy the pet next to the targeted pet (left or right) and the remove the used aim card",
-            "color": "gold",
-            "cardNum": 1,
-            "ability": "Miss",
-            "special": null
-        },
         "Miss Fire": {
             "name": "Miss Fire",
             "block": 1,
