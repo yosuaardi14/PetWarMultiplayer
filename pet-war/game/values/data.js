@@ -111,7 +111,7 @@ class Data {
         "Aim": {
             "name": "Aim",
             "block": 1,
-            "description": "",
+            "description": "Put this card above the pet you want to be targeted in the \"Pet Line\"",
             "color": "gold",
             "cardNum": 8, //5,
             "ability": "Aim",
@@ -120,7 +120,7 @@ class Data {
         "Boom": {
             "name": "Boom",
             "block": 1,
-            "description": "",
+            "description": "Use this card to destroy the targeted pet. Remove the aim card",
             "color": "gold",
             "cardNum": 8, //6,
             "ability": "Boom",
@@ -129,7 +129,7 @@ class Data {
         "Doom": {
             "name": "Doom",
             "block": 1,
-            "description": "",
+            "description": "Destroying target whether it was aimed or not. If the card was aimed, remove the aim card also",
             "color": "gold",
             "cardNum": 1,
             "ability": "Doom",
@@ -138,7 +138,7 @@ class Data {
         "Two Aim": {
             "name": "Two Aim",
             "block": 2,
-            "description": "",
+            "description": "Put TWO AIMS card sideways above any adjacent pets, tilt back to the normal position if one of them was destroyed",
             "color": "gold",
             "cardNum": 2, //1,
             "ability": "TwoAim",
@@ -147,7 +147,7 @@ class Data {
         "Two Boom": {
             "name": "Two Boom",
             "block": 2,
-            "description": "",
+            "description": "Destory any two adjacent targeted pets, both with aim cards above them. Remove the aim cards. If there's no any adjacent aim card if become single boom",
             "color": "gold",
             "cardNum": 1,
             "ability": "TwoBoom",
@@ -156,7 +156,7 @@ class Data {
         "Miss": {
             "name": "Miss",
             "block": 1,
-            "description": "",
+            "description": "Destroy the pet next to the targeted pet (left or right) and the remove the used aim card",
             "color": "gold",
             "cardNum": 1,
             "ability": "Miss",
@@ -165,7 +165,7 @@ class Data {
         "Hide": {
             "name": "Hide",
             "block": 1,
-            "description": "",
+            "description": "Cover your chosen pet with this card. The covered pet can't be destroyed until this card removed after one round",
             "color": "gold",
             "cardNum": 1,
             "ability": "Hide",
@@ -174,7 +174,7 @@ class Data {
         "Running": {
             "name": "Running",
             "block": 1,
-            "description": "",
+            "description": "Move forward all cards in the \"pet line\" remove the card in the very from of the line to the bottom of the deck, replace the blank spot with new card from deck",
             "color": "gold",
             "cardNum": 3,
             "ability": "Running",
@@ -183,7 +183,7 @@ class Data {
         "Go Forward": {
             "name": "Go Forward",
             "block": 1,
-            "description": "",
+            "description": "Swap YOUR pet with any card on the left side",
             "color": "gold",
             "cardNum": 2, //1,
             "ability": "GoForward",
@@ -192,7 +192,7 @@ class Data {
         "Go Backward": {
             "name": "Go Backward",
             "block": 1,
-            "description": "",
+            "description": "Swap YOUR pet with any card on the right side",
             "color": "gold",
             "cardNum": 2,
             "ability": "GoBackward",
@@ -201,7 +201,7 @@ class Data {
         "Move The Pet": {
             "name": "Move The Pet",
             "block": 1,
-            "description": "",
+            "description": "Rearrange all pet cards in the \"Pet Line\" anyway you like. Aim cards don't move",
             "color": "gold",
             "cardNum": 2, //1,
             "ability": "MoveThePet",
@@ -210,7 +210,7 @@ class Data {
         "Typhoon": {
             "name": "Typhoon",
             "block": 1,
-            "description": "",
+            "description": "Reshuffle all the pet cards in the \"Pet Line\" and the pet deck. Draw six new pet cards into the line",
             "color": "gold",
             "cardNum": 1,
             "ability": "Typhoon",
@@ -219,7 +219,7 @@ class Data {
         "Get Cover": {
             "name": "Get Cover",
             "block": 1,
-            "description": "",
+            "description": "Put YOUR pet underneath the nearest pet. Your pet moves along with the covering pet, and remain hidden until the covering is destroyed",
             "color": "gold",
             "cardNum": 2,
             "ability": "GetCover",
@@ -228,7 +228,7 @@ class Data {
         "Armor": {
             "name": "Armor",
             "block": 1,
-            "description": "",
+            "description": "Cover your chosen pet to get additional life +1",
             "color": "gold",
             "cardNum": 3, //1,
             "ability": "Armor",
@@ -237,7 +237,7 @@ class Data {
         "Lunch Time": {
             "name": "Lunch Time",
             "block": 1,
-            "description": "",
+            "description": "Remove all aim cards in the \"Pet Line\"",
             "color": "gold",
             "cardNum": 2, //1,
             "ability": "LunchTime",
@@ -246,13 +246,13 @@ class Data {
         "Grenade-Mega Grenade": {
             "name": "Grenade",
             "block": 1,
-            "description": "",
+            "description": "Put this card below any pet card in the \"Pet Line\". When the third player ends their turn after this card was placed, remove the grenade card and the pet above it. (has no effect to the forest card)",
             "color": "gold",
             "cardNum": 2,
             "ability": "Grenade",
             "special": {
                 "name": "Mega Grenade",
-                "description": "",
+                "description": "Put this card below any pet card in the \"Pet Line\". When the third player ends their turn after this card was placed, remove the grenade card and three pet above it. (has no effect to the forest card), if u are Tsuna",
                 "color": "yellowgreen",
                 "ranger": "Tsunaryo",
                 "ability": "MegaGrenade"
@@ -261,13 +261,13 @@ class Data {
         "Aim-Kamikaze": {
             "name": "Aim",
             "block": 1,
-            "description": "",
+            "description": "Put this card above the pet you want to be targeted in the \"Pet Line\"",
             "color": "gold",
             "cardNum": 3,
             "ability": "Aim",
             "special": {
                 "name": "Kamikaze",
-                "description": "",
+                "description": "Cover LPG-Zord with this card. If LPG-Zord was destroyed, it and its both sides including all attached to the are destroyed, if u are Tsuna",
                 "color": "yellowgreen",
                 "ranger": "Tsunaryo",
                 "ability": "Kamikaze"
@@ -276,13 +276,13 @@ class Data {
         "Ressurect-Double Resurrect": {
             "name": "Ressurect",
             "block": 1,
-            "description": "",
+            "description": "Revive one of your pet that has been removed from the game to the bottom of the pet deck",
             "color": "gold",
             "cardNum": 2,
             "ability": "Ressurect",
             "special": {
                 "name": "Double Resurrect",
-                "description": "",
+                "description": "Put two 'Sunge' that has been removed from the game to the bottom of the pet deck, if u are Vonstaire",
                 "color": "deeppink",
                 "ranger": "Vonstaire",
                 "ability": "DoubleRessurect"
@@ -291,13 +291,13 @@ class Data {
         "Go Forward-Go Anyward": {
             "name": "Go Forward",
             "block": 1,
-            "description": "",
+            "description": "Swap YOUR pet with any card on the left side",
             "color": "gold",
             "cardNum": 2,
             "ability": "GoForward",
             "special": {
                 "name": "Go Anyward",
-                "description": "",
+                "description": "Swap 'Sunge' to any direction within two steps ahead if u are Vonstaire",
                 "color": "deeppink",
                 "ranger": "Vonstaire",
                 "ability": "GoAnyward"
@@ -306,13 +306,13 @@ class Data {
         "Go Backward-Go Anyward": {
             "name": "Go Backward",
             "block": 1,
-            "description": "",
+            "description": "Swap YOUR pet with any card on the right side",
             "color": "gold",
             "cardNum": 1,
             "ability": "GoBackward",
             "special": {
                 "name": "Go Anyward",
-                "description": "",
+                "description": "Swap 'Sunge' to any direction within two steps ahead if u are Vonstaire",
                 "color": "deeppink",
                 "ranger": "Vonstaire",
                 "ability": "GoAnyward"
@@ -321,13 +321,13 @@ class Data {
         "Boom-Over Shock": {
             "name": "Boom",
             "block": 1,
-            "description": "",
+            "description": "Use this card to destroy the targeted pet. Remove the aim card",
             "color": "gold",
             "cardNum": 3,
             "ability": "Boom",
             "special": {
                 "name": "Over Shock",
-                "description": "",
+                "description": "Destroying target whether it was aimed or not. If the card was aimed, remove the aim card also, if u are Neo",
                 "color": "purple",
                 "ranger": "Neo",
                 "ability": "OverShock"
@@ -336,13 +336,13 @@ class Data {
         "Armor-Shield": {
             "name": "Armor",
             "block": 1,
-            "description": "",
+            "description": "Cover your chosen pet to get additional life +1",
             "color": "gold",
             "cardNum": 1,
             "ability": "Armor",
             "special": {
                 "name": "Shield",
-                "description": "",
+                "description": "Cover 'Waung' to get additional life +2, if u are Bonci",
                 "color": "blue",
                 "ranger": "Bonci",
                 "ability": "Shield"
@@ -351,13 +351,13 @@ class Data {
         "Hide-Master Hide": {
             "name": "Hide",
             "block": 1,
-            "description": "",
+            "description": "Cover your chosen pet with this card. The covered pet can't be destroyed until this card removed after one round",
             "color": "gold",
             "cardNum": 2,
             "ability": "Hide",
             "special": {
                 "name": "Master Hide",
-                "description": "",
+                "description": "Put \"Waung\" underneath any pet. It moves along with the covering and remains hidden until the pet that cover it is removed, if u are Bonci",
                 "color": "blue",
                 "ranger": "Bonci",
                 "ability": "MasterHide"
@@ -366,13 +366,13 @@ class Data {
         "Aim-Trap": {
             "name": "Aim",
             "block": 1,
-            "description": "",
+            "description": "Put this card above the pet you want to be targeted in the \"Pet Line\"",
             "color": "gold",
             "cardNum": 4,
             "ability": "Aim",
             "special": {
                 "name": "Trap",
-                "description": "",
+                "description": "Cover your targeted pet with this card, the pet can't be moved by any action cards until the end of the Ashtray's next turn, if u are Ashtray",
                 "color": "red",
                 "ranger": "Ashtray",
                 "ability": "Trap"
@@ -381,13 +381,13 @@ class Data {
         "Bump Left-Moving Aim": {
             "name": "Bump Left",
             "block": 1,
-            "description": "",
+            "description": "Move any aim card one step to the left. If there is another aim card on the position, nothing happens",
             "color": "gold",
             "cardNum": 2,
             "ability": "BumpLeft",
             "special": {
                 "name": "Moving Aim",
-                "description": "",
+                "description": "You can move one aim card anywhere you like, if u are Ashtray",
                 "color": "red",
                 "ranger": "Ashtray",
                 "ability": "MovingAim"
@@ -396,13 +396,13 @@ class Data {
         "Bump Right-Moving Aim": {
             "name": "Bump Right",
             "block": 1,
-            "description": "",
+            "description": "Move any aim card one step to the right. If there is another aim card on the position, nothing happens",
             "color": "gold",
             "cardNum": 2,
             "ability": "BumpRight",
             "special": {
                 "name": "Moving Aim",
-                "description": "",
+                "description": "You can move one aim card anywhere you like, if u are Ashtray",
                 "color": "red",
                 "ranger": "Ashtray",
                 "ability": "MovingAim"
@@ -411,13 +411,13 @@ class Data {
         "Running-Escape": {
             "name": "Running",
             "block": 1,
-            "description": "",
+            "description": "Move forward all cards in the \"pet line\" remove the card in the very from of the line to the bottom of the deck, replace the blank spot with new card from deck",
             "color": "gold",
             "cardNum": 3,
             "ability": "Running",
             "special": {
                 "name": "Escape",
-                "description": "",
+                "description": "Take \"Sharpnell\" from the \"Pet Line\" put it in the pet deck and reshuffle, take one card from the pet deck to fill the blank spot, if u are Dobel",
                 "color": "orange",
                 "ranger": "Dobel",
                 "ability": "Escape"
@@ -426,13 +426,13 @@ class Data {
         "Running-Double Run": {
             "name": "Running",
             "block": 1,
-            "description": "",
+            "description": "Move forward all cards in the \"pet line\" remove the card in the very from of the line to the bottom of the deck, replace the blank spot with new card from deck",
             "color": "gold",
             "cardNum": 2,
             "ability": "Running",
             "special": {
                 "name": "Double Run",
-                "description": "",
+                "description": "Move forward all cards in the \"pet line\" remove two cards in the very front of the line to the bottom of the deck, replace the blank spot with two new card from deck, if u are Dobel",
                 "color": "orange",
                 "ranger": "Dobel",
                 "ability": "DoubleRun"
