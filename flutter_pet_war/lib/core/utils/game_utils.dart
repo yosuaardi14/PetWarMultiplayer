@@ -54,9 +54,9 @@ class GameUtils {
   static CircularQueue<List<Map<String, dynamic>>> initPetDeck(
       List<RxPlayer> playerArr) {
     CircularQueue<List<Map<String, dynamic>>> petDeck = CircularQueue(data: []);
-    var jungleSize = 1; //Constant.PET["Jungle"]?["cardNum"] ?? 0;
-    for (var i = 0; i < jungleSize; i++) {
-      var pet = Map<String, dynamic>.from(Constant.PET["Jungle"]!);
+    var forestSize = 1; //Constant.PET["Forest"]?["cardNum"] ?? 0;
+    for (var i = 0; i < forestSize; i++) {
+      var pet = Map<String, dynamic>.from(Constant.PET["Forest"]!);
       petDeck.addElement([pet]);
     }
     for (var i = 0; i < playerArr.length; i++) {
@@ -114,7 +114,7 @@ class GameUtils {
     try {
       for (var i = 0; i < petLine.length; i++) {
         for (var j = 0; j < petLine[i].length; j++) {
-          if (Constant.PET["Jungle"]?["name"] != petLine[i][j]["name"]) {
+          if (Constant.PET["Forest"]?["name"] != petLine[i][j]["name"]) {
             return true;
           }
         }
@@ -142,10 +142,10 @@ class GameUtils {
     }
   }
 
-  static bool checkIsJungle(
+  static bool checkIsForest(
       List<List<Map<String, dynamic>>> petLine, int cardPosition) {
     try {
-      if (Constant.PET["Jungle"]?["name"] == petLine[cardPosition][0]["name"]) {
+      if (Constant.PET["Forest"]?["name"] == petLine[cardPosition][0]["name"]) {
         return true;
       }
       return false;
@@ -266,7 +266,7 @@ class GameUtils {
       "Hypnotize",
     ];
 
-    if (!checkIsJungle(controller.petLine(), cardIndex) &&
+    if (!checkIsForest(controller.petLine(), cardIndex) &&
         needPetList.contains(cardName)) {
       return WidgetMode.dragTarget;
     }

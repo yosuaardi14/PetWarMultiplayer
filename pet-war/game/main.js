@@ -170,7 +170,7 @@ class Main {
 
         for (let i = 0; i < this.petLine.length; i++) {
             firstPet = this.petLine[i][0];
-            if (firstPet.name !== DataTwo.PET["Jungle"].name) {
+            if (firstPet.name !== DataTwo.PET["Forest"].name) {
                 break;
             }
         }

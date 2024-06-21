@@ -90,12 +90,12 @@ class PetCard extends StatelessWidget {
                   maxRadius: 10,
                   backgroundColor: GF.colorFromString(pet.color),
                   child: Text(
-                    pet.name != "Jungle" ? "I" : "",
+                    pet.name != "Forest" ? "I" : "",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
-                      color: pet.name != "Jungle" ? Colors.white : Colors.black,
+                      color: pet.name != "Forest" ? Colors.white : Colors.black,
                     ),
                   ),
                 ),
@@ -116,7 +116,7 @@ class PetCard extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
-                      color: pet.name != "Jungle" ? Colors.white : Colors.black,
+                      color: pet.name != "Forest" ? Colors.white : Colors.black,
                     ),
                   ),
                 ),
@@ -214,7 +214,7 @@ class SpecialPetCard extends StatelessWidget {
                                 ? Constant.PLAYER_FONT_SIZE
                                 : Constant.FONT_SIZE,
                             fontWeight: FontWeight.bold,
-                            color: pet.name != "Jungle"
+                            color: pet.name != "Forest"
                                 ? Colors.white
                                 : Colors.black,
                           ),
@@ -251,7 +251,7 @@ class SpecialPetCard extends StatelessWidget {
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
                         color:
-                            pet.name != "Jungle" ? Colors.white : Colors.black,
+                            pet.name != "Forest" ? Colors.white : Colors.black,
                       ),
                     ),
                   ),
@@ -283,7 +283,7 @@ class SpecialPetCard extends StatelessWidget {
                                     ? Constant.PLAYER_FONT_SIZE
                                     : Constant.FONT_SIZE,
                                 fontWeight: FontWeight.bold,
-                                color: pet.name != "Jungle"
+                                color: pet.name != "Forest"
                                     ? Colors.white
                                     : Colors.black,
                               ),
@@ -313,7 +313,7 @@ class SpecialPetCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
-                          color: pet.name != "Jungle"
+                          color: pet.name != "Forest"
                               ? Colors.white
                               : Colors.black,
                         ),
@@ -338,7 +338,7 @@ class SpecialPetCard extends StatelessWidget {
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
                         color:
-                            pet.name != "Jungle" ? Colors.white : Colors.black,
+                            pet.name != "Forest" ? Colors.white : Colors.black,
                       ),
                     ),
                   ),

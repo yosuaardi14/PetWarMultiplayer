@@ -65,7 +65,7 @@ class MasterHideDialog extends StatelessWidget {
                           card,
                           Text("Jumlah: ${e.value.length}"),
                           if (e.key == index) const Icon(Icons.arrow_upward),
-                          if (e.value[0]["name"] != "Jungle" && e.key != index)
+                          if (e.value[0]["name"] != "Forest" && e.key != index)
                             ElevatedButton(
                               onPressed: () {
                                 Get.back(result: e.key);

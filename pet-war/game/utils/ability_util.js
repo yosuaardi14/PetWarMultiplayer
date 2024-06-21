@@ -581,7 +581,7 @@ class AbilityUtil {
         let specialCardName = isSpecialCard ? main.petDeck[targetIndex][0].special.name : "";
         // // check target isForest -> do nothing
         // // check target hasHide -> do nothing
-        let isForest = cardName == Data.PET["Jungle"].name;
+        let isForest = cardName == Data.PET["Forest"].name;
         let isHide = !useSpecialAbility && (cardName == Data.ACTION["Hide"].name);
         console.log("isForest || isHide");
         if (isForest || isHide) {
@@ -697,7 +697,7 @@ class AbilityUtil {
         let specialCardName = isSpecialCard ? main.petDeck[targetIndex][0].special.name : "";
         // // check target isForest -> do nothing
         // // check target hasHide -> do nothing
-        let isForest = cardName == Data.PET["Jungle"].name;
+        let isForest = cardName == Data.PET["Forest"].name;
         let isHide = !useSpecialAbility && (cardName == Data.ACTION["Hide"].name);
         // let isTrap = useSpecialAbility && isSpecialCard && (specialCardName == Data.ACTION["Aim-Trap"].special.name);
         console.log((cardName == Data.ACTION["Aim-Trap"].special.name));
@@ -1348,7 +1348,7 @@ class AbilityUtil {
             // console.log("TODO coverIndex" + coverIndex);
             if (coverIndex != -1) {
                 // console.log("TODO coverIndex length: " + main.petDeck.getAt(coverIndex).length);
-                if (main.petDeck[coverIndex][0].name !== Data.PET["Jungle"].name) {
+                if (main.petDeck[coverIndex][0].name !== Data.PET["Forest"].name) {
                     let tempPet = main.petDeck[index];
                     // console.log("Def " + main.petDeck);
                     // console.log(main.petDeck);
@@ -1514,7 +1514,7 @@ class AbilityUtil {
             let isSpecialCard = card.special != null;
             console.log("onActiveKamikaze isSpecialCard" + isSpecialCard);
 
-            let isForest = cardName == Data.PET["Jungle"].name;
+            let isForest = cardName == Data.PET["Forest"].name;
             let isHide = !useSpecialAbility && (cardName == Data.ACTION["Hide"].name);
             let hasKamikaze = useSpecialAbility && (specialCardName == Data.ACTION["Aim-Kamikaze"].special.name);
             if (isForest || isHide) {

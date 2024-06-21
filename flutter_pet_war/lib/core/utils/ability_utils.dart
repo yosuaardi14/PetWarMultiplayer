@@ -167,7 +167,7 @@
 //           controller.actionUp[index] = null;
 //           if (index < controller.petDeck().data.length) {
 //             if (controller.petDeck().getAt(index).first["name"] !=
-//                 Constant.PET["Jungle"]?["name"]) {
+//                 Constant.PET["Forest"]?["name"]) {
 //               if (controller.petDeck().getAt(index).length > 1) {
 //                 var card = controller.petDeck().getAt(index).first;
 //                 if (card["name"] == "Shield") {
@@ -210,7 +210,7 @@
 //               // TODO discard pile the lpg zord and kamikaze
 //               if (i < controller.petDeck().data.length) {
 //                 if (controller.petDeck().getAt(i).first["name"] !=
-//                     Constant.PET["Jungle"]?["name"]) {
+//                     Constant.PET["Forest"]?["name"]) {
 //                   if (controller.petDeck().getAt(i).length > 1) {
 //                     var card = controller.petDeck().getAt(i).first;
 //                     if (card["name"] == "Shield") {
@@ -291,7 +291,7 @@
 
 //         if (missIndex < controller.petDeck().data.length) {
 //           if (controller.petDeck().getAt(missIndex).first["name"] !=
-//               Constant.PET["Jungle"]?["name"]) {
+//               Constant.PET["Forest"]?["name"]) {
 //             if (controller.petDeck().getAt(missIndex).length > 1) {
 //               var card = controller.petDeck().getAt(missIndex).first;
 //               if (card["name"] == "Shield") {
@@ -475,7 +475,7 @@
 //       if (index == minIndex || index == maxIndex) {
 //         coverIndex = index == 0 ? index + 1 : index - 1;
 //         if (controller.petDeck().getAt(coverIndex)[0]["name"] !=
-//             Constant.PET["Jungle"]?["name"]) {
+//             Constant.PET["Forest"]?["name"]) {
 //           controller
 //               .petDeck()
 //               .getAt(coverIndex)
@@ -485,9 +485,9 @@
 //         // TODO
 //         //show Dialog choose want to cover front or back
 //         if (controller.petDeck().getAt(index + 1)[0]["name"] !=
-//                 Constant.PET["Jungle"]?["name"] &&
+//                 Constant.PET["Forest"]?["name"] &&
 //             controller.petDeck().getAt(index - 1)[0]["name"] !=
-//                 Constant.PET["Jungle"]?["name"]) {
+//                 Constant.PET["Forest"]?["name"]) {
 //           coverIndex = index + await GF.showLeftRightDialog();
 //           if (coverIndex < controller.petLine.length) {
 //             controller
@@ -496,7 +496,7 @@
 //                 .addAll(controller.petDeck().removeAt(index));
 //           }
 //         } else if (controller.petDeck().getAt(index + 1)[0]["name"] !=
-//             Constant.PET["Jungle"]?["name"]) {
+//             Constant.PET["Forest"]?["name"]) {
 //           coverIndex = index + 1;
 //           if (coverIndex < controller.petLine.length) {
 //             controller
@@ -505,7 +505,7 @@
 //                 .addAll(controller.petDeck().removeAt(index));
 //           }
 //         } else if (controller.petDeck().getAt(index + 1)[0]["name"] !=
-//             Constant.PET["Jungle"]?["name"]) {
+//             Constant.PET["Forest"]?["name"]) {
 //           coverIndex = index - 1;
 //           if (coverIndex < controller.petLine.length) {
 //             controller
@@ -541,7 +541,7 @@
 //           controller.actionUp[index] = null;
 //         }
 //         if (controller.petDeck().getAt(index).first["name"] !=
-//             Constant.PET["Jungle"]?["name"]) {
+//             Constant.PET["Forest"]?["name"]) {
 //           if (controller.petDeck().getAt(index).length > 1) {
 //             var card = controller.petDeck().getAt(index).first;
 //             if (card["name"] == "Shield") {

@@ -249,8 +249,8 @@ class Constant {
   ];
 
   static const Map<String, Map<String, dynamic>> PET = {
-    "Jungle": {
-      "name": "Jungle",
+    "Forest": {
+      "name": "Forest",
       "description": "",
       "color": "grey",
       "ranger": "",

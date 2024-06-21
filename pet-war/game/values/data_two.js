@@ -49,8 +49,8 @@ class DataTwo {
     ];
 
     static PET = {
-        "Jungle": {
-            "name": "Jungle",
+        "Forest": {
+            "name": "Forest",
             "description": "",
             "color": "grey",
             "ranger": "",

@@ -70,10 +70,10 @@ class GameUtil {
     static initPetDeck(playerObj) {
         let cardDB = Data.PET;
         const petDeck = new CircularQueue();
-        const jungleSize = cardDB["Jungle"]["cardNum"];
+        const forestSize = cardDB["Forest"]["cardNum"];
 
-        for (let i = 0; i < jungleSize; i++) {
-            let pet = Object.assign({}, cardDB["Jungle"]);
+        for (let i = 0; i < forestSize; i++) {
+            let pet = Object.assign({}, cardDB["Forest"]);
             pet["id"] = Util.generateId("pet");
             petDeck.addElement([pet]);
         }
@@ -93,10 +93,10 @@ class GameUtil {
     static initPetDeckNew(playerObj) {
         let cardDB = Data.PET;
         let petDeck = [];
-        const jungleSize = 3;//cardDB["Jungle"]["cardNum"]; // Assume this is the default value or fetch from Constant.PET["Jungle"]["cardNum"] ?? 0;
+        const forestSize = 3;//cardDB["Forest"]["cardNum"]; // Assume this is the default value or fetch from Constant.PET["Forest"]["cardNum"] ?? 0;
 
-        for (let i = 0; i < jungleSize; i++) {
-            let pet = Object.assign({}, cardDB["Jungle"]);
+        for (let i = 0; i < forestSize; i++) {
+            let pet = Object.assign({}, cardDB["Forest"]);
             pet["id"] = Util.generateId("pet");
             petDeck.push([pet]);
         }
