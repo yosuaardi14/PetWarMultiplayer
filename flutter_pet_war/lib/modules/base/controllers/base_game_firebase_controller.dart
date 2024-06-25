@@ -216,20 +216,32 @@ class BaseGameFirebaseController extends GetxController {
           onInitGameFinish(e);
         } else if (e?["state"]["name"] == GameState.playerTurn.name) {
           print(GameState.playerTurn.name);
-          onPlayerTurn(e);
+
+          if (e?["state"]?["turn"] == playerData["id"]) {
+            onPlayerTurn(e);
+          }
           // }
           // else if (e?["state"]["name"] == GameState.sendAction.name) {
           //   print(GameState.sendAction.name);
           //   onSendAction(e);
         } else if (e?["state"]["name"] == GameState.confirmAction.name) {
           print(GameState.confirmAction.name);
-          onConfirmAction(e);
+
+          if (e?["state"]?["turn"] == playerData["id"]) {
+            onConfirmAction(e);
+          }
         } else if (e?["state"]["name"] == GameState.finishAction.name) {
           print(GameState.finishAction.name);
-          onFinishAction(e);
+
+          if (e?["state"]?["turn"] == playerData["id"]) {
+            onFinishAction(e);
+          }
         } else if (e?["state"]["name"] == GameState.nextTurn.name) {
           print(GameState.nextTurn.name);
-          onNextTurn(e);
+
+          if (e?["state"]?["turn"] == playerData["id"]) {
+            onNextTurn(e);
+          }
         }
         // else if (e?["state"]["name"] == GameState.gameFinish.name) {
         //   print(GameState.gameFinish.name);
@@ -331,10 +343,8 @@ class BaseGameFirebaseController extends GetxController {
   }
 
   void onPlayerTurn(Map<String, dynamic>? e) {
-    if (e?["state"]?["turn"] == playerData["id"]) {
-      notifyTurn();
-      isPlayerTurn(true);
-    }
+    notifyTurn();
+    isPlayerTurn(true);
   }
 
   void onConfirmAction(Map<String, dynamic>? e) async {

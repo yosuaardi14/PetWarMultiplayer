@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 class GameUtils {
   static List<Map<String, dynamic>> initCanvasRanger() {
-    var rangerList = List<Map<String, dynamic>>.from(Constant.CANVAS_RANGER);
+    var rangerList = List<Map<String, dynamic>>.from(Constant.CANVAS_RANGER.where((e) => e["type"] == "Pet War"));
     for (var i = 0; i < rangerList.length; i++) {
       var ranger = Map<String, dynamic>.from(rangerList[i]);
       ranger["id"] = GF.generateId("ranger");
@@ -236,7 +236,7 @@ class GameUtils {
 
   static WidgetMode onActionDeckTypeCard(BaseGameFirebaseController controller, int cardIndex) {
     print("onActionDeckTypeCard");
-    
+
     var cardName = controller.playerSelectedCard()["useSpecial"] == true
         ? controller.playerSelectedCard()["special"]["name"]
         : controller.playerSelectedCard()["name"];
@@ -259,7 +259,7 @@ class GameUtils {
 
   static WidgetMode onActionDeckTypeCardEmpty(BaseGameFirebaseController controller, int cardIndex) {
     print("onActionDeckTypeCardEmpty");
-    
+
     var cardName = controller.playerSelectedCard()["useSpecial"] == true
         ? controller.playerSelectedCard()["special"]["name"]
         : controller.playerSelectedCard()["name"];
