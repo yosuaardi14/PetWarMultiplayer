@@ -21,10 +21,7 @@ class ChatHistory extends GetView<GameController> {
               children: [
                 const Text(
                   "Chat",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.white),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
                 ),
                 Expanded(
                   child: ListView(
@@ -33,8 +30,7 @@ class ChatHistory extends GetView<GameController> {
                       ...controller.chatHistory().split("\n").map(
                             (e) => Text(
                               e,
-                              style: const TextStyle(
-                                  fontSize: 14, color: Colors.white),
+                              style: const TextStyle(fontSize: 14, color: Colors.white),
                             ),
                           ),
                     ],

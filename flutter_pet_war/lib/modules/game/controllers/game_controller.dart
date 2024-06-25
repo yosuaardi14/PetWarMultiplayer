@@ -58,11 +58,7 @@ class GameController extends BaseGameController {
         updateAimListAfterMovingAim();
         return {
           "card": playerSelectedCard(),
-          "extraprop": {
-            "aimList": aimList(),
-            "actionUp": actionUp(),
-            ...?data["extraprop"]
-          }
+          "extraprop": {"aimList": aimList(), "actionUp": actionUp(), ...?data["extraprop"]}
         };
       case "petLine":
         // pet line
@@ -99,10 +95,7 @@ class GameController extends BaseGameController {
         final res = await GF.showLeftRightDialog();
         return {
           "card": playerSelectedCard(),
-          "extraprop": {
-            "targetIndex": res < 0 ? "left" : "right",
-            ...?data["extraprop"]
-          },
+          "extraprop": {"targetIndex": res < 0 ? "left" : "right", ...?data["extraprop"]},
         };
       default:
         return "Ok";
@@ -130,8 +123,9 @@ class GameController extends BaseGameController {
   }
 
   void flipCard(int index) {
-    playerObj().cardDeck()[index].update("useSpecial",
-        (value) => !(playerObj().cardDeck[index]["useSpecial"] ?? false));
+    playerObj()
+        .cardDeck()[index]
+        .update("useSpecial", (value) => !(playerObj().cardDeck[index]["useSpecial"] ?? false));
     playerObj.refresh();
     print(playerObj().cardDeck());
   }

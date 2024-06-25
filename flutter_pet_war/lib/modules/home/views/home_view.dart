@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pet_war/modules/base/local_widgets/catalog/card_catalog.dart';
 import 'package:flutter_pet_war/modules/base/local_widgets/game_background.dart';
 import 'package:flutter_pet_war/modules/home/controllers/home_controller.dart';
+import 'package:flutter_pet_war/modules/home/controllers/home_firebase_controller.dart';
 import 'package:get/get.dart';
 
-class HomeView extends GetView<HomeController> {
+class HomeView extends GetView<HomeFirebaseController> {
   const HomeView({super.key});
 
   @override
@@ -54,6 +55,10 @@ class HomeView extends GetView<HomeController> {
                             },
                             child: const Text("Katalog Kartu"),
                           ),
+                        ),
+                        ElevatedButton(
+                          onPressed: controller.transferData,
+                          child: Text("Transfer"),
                         ),
                       ],
                     ),

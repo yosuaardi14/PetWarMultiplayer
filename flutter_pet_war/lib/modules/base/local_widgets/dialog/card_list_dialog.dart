@@ -44,8 +44,7 @@ class CardListDialog extends StatelessWidget {
                       ActionModel? action;
                       ActionCard? actionCard;
                       if (e.value.containsKey("ability")) {
-                        action = ActionModel.fromJson(
-                            Map<String, dynamic>.from(e.value));
+                        action = ActionModel.fromJson(Map<String, dynamic>.from(e.value));
                         actionCard = ActionCard(action: action);
                         card = actionCard;
                       } else {

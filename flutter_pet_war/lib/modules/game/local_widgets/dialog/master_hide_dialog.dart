@@ -9,8 +9,7 @@ import 'package:get/get.dart';
 class MasterHideDialog extends StatelessWidget {
   final int index;
   final List<List<Map<String, dynamic>>> cardList;
-  const MasterHideDialog(
-      {super.key, required this.cardList, required this.index});
+  const MasterHideDialog({super.key, required this.cardList, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -49,13 +48,11 @@ class MasterHideDialog extends StatelessWidget {
                       ActionModel? action;
                       ActionCard? actionCard;
                       if (e.value[0].containsKey("ability")) {
-                        action = ActionModel.fromJson(
-                            Map<String, dynamic>.from(e.value[0]));
+                        action = ActionModel.fromJson(Map<String, dynamic>.from(e.value[0]));
                         actionCard = ActionCard(action: action);
                         card = actionCard;
                       } else {
-                        pet =
-                            Pet.fromJson(Map<String, dynamic>.from(e.value[0]));
+                        pet = Pet.fromJson(Map<String, dynamic>.from(e.value[0]));
                         petCard = PetCard(pet: pet);
                         card = petCard;
                       }

@@ -181,10 +181,7 @@ class SocketService {
       if (controller is BaseGameController) {
         (controller as BaseGameController).actionHistory.value += "$data\n";
         (controller as BaseGameController).actionHistoryScrollController.jumpTo(
-              (controller as BaseGameController)
-                  .actionHistoryScrollController
-                  .position
-                  .maxScrollExtent,
+              (controller as BaseGameController).actionHistoryScrollController.position.maxScrollExtent,
             );
       }
     });
@@ -267,10 +264,7 @@ class SocketService {
       if (controller is GameController) {
         (controller as GameController).chatHistory.value += "$data\n";
         (controller as GameController).chatHistoryScrollController.jumpTo(
-              (controller as GameController)
-                  .chatHistoryScrollController
-                  .position
-                  .maxScrollExtent,
+              (controller as GameController).chatHistoryScrollController.position.maxScrollExtent,
             );
       }
     });

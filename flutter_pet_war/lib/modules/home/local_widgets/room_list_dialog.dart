@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pet_war/core/values/game_state.dart';
 import 'package:flutter_pet_war/modules/home/controllers/home_controller.dart';
+import 'package:flutter_pet_war/modules/home/controllers/home_firebase_controller.dart';
 import 'package:get/get.dart';
 
-class RoomListDialog extends GetView<HomeController> {
+class RoomListDialog extends GetView<HomeFirebaseController> {
   // final Map<String, dynamic> roomList;
   const RoomListDialog({super.key});
 
@@ -47,7 +49,7 @@ class RoomListDialog extends GetView<HomeController> {
       child: ListTile(
         title: Text(roomData["id"] ?? "Test"),
         subtitle: Text(
-          "${roomData["num"] ?? 0}/${roomData["maxNum"] ?? 6}",
+          "${((roomData["playerInfoList"] as Map?)?.length ?? 0)}/${roomData["maxNum"] ?? 6}",
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -57,7 +59,9 @@ class RoomListDialog extends GetView<HomeController> {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if ((roomData["num"] ?? 0) < (roomData["maxNum"] ?? 6))
+            // if ((roomData["num"] ?? 0) < (roomData["maxNum"] ?? 6))
+            if (roomData["status"] == GameState.waiting.name &&
+                ((roomData["playerInfoList"] as Map?)?.length ?? 0) < (roomData["maxNum"] ?? 6))
               Container(
                 width: 100,
                 height: 50,

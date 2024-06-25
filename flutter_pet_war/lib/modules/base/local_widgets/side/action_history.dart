@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_pet_war/modules/base/controllers/base_game_controller.dart';
+import 'package:flutter_pet_war/modules/base/controllers/base_game_firebase_controller.dart';
 import 'package:get/get.dart';
 
-class ActionHistory<T extends BaseGameController> extends GetView<T> {
+class ActionHistory<T extends BaseGameFirebaseController> extends GetView<T> {
   const ActionHistory({super.key});
 
   @override
@@ -32,24 +32,19 @@ class ActionHistory<T extends BaseGameController> extends GetView<T> {
                     children: [
                       const Text(
                         "History",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.white),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
                       ),
                       ...controller.playerRoomList().entries.map(
                             (e) => Text(
                               e.value + " bergabung",
-                              style: const TextStyle(
-                                  fontSize: 14, color: Colors.white),
+                              style: const TextStyle(fontSize: 14, color: Colors.white),
                             ),
                           ),
                       const Divider(),
                       ...controller.actionHistory().split("\n").map(
                             (e) => Text(
                               e,
-                              style: const TextStyle(
-                                  fontSize: 14, color: Colors.white),
+                              style: const TextStyle(fontSize: 14, color: Colors.white),
                             ),
                           ),
                     ],

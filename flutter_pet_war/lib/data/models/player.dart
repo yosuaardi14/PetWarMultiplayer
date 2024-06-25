@@ -81,7 +81,7 @@ class RxPlayer {
   void setFromJson(Map<String, dynamic> data) {
     name.value = data["name"];
     ranger.value = data["ranger"] ?? {};
-    cardDeck.value = data["cardDeck"] ?? [];
+    cardDeck.value = List<Map<String, dynamic>>.from(data["cardDeck"] ?? []);
     maxLife.value = data["maxLife"];
     life.value = data["life"];
     isDead.value = data["isDead"];

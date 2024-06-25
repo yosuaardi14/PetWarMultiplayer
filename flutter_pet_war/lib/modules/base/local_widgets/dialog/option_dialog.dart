@@ -5,8 +5,7 @@ class OptionDialog extends StatelessWidget {
   final String? description;
   // final List<Widget>? actions;
   final Map<String, dynamic>? buttonLabelValue;
-  const OptionDialog(
-      {super.key, this.title, this.description, this.buttonLabelValue});
+  const OptionDialog({super.key, this.title, this.description, this.buttonLabelValue});
 
   @override
   Widget build(BuildContext context) {

@@ -65,9 +65,7 @@ class CanvasRangerCard extends StatelessWidget {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                width: playerCard
-                    ? Constant.PLAYER_CARD_WIDTH
-                    : Constant.CARD_WIDTH,
+                width: playerCard ? Constant.PLAYER_CARD_WIDTH : Constant.CARD_WIDTH,
                 height: 30,
                 decoration: BoxDecoration(
                   color: GF.colorFromString(canvasRanger.color),
@@ -83,10 +81,7 @@ class CanvasRangerCard extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 5, left: 10),
                 child: Container(
-                  width: (playerCard
-                          ? Constant.PLAYER_CARD_WIDTH
-                          : Constant.CARD_WIDTH) -
-                      20,
+                  width: (playerCard ? Constant.PLAYER_CARD_WIDTH : Constant.CARD_WIDTH) - 20,
                   height: 35,
                   padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
@@ -97,9 +92,7 @@ class CanvasRangerCard extends StatelessWidget {
                     "",
                     // canvasRanger.description,
                     style: TextStyle(
-                      fontSize: playerCard
-                          ? Constant.PLAYER_FONT_SIZE
-                          : Constant.FONT_SIZE,
+                      fontSize: playerCard ? Constant.PLAYER_FONT_SIZE : Constant.FONT_SIZE,
                       color: Colors.white /*Colors.black*/,
                     ),
                   ),
@@ -130,8 +123,7 @@ class CanvasRangerCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
-                    color:
-                        canvasRanger.pet == "Vao" ? Colors.white : Colors.black,
+                    color: canvasRanger.pet == "Vao" ? Colors.white : Colors.black,
                   ),
                 ),
               ),
@@ -146,9 +138,7 @@ class CanvasRangerCard extends StatelessWidget {
                     child: Text(
                       canvasRanger.name.toUpperCase(),
                       style: TextStyle(
-                        fontSize: playerCard
-                            ? Constant.PLAYER_FONT_SIZE
-                            : Constant.FONT_SIZE,
+                        fontSize: playerCard ? Constant.PLAYER_FONT_SIZE : Constant.FONT_SIZE,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                         // shadows: [

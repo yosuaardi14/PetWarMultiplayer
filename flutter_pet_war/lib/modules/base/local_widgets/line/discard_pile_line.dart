@@ -3,13 +3,14 @@ import 'package:flutter_pet_war/core/utils/game_utils.dart';
 import 'package:flutter_pet_war/core/values/constant.dart';
 import 'package:flutter_pet_war/data/models/card/action.dart';
 import 'package:flutter_pet_war/modules/base/controllers/base_game_controller.dart';
+import 'package:flutter_pet_war/modules/base/controllers/base_game_firebase_controller.dart';
 import 'package:flutter_pet_war/modules/base/local_widgets/base_card.dart';
 import 'package:flutter_pet_war/modules/base/local_widgets/card/action_card.dart';
 import 'package:flutter_pet_war/modules/base/local_widgets/card/empty_card.dart';
 import 'package:flutter_pet_war/modules/base/local_widgets/dialog/card_list_dialog.dart';
 import 'package:get/get.dart';
 
-class DiscardPileLine<T extends BaseGameController> extends GetView<T> {
+class DiscardPileLine<T extends BaseGameFirebaseController> extends GetView<T> {
   final int line;
   const DiscardPileLine({super.key, this.line = 2});
 
@@ -31,10 +32,7 @@ class DiscardPileLine<T extends BaseGameController> extends GetView<T> {
                     child: Center(
                       child: Text(
                         "ACTION",
-                        style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.red, fontSize: 24, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -91,8 +89,7 @@ class DiscardPileLine<T extends BaseGameController> extends GetView<T> {
                                   ),
                                   child: Text(
                                     "Turn: ${controller.grenadeList()[e.key] ?? 0}",
-                                    style: const TextStyle(
-                                        color: Colors.white, fontSize: 20),
+                                    style: const TextStyle(color: Colors.white, fontSize: 20),
                                   ),
                                 ),
                             ],
@@ -103,15 +100,12 @@ class DiscardPileLine<T extends BaseGameController> extends GetView<T> {
                           child: Column(
                             children: [
                               BaseCard<Map<String, dynamic>>(
-                                key: ValueKey(Constant.CANVAS_TEXT[line]
-                                        [e.key] +
-                                    (line + e.key).toString()),
+                                key: ValueKey(Constant.CANVAS_TEXT[line][e.key] + (line + e.key).toString()),
                                 data: e.value,
-                                type: GameUtils.onDiscardPileLineTypeCard(
-                                    controller),
+                                type: GameUtils.onDiscardPileLineTypeCard(controller),
                                 onAcceptWithDetails: (details) async {
                                   print("DiscardPileLine onAccept");
-                                  controller.sendCommand(
+                                  controller.sendAction(
                                     details.data,
                                     extraprop: {
                                       "index": e.key,
@@ -119,8 +113,7 @@ class DiscardPileLine<T extends BaseGameController> extends GetView<T> {
                                     },
                                   );
                                 },
-                                showCondition:
-                                    controller.actionDown[e.key] != null,
+                                showCondition: controller.actionDown[e.key] != null,
                                 emptyChild: emptyCard,
                                 child: actionCard ?? emptyCard,
                               ),
@@ -141,7 +134,8 @@ class DiscardPileLine<T extends BaseGameController> extends GetView<T> {
                             return true;
                           },
                           onAcceptWithDetails: (details) async {
-                            controller.sendCommand(
+                            
+                            controller.sendAction(
                               details.data,
                             );
                           },
@@ -157,23 +151,18 @@ class DiscardPileLine<T extends BaseGameController> extends GetView<T> {
                                   color: Colors.black,
                                   child: Text(
                                     "Total: ${controller.discardPile.length}",
-                                    style: const TextStyle(
-                                        color: Colors.white, fontSize: 20),
+                                    style: const TextStyle(color: Colors.white, fontSize: 20),
                                   ),
                                 ),
                             ],
                           ),
-                          showCondition:
-                              controller.discardPileCurrentCard.isNotEmpty,
+                          showCondition: controller.discardPileCurrentCard.isNotEmpty,
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
                               controller.discardPileCurrentCard.isNotEmpty
                                   ? ActionCard(
-                                      useSpecial:
-                                          controller.discardPileCurrentCard()[
-                                                  "useSpecial"] ??
-                                              false,
+                                      useSpecial: controller.discardPileCurrentCard()["useSpecial"] ?? false,
                                       action: ActionModel.fromJson(
                                         controller.discardPileCurrentCard(),
                                       ),
@@ -191,8 +180,7 @@ class DiscardPileLine<T extends BaseGameController> extends GetView<T> {
                                   ),
                                   child: Text(
                                     "Total: ${controller.discardPile.length}",
-                                    style: const TextStyle(
-                                        color: Colors.white, fontSize: 20),
+                                    style: const TextStyle(color: Colors.white, fontSize: 20),
                                   ),
                                 ),
                             ],
@@ -208,10 +196,7 @@ class DiscardPileLine<T extends BaseGameController> extends GetView<T> {
                             child: ElevatedButton(
                               onPressed: () {
                                 Get.dialog(CardListDialog(
-                                  cardList: controller
-                                      .discardPile()
-                                      .reversed
-                                      .toList(),
+                                  cardList: controller.discardPile().reversed.toList(),
                                 ));
                               },
                               child: const Text("Lihat Kartu"),

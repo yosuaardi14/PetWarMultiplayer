@@ -1,12 +1,18 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_pet_war/core/utils/storage_utils.dart';
 import 'package:flutter_pet_war/modules/base/local_widgets/dialog/option_dialog.dart';
 import 'package:get/get.dart';
 
 class GF {
   static int genRandomNumber(max) {
     return Random().nextInt(max);
+  }
+
+  static String generateRandomString({int length = 12}) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    return List.generate(length, (index) => characters[genRandomNumber(characters.length)]).join();
   }
 
   static List<T> shuffle<T>(List<T> data) {
@@ -20,14 +26,20 @@ class GF {
     return data;
   }
 
+  static List<T> shuffleRange<T>(List<T> data, int start, [int? end]) {
+    end ??= data.length;
+    if (end > data.length) {
+      end = data.length;
+    }
+    var tempData = data.getRange(start, end).toList();
+    tempData.shuffle();
+    data.removeRange(start, end);
+    data.addAll(tempData);
+    return data;
+  }
+
   static bool isListFull(List data) {
     return data.every((element) => element != null);
-    // for (var i = 0; i < data.length; i++) {
-    //   if (data[i] == null) {
-    //     return false;
-    //   }
-    // }
-    // return true;
   }
 
   static bool isListNull(List data, [int? len]) {
@@ -52,20 +64,57 @@ class GF {
       size = data.length;
     }
     data.fillRange(0, size, null);
-    // for (var i = 0; i < size; i++) {
-    //   data[i] = null;
-    // }
     return data;
   }
 
-  static String generateId(String type, [Map<String, dynamic>? data]) {
+  static String generateId(
+    String type, [
+    Map<String, dynamic>? data,
+    int? cardIdx = 0,
+  ]) {
+    // final now = DateTime.now();
+    // final formattedDate =
+    //     '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
+    // final formattedTime =
+    //     '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}:${now.second.toString().padLeft(2, '0')}';
+
     if (type == "action") {
       if (data != null) {
-        return "ACT_${data["ability"]?.toString().trim() ?? "ACTION"}_${data["cardNum"]?.toString() ?? 0}";
+        var ability = data['ability']?.toString().trim() ?? "ACTION";
+        if (data["special"] != null) {
+          ability += "-${data["special"]['ability']?.toString().trim() ?? "SPECIAL"}";
+        }
+        final cardNum = data['cardNum']?.toString() ?? "0";
+        return 'ACT_${ability}_${cardNum}_$cardIdx';
       }
-      return "ACT_${DateTime.now()}";
+      final randomStr = generateRandomString(length: 27);
+      return 'ACT_$randomStr';
+    } else if (type == "pet") {
+      if (data != null) {
+        final ability = data['ranger']?.toString().trim() ?? "PET";
+        // final cardNum = data['cardNum']?.toString() ?? "0";
+        return 'PET_${ability}_$cardIdx';
+      }
+      final randomStr = generateRandomString(length: 6);
+      return 'PET_$randomStr';
+    } else if (type == "ranger") {
+      if (data != null) {
+        final ability = data['pet']?.toString().trim() ?? "RGR";
+        final cardNum = data['cardNum']?.toString() ?? "0";
+        return 'RGR_${ability}_$cardNum';
+      }
+      final randomStr = generateRandomString(length: 6);
+      return 'RGR_$randomStr';
     }
-    return "";
+
+    final randomStr = generateRandomString(length: 6);
+    return 'CRPW_$randomStr';
+  }
+
+  static Future<Map<String, dynamic>> loadPlayerData() async {
+    String id = await StorageUtils.read("playerId");
+    String name = await StorageUtils.read("playerName");
+    return {"id": id, "name": name};
   }
 
   static showOptionDialog() async {

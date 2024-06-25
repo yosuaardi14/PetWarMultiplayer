@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_pet_war/core/utils/storage_utils.dart';
 import 'package:flutter_pet_war/routes/app_pages.dart';
@@ -31,7 +33,13 @@ class LoginController extends GetxController {
     if (name.length > 14) {
       name = name.substring(0, 13);
     }
+    var id = DateTime.now().millisecondsSinceEpoch;
     await StorageUtils.write("playerName", name);
+    await StorageUtils.write(
+      "playerId",
+      base64Encode(id.toString().codeUnits + name.codeUnits),
+    );
+
     Get.offNamed(Routes.HOME);
   }
 }

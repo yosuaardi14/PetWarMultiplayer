@@ -21,8 +21,7 @@ class PetCard extends StatelessWidget {
       elevation: 5,
       child: Container(
         width: playerCard ? Constant.PLAYER_CARD_WIDTH : Constant.CARD_WIDTH,
-        height:
-            playerCard ? Constant.PLAYER_CARD_HEIGHT : Constant.PET_CARD_HEIGHT,
+        height: playerCard ? Constant.PLAYER_CARD_HEIGHT : Constant.PET_CARD_HEIGHT,
         // padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
@@ -67,9 +66,7 @@ class PetCard extends StatelessWidget {
                         pet.name,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: playerCard
-                              ? Constant.PLAYER_FONT_SIZE
-                              : Constant.FONT_SIZE,
+                          fontSize: playerCard ? Constant.PLAYER_FONT_SIZE : Constant.FONT_SIZE,
                           fontWeight: FontWeight.bold,
                           color: pet.name == "Vao" ? Colors.white : Colors.black,
                         ),
@@ -146,9 +143,7 @@ class SpecialPetCard extends StatelessWidget {
         elevation: 5,
         child: Container(
           width: playerCard ? Constant.PLAYER_CARD_WIDTH : Constant.CARD_WIDTH,
-          height: playerCard
-              ? Constant.PLAYER_CARD_HEIGHT
-              : Constant.PET_CARD_HEIGHT,
+          height: playerCard ? Constant.PLAYER_CARD_HEIGHT : Constant.PET_CARD_HEIGHT,
           // padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
@@ -157,12 +152,8 @@ class SpecialPetCard extends StatelessWidget {
           child: Stack(
             children: [
               Container(
-                width: playerCard
-                    ? Constant.PLAYER_CARD_WIDTH
-                    : Constant.CARD_WIDTH,
-                height: playerCard
-                    ? Constant.PLAYER_CARD_HEIGHT / 2
-                    : Constant.CARD_HEIGHT / 2,
+                width: playerCard ? Constant.PLAYER_CARD_WIDTH : Constant.CARD_WIDTH,
+                height: playerCard ? Constant.PLAYER_CARD_HEIGHT / 2 : Constant.CARD_HEIGHT / 2,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   color: GF.colorFromString(pet.color),
@@ -171,12 +162,8 @@ class SpecialPetCard extends StatelessWidget {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  width: playerCard
-                      ? Constant.PLAYER_CARD_WIDTH
-                      : Constant.CARD_WIDTH,
-                  height: playerCard
-                      ? Constant.PLAYER_CARD_HEIGHT / 2
-                      : Constant.CARD_HEIGHT / 2,
+                  width: playerCard ? Constant.PLAYER_CARD_WIDTH : Constant.CARD_WIDTH,
+                  height: playerCard ? Constant.PLAYER_CARD_HEIGHT / 2 : Constant.CARD_HEIGHT / 2,
                   decoration: BoxDecoration(
                     color: GF.colorFromString(pet.color),
                   ),
@@ -210,13 +197,9 @@ class SpecialPetCard extends StatelessWidget {
                           pet.name,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: playerCard
-                                ? Constant.PLAYER_FONT_SIZE
-                                : Constant.FONT_SIZE,
+                            fontSize: playerCard ? Constant.PLAYER_FONT_SIZE : Constant.FONT_SIZE,
                             fontWeight: FontWeight.bold,
-                            color: pet.name != "Forest"
-                                ? Colors.white
-                                : Colors.black,
+                            color: pet.name != "Forest" ? Colors.white : Colors.black,
                           ),
                         ),
                       ),
@@ -250,8 +233,7 @@ class SpecialPetCard extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
-                        color:
-                            pet.name != "Forest" ? Colors.white : Colors.black,
+                        color: pet.name != "Forest" ? Colors.white : Colors.black,
                       ),
                     ),
                   ),
@@ -279,13 +261,9 @@ class SpecialPetCard extends StatelessWidget {
                               pet.name,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: playerCard
-                                    ? Constant.PLAYER_FONT_SIZE
-                                    : Constant.FONT_SIZE,
+                                fontSize: playerCard ? Constant.PLAYER_FONT_SIZE : Constant.FONT_SIZE,
                                 fontWeight: FontWeight.bold,
-                                color: pet.name != "Forest"
-                                    ? Colors.white
-                                    : Colors.black,
+                                color: pet.name != "Forest" ? Colors.white : Colors.black,
                               ),
                             ),
                           ),
@@ -313,9 +291,7 @@ class SpecialPetCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
-                          color: pet.name != "Forest"
-                              ? Colors.white
-                              : Colors.black,
+                          color: pet.name != "Forest" ? Colors.white : Colors.black,
                         ),
                       ),
                     ),
@@ -337,8 +313,7 @@ class SpecialPetCard extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
-                        color:
-                            pet.name != "Forest" ? Colors.white : Colors.black,
+                        color: pet.name != "Forest" ? Colors.white : Colors.black,
                       ),
                     ),
                   ),

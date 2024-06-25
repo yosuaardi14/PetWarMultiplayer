@@ -111,9 +111,7 @@ class EmptyCardV2 extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: Colors.white),
-          color: isPet
-              ? Colors.greenAccent.withOpacity(0.0)
-              : Colors.yellowAccent.withOpacity(0.0),
+          color: isPet ? Colors.greenAccent.withOpacity(0.0) : Colors.yellowAccent.withOpacity(0.0),
         ),
         child: Stack(
           children: [
@@ -127,9 +125,7 @@ class EmptyCardV2 extends StatelessWidget {
                   // horizontal: BorderSide(color: Colors.white, width: 10),
                   // vertical: BorderSide(color: Colors.white, width: 10),
                   // ),
-                  color: isPet
-                      ? Colors.greenAccent.withOpacity(0.9)
-                      : Colors.yellowAccent.withOpacity(0.9),
+                  color: isPet ? Colors.greenAccent.withOpacity(0.9) : Colors.yellowAccent.withOpacity(0.9),
                   borderRadius: BorderRadius.circular(100),
                 ),
               ),
@@ -214,7 +210,7 @@ class Deck extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
-      elevation: (4 + size.toDouble() * 2),
+      elevation: size > 0 ? (4 + size.toDouble() * 2) : 4,
       child: Container(
         width: Constant.CARD_WIDTH,
         height: isPet ? Constant.PET_CARD_HEIGHT : Constant.CARD_HEIGHT,

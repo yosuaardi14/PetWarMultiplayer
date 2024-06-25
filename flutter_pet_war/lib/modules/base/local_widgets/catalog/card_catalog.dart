@@ -42,8 +42,7 @@ class CardCatalog extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: GridView(
-                      gridDelegate:
-                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                         maxCrossAxisExtent: Constant.CARD_WIDTH + 10,
                         mainAxisExtent: Constant.CARD_HEIGHT,
                       ),
@@ -51,8 +50,7 @@ class CardCatalog extends StatelessWidget {
                       scrollDirection: Axis.vertical,
                       children: [
                         ...Constant.CANVAS_RANGER.map((e) {
-                          Map<String, dynamic> data =
-                              Map<String, dynamic>.from(e);
+                          Map<String, dynamic> data = Map<String, dynamic>.from(e);
                           Widget? card;
                           CanvasRanger? canvasRanger;
                           CanvasRangerCard? canvasRangerCard;
@@ -69,8 +67,7 @@ class CardCatalog extends StatelessWidget {
                           );
                         }),
                         ...Constant.PET.entries.map((e) {
-                          Map<String, dynamic> data =
-                              Map<String, dynamic>.from(e.value);
+                          Map<String, dynamic> data = Map<String, dynamic>.from(e.value);
                           Widget? card;
                           Pet? pet;
                           PetCard? petCard;
@@ -85,8 +82,7 @@ class CardCatalog extends StatelessWidget {
                           );
                         }),
                         ...Constant.ACTION.entries.map((e) {
-                          Map<String, dynamic> data =
-                              Map<String, dynamic>.from(e.value);
+                          Map<String, dynamic> data = Map<String, dynamic>.from(e.value);
                           if (data.containsKey("block")) {
                             data["block"] = 1;
                           }
@@ -119,16 +115,13 @@ class CardCatalog extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: controller.selectedCard.isNotEmpty
                       ? [
-                          if (controller
-                              .selectedCard()
-                              .containsKey("ability")) ...[
+                          if (controller.selectedCard().containsKey("ability")) ...[
                             ActionCard(
                               action: ActionModel.fromJson(
                                 controller.selectedCard(),
                               ),
                             ),
-                            Text(
-                                "Jumlah: ${controller.selectedCard()["cardNum"]}"),
+                            Text("Jumlah: ${controller.selectedCard()["cardNum"]}"),
                             ListTile(
                               isThreeLine: true,
                               title: Text(controller.selectedCard()["name"]),
@@ -140,11 +133,9 @@ class CardCatalog extends StatelessWidget {
                             if (controller.selectedCard()["special"] != null)
                               ListTile(
                                 isThreeLine: true,
-                                title: Text(controller.selectedCard()["special"]
-                                    ["name"]),
+                                title: Text(controller.selectedCard()["special"]["name"]),
                                 subtitle: Text(
-                                  controller.selectedCard()["special"]
-                                      ["description"],
+                                  controller.selectedCard()["special"]["description"],
                                   textAlign: TextAlign.justify,
                                 ),
                               ),
@@ -155,8 +146,7 @@ class CardCatalog extends StatelessWidget {
                                 controller.selectedCard(),
                               ),
                             ),
-                            Text(
-                                "Jumlah: ${controller.selectedCard()["cardNum"]}"),
+                            Text("Jumlah: ${controller.selectedCard()["cardNum"]}"),
                             ListTile(
                               isThreeLine: true,
                               title: Text(controller.selectedCard()["name"]),
@@ -166,42 +156,30 @@ class CardCatalog extends StatelessWidget {
                               ),
                             ),
                           ],
-                          if (controller
-                              .selectedCard()
-                              .containsKey("ranger")) ...[
+                          if (controller.selectedCard().containsKey("ranger")) ...[
                             PetCard(
                               pet: Pet.fromJson(
                                 controller.selectedCard(),
                               ),
                             ),
-                            Text(
-                                "Jumlah: ${controller.selectedCard()["cardNum"]}"),
+                            Text("Jumlah: ${controller.selectedCard()["cardNum"]}"),
                             ListTile(
                               isThreeLine: true,
                               title: Text(controller.selectedCard()["name"]),
                               subtitle: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: controller
-                                            .selectedCard()["name"]
-                                            .toString()
-                                            .contains("Forest") ||
-                                        controller
-                                            .selectedCard()["name"]
-                                            .toString()
-                                            .contains("Jungle")
+                                children: controller.selectedCard()["name"].toString().contains("Forest") ||
+                                        controller.selectedCard()["name"].toString().contains("Jungle")
                                     ? [
                                         Text(
-                                          controller
-                                              .selectedCard()["description"],
+                                          controller.selectedCard()["description"],
                                           textAlign: TextAlign.justify,
                                         ),
                                       ]
                                     : [
-                                        Text(
-                                            "Ranger: ${controller.selectedCard()["ranger"]}"),
-                                        Text(
-                                            "Nyawa: ${controller.selectedCard()["life"]}"),
+                                        Text("Ranger: ${controller.selectedCard()["ranger"]}"),
+                                        Text("Nyawa: ${controller.selectedCard()["life"]}"),
                                       ],
                               ),
                             ),

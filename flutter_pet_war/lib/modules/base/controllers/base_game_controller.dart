@@ -17,12 +17,10 @@ class BaseGameController extends GetxController {
 
   // Game
   final aimList = <bool?>[null, null, null, null, null, null].obs;
-  final actionUp =
-      <Map<String, dynamic>?>[null, null, null, null, null, null].obs;
+  final actionUp = <Map<String, dynamic>?>[null, null, null, null, null, null].obs;
   final petLine = <List<Map<String, dynamic>>>[].obs;
   final grenadeList = <int?>[null, null, null, null, null, null].obs;
-  final actionDown =
-      <Map<String, dynamic>?>[null, null, null, null, null, null].obs;
+  final actionDown = <Map<String, dynamic>?>[null, null, null, null, null, null].obs;
 
   // NOT VISIBLE
   final actionDeck = <Map<String, dynamic>>[].obs;
@@ -114,19 +112,15 @@ class BaseGameController extends GetxController {
 
   void initAction(Map<String, dynamic> initialData) {
     actionDeckLength(initialData["actionDeckLength"] ?? 0);
-    actionUp.value =
-        List<Map<String, dynamic>?>.from(initialData["actionUp"].map((e) => e));
+    actionUp.value = List<Map<String, dynamic>?>.from(initialData["actionUp"].map((e) => e));
     aimList.value = List<bool?>.from(initialData["aimList"].map((e) => e));
-    actionDown.value = List<Map<String, dynamic>?>.from(
-        initialData["actionDown"].map((e) => e));
+    actionDown.value = List<Map<String, dynamic>?>.from(initialData["actionDown"].map((e) => e));
     if (initialData["discardPile"].isNotEmpty) {
-      discardPile.value = List<Map<String, dynamic>>.from(
-          initialData["discardPile"].map((e) => e));
+      discardPile.value = List<Map<String, dynamic>>.from(initialData["discardPile"].map((e) => e));
     } else {
       discardPile.value = [];
     }
-    playerInfoList.value = List<Map<String, dynamic>>.from(
-        initialData["playerInfoList"].map((e) => e));
+    playerInfoList.value = List<Map<String, dynamic>>.from(initialData["playerInfoList"].map((e) => e));
 
     initActionDeckFinish(true);
     initDiscardPileFinish(true);
@@ -148,28 +142,22 @@ class BaseGameController extends GetxController {
   void onUpdateLineDeck(Map<String, dynamic> data) {
     try {
       actionDeckLength(data["actionDeckLength"] ?? 0);
-      actionUp.value =
-          List<Map<String, dynamic>?>.from(data["actionUp"].map((e) => e));
+      actionUp.value = List<Map<String, dynamic>?>.from(data["actionUp"].map((e) => e));
       aimList.value = List<bool?>.from(data["aimList"].map((e) => e));
 
-      actionDown.value =
-          List<Map<String, dynamic>?>.from(data["actionDown"].map((e) => e));
-      discardPile.value =
-          List<Map<String, dynamic>>.from(data["discardPile"].map((e) => e));
+      actionDown.value = List<Map<String, dynamic>?>.from(data["actionDown"].map((e) => e));
+      discardPile.value = List<Map<String, dynamic>>.from(data["discardPile"].map((e) => e));
       initActionDeckFinish(true);
       if (discardPile.isNotEmpty) {
         discardPileCurrentCard(discardPile[discardPile.length - 1]);
       }
-      List<List<Map<String, dynamic>>> temp = (data["petLine"] as List)
-          .map(
-              (e) => (e as List).map((e) => e as Map<String, dynamic>).toList())
-          .toList();
+      List<List<Map<String, dynamic>>> temp =
+          (data["petLine"] as List).map((e) => (e as List).map((e) => e as Map<String, dynamic>).toList()).toList();
 
       petDeckLength(data["petDeckLength"] ?? 0);
       petLine.value = temp;
       initPetDeckFinish(true);
-      playerInfoList.value =
-          List<Map<String, dynamic>>.from(data["playerInfoList"].map((e) => e));
+      playerInfoList.value = List<Map<String, dynamic>>.from(data["playerInfoList"].map((e) => e));
 
       if (data["grenadeList"].isNotEmpty) {
         grenadeList.value = List<int?>.from(data["grenadeList"].map((e) => e));

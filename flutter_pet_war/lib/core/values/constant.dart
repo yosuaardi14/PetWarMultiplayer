@@ -28,7 +28,8 @@ class Constant {
           "Ixora & Ixano, (known as \"Dobel\") are the owner of \"Sharpnell\" that has the ability of speed. They'll reach the safety zone in no time.",
       "pet": "Sharpnell",
       "color": "orange",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War"
     },
     {
       "name": "Tsunaryo",
@@ -36,7 +37,8 @@ class Constant {
           "\"Tsuna\" is the owner of \"LPG-Zord\" that has the ability of explosion. It/he can kill more than one pet in one action.",
       "pet": "LPG-Zord",
       "color": "yellowgreen",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War"
     },
     {
       "name": "Vonstaire",
@@ -44,7 +46,8 @@ class Constant {
           "\"Vonstaire\" is the owner of \"Sunge\" that has the abilities to escape and resurrect. Prepare to face them again, and again, and again...",
       "pet": "Sunge",
       "color": "deeppink",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War"
     },
     {
       "name": "Ashtray",
@@ -52,7 +55,8 @@ class Constant {
           "\"Ashtray\" is the owner of \"Minion\" that has the ability to disturb the other pet(s). Minion is the most annoying pet in this game.",
       "pet": "Minion",
       "color": "red",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War"
     },
     {
       "name": "Bonci",
@@ -60,7 +64,8 @@ class Constant {
           "\"Bonci\" is the owner of \"Waung\" that has the ability to survive. One attack is not enough to get rid of them.",
       "pet": "Waung",
       "color": "deepblue",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War"
     },
     {
       "name": "Neo",
@@ -68,7 +73,8 @@ class Constant {
           "\"Neo\" is the owner of \"Paleo\" that has the ability to kill another pet with its/his super power!",
       "pet": "Paleo",
       "color": "deeppurple",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War"
     },
     {
       "name": "Daiya",
@@ -76,7 +82,8 @@ class Constant {
           "\"Daiya\" is the owner of \"Soeharti\", their ability is to manipulate the pet line to create the worst scenario of their opponent.",
       "pet": "Soeharti",
       "color": "yellow",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War II"
     },
     {
       "name": "Elliot",
@@ -84,7 +91,8 @@ class Constant {
           "\"Elliot\" is the owner of \"Marmar\", their abilities are to steal other pet's protection and discard aims.",
       "pet": "Marmar",
       "color": "lightgreen",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War II"
     },
     {
       "name": "Rei",
@@ -92,7 +100,8 @@ class Constant {
           "\"Rei\" is the owner of \"Giro\", their ability is gear charge. They can use charge to kill more than one pet in one action.",
       "pet": "Giro",
       "color": "green",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War II"
     },
     {
       "name": "Javelin",
@@ -100,7 +109,8 @@ class Constant {
           "\"Javelin\" is the owner of \"Vulcan\", their abilities are to scavenge the discard pile and the dead pet.",
       "pet": "Vulcan",
       "color": "brown",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War II"
     },
     {
       "name": "Louise",
@@ -108,7 +118,8 @@ class Constant {
           "\"Louise\" is the owner of \'King\", their ability is to jump over. King has a dead penalty after three rounds, however he can flee and kill with ease.",
       "pet": "King",
       "color": "blue",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War II"
     },
     {
       "name": "Bracula",
@@ -116,7 +127,8 @@ class Constant {
           "\"Bracula\" is the owner of \"Bratz\", their ability is vampiric skill that allows him to absorb other pet's life.",
       "pet": "Bratz",
       "color": "lightpurple",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War II"
     },
     {
       "name": "Gaoh",
@@ -124,7 +136,8 @@ class Constant {
           "\"Gaoh\" is the leader of villains and owner of \"Vao\". Their ability is to spread fear with voodoo magic.",
       "pet": "Vao",
       "color": "black",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War Leader"
     },
     {
       "name": "Mazo",
@@ -132,7 +145,8 @@ class Constant {
           "\"Mazo\" is the leader of heroes and owner of \"Menejeur\". Strong with 2 lives and special area attacks. Menejeur will be stucked at the end of the pet line. Use Typhoon card to return it to deck.",
       "pet": "Menejeur",
       "color": "silver",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War Leader"
     },
     {
       "name": "Visca",
@@ -140,7 +154,8 @@ class Constant {
           "\"Visca\" is the owner of \"Lavu\". Their ability is to use and manipulate air as the source of their power.",
       "pet": "Lavu",
       "color": "deeporange",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War Navi Battle"
     },
     {
       "name": "Lynn",
@@ -148,7 +163,8 @@ class Constant {
           "\"Lynn\" is the owner of \"Raven\". Their ability is to control poison darts as their weapons.",
       "pet": "Raven",
       "color": "purple",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War Navi Battle"
     },
     {
       "name": "Double",
@@ -156,7 +172,8 @@ class Constant {
           "Ixora & Ixano, (known as \"Double\") are the owner of \"Sharpnell\" that has the ability of speed. They'll reach the safety zone in no time.",
       "pet": "Sharpnell",
       "color": "orange",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War Canvas Activation"
     },
     {
       "name": "Kobong",
@@ -164,7 +181,8 @@ class Constant {
           "\"Kobong\" is the owner of \"LPG-Zord\" that has the ability of explosion. It/he can kill more than one pet in one action.",
       "pet": "LPG-Zord",
       "color": "yellowgreen",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War Canvas Activation"
     },
     {
       "name": "Soulbender R",
@@ -172,7 +190,8 @@ class Constant {
           "\"Soulbender R\" is the owner of \"Sunge\" that has the abilities to escape and resurrect. Prepare to face them again, and again, and again...",
       "pet": "Sunge",
       "color": "deeppink",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War Canvas Activation"
     },
     {
       "name": "Ashtranger",
@@ -180,7 +199,8 @@ class Constant {
           "\"Ashtranger\" is the owner of \"Minion\" that has the ability to disturb the other pet(s). Minion is the most annoying pet in this game.",
       "pet": "Minion",
       "color": "red",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War Canvas Activation"
     },
     {
       "name": "Roxxeon Kaizer",
@@ -188,7 +208,8 @@ class Constant {
           "\"Roxxeon Kaizer\" is the owner of \"Waung\" that has the ability to survive. One attack is not enough to get rid of them.",
       "pet": "Waung",
       "color": "deepblue",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War Canvas Activation"
     },
     {
       "name": "Electrode",
@@ -196,7 +217,8 @@ class Constant {
           "\"Electrode\" is the owner of \"Paleo\" that has the ability to kill another pet with its/his super power!",
       "pet": "Paleo",
       "color": "purple",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War Canvas Activation"
     },
     {
       "name": "Dewi Ruh Bengi",
@@ -204,7 +226,8 @@ class Constant {
           "\"Dewi Ruh Bengi\" is the owner of \"Soeharti\", their ability is to manipulate the pet line to create the worst scenario of their opponent.",
       "pet": "Soeharti",
       "color": "yellow",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War Canvas Activation II"
     },
     {
       "name": "Archetype",
@@ -212,7 +235,8 @@ class Constant {
           "\"Archetype\" is the owner of \"Marmar\", their abilities are to steal other pet's protection and discard aims.",
       "pet": "Marmar",
       "color": "lightgreen",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War Canvas Activation II"
     },
     {
       "name": "G.R.",
@@ -220,7 +244,8 @@ class Constant {
           "\"G.R.\" is the owner of \"Giro\", their ability is gear charge. They can use charge to kill more than one pet in one action.",
       "pet": "Giro",
       "color": "green",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War Canvas Activation II"
     },
     {
       "name": "Zero-Arms",
@@ -228,7 +253,8 @@ class Constant {
           "\"Zero-Arms\" is the owner of \"Vulcan\", their abilities are to scavenge the discard pile and the dead pet.",
       "pet": "Vulcan",
       "color": "brown",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War Canvas Activation II"
     },
     {
       "name": "Camiere",
@@ -236,7 +262,8 @@ class Constant {
           "\"Camiere\" is the owner of \'King\", their ability is to jump over. King has a dead penalty after three rounds, however he can flee and kill with ease.",
       "pet": "King",
       "color": "blue",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War Canvas Activation II"
     },
     {
       "name": "Braculla",
@@ -244,7 +271,8 @@ class Constant {
           "\"Braculla\" is the owner of \"Bratz\", their ability is vampiric skill that allows him to absorb other pet's life.",
       "pet": "Bratz",
       "color": "lightpurple",
-      "cardNum": 1
+      "cardNum": 1,
+      "type": "Pet War Canvas Activation II"
     }
   ];
 
@@ -385,7 +413,7 @@ class Constant {
       "life": 1,
       "cardNum": 5
     },
-    "Enchanted Forest": {
+    "EnchantedForest": {
       "name": "Enchanted Forest",
       "description":
           "If any pet swaps with this forest, that player take one aim card in the discard pile and put in pet line in any order",
@@ -394,7 +422,7 @@ class Constant {
       "life": 0,
       "cardNum": 1
     },
-    "Maze Forest": {
+    "MazeForest": {
       "name": "Maze Forest",
       "description":
           "If any pet swaps with this forest, take all cards on the pet line, shuffle and deal again into the pet line",
@@ -403,7 +431,7 @@ class Constant {
       "life": 0,
       "cardNum": 1
     },
-    "Thorn Forest": {
+    "ThornForest": {
       "name": "Thorn Forest",
       "description":
           "No pet can go through this forest, unless King while using \"banzai\"",
@@ -412,7 +440,7 @@ class Constant {
       "life": 0,
       "cardNum": 1
     },
-    "Cursed Forest": {
+    "CursedForest": {
       "name": "Cursed Forest",
       "description":
           "If any pet swaps with this forest, that pet dies instantly",
@@ -421,7 +449,7 @@ class Constant {
       "life": 0,
       "cardNum": 1
     },
-    "Catapult Forest": {
+    "CatapultForest": {
       "name": "Catapult Forest",
       "description":
           "If any pet swaps with this forest, deal one damage to one targeted pet you choose",
@@ -463,24 +491,24 @@ class Constant {
       "ability": "Doom",
       "special": null
     },
-    "Two Aims": {
+    "TwoAims": {
       "name": "Two Aims",
       "block": 2,
       "description":
           "Put TWO AIMS card sideways above any adjacent pets, tilt back to the normal position if one of them was destroyed",
       "color": "gold",
       "cardNum": 2, //1,
-      "ability": "TwoAim",
+      "ability": "TwoAims",
       "special": null
     },
-    "Two Booms": {
+    "TwoBooms": {
       "name": "Two Booms",
       "block": 2,
       "description":
           "Destory any two adjacent targeted pets, both with aim cards above them. Remove the aim cards. If there's no any adjacent aim card if become single boom",
       "color": "gold",
       "cardNum": 1,
-      "ability": "TwoBoom",
+      "ability": "TwoBooms",
       "special": null
     },
     "Miss": {
@@ -513,7 +541,7 @@ class Constant {
       "ability": "Running",
       "special": null
     },
-    "Go Forward": {
+    "GoForward": {
       "name": "Go Forward",
       "block": 1,
       "description": "Swap YOUR pet with any card on the left side",
@@ -522,7 +550,7 @@ class Constant {
       "ability": "GoForward",
       "special": null
     },
-    "Go Backward": {
+    "GoBackward": {
       "name": "Go Backward",
       "block": 1,
       "description": "Swap YOUR pet with any card on the right side",
@@ -531,7 +559,7 @@ class Constant {
       "ability": "GoBackward",
       "special": null
     },
-    "Move The Pet": {
+    "MoveThePet": {
       "name": "Move The Pet",
       "block": 1,
       "description":
@@ -551,7 +579,7 @@ class Constant {
       "ability": "Typhoon",
       "special": null
     },
-    "Get Cover": {
+    "GetCover": {
       "name": "Get Cover",
       "block": 1,
       "description":
@@ -570,7 +598,7 @@ class Constant {
       "ability": "Armor",
       "special": null
     },
-    "Lunch Time": {
+    "LunchTime": {
       "name": "Lunch Time",
       "block": 1,
       "description": "Remove all aim cards in the \"Pet Line\"",
@@ -579,7 +607,7 @@ class Constant {
       "ability": "LunchTime",
       "special": null
     },
-    "Grenade-Mega Grenade": {
+    "Grenade-MegaGrenade": {
       "name": "Grenade",
       "block": 1,
       "description":
@@ -613,24 +641,24 @@ class Constant {
         "ability": "Kamikaze"
       }
     },
-    "Ressurect-Double Resurrect": {
-      "name": "Ressurect",
+    "Resurrect-DoubleResurrect": {
+      "name": "Resurrect",
       "block": 1,
       "description":
           "Revive one of your pet that has been removed from the game to the bottom of the pet deck",
       "color": "gold",
       "cardNum": 2,
-      "ability": "Ressurect",
+      "ability": "Resurrect",
       "special": {
         "name": "Double Resurrect",
         "description":
             "Put two 'Sunge' that has been removed from the game to the bottom of the pet deck, if u are Vonstaire",
         "color": "deeppink",
         "ranger": "Vonstaire",
-        "ability": "DoubleRessurect"
+        "ability": "DoubleResurrect"
       }
     },
-    "Go Forward-Go Anyward": {
+    "GoForward-GoAnyward": {
       "name": "Go Forward",
       "block": 1,
       "description": "Swap YOUR pet with any card on the left side",
@@ -646,7 +674,7 @@ class Constant {
         "ability": "GoAnyward"
       }
     },
-    "Go Backward-Go Anyward": {
+    "GoBackward-GoAnyward": {
       "name": "Go Backward",
       "block": 1,
       "description": "Swap YOUR pet with any card on the right side",
@@ -662,7 +690,7 @@ class Constant {
         "ability": "GoAnyward"
       }
     },
-    "Boom-Over Shock": {
+    "Boom-OverShock": {
       "name": "Boom",
       "block": 1,
       "description":
@@ -695,7 +723,7 @@ class Constant {
         "ability": "Shield"
       }
     },
-    "Hide-Master Hide": {
+    "Hide-MasterHide": {
       "name": "Hide",
       "block": 1,
       "description":
@@ -729,7 +757,7 @@ class Constant {
         "ability": "Trap"
       }
     },
-    "Bump Left-Moving Aim": {
+    "BumpLeft-MovingAim": {
       "name": "Bump Left",
       "block": 1,
       "description":
@@ -746,7 +774,7 @@ class Constant {
         "ability": "MovingAim"
       }
     },
-    "Bump Right-Moving Aim": {
+    "BumpRight-MovingAim": {
       "name": "Bump Right",
       "block": 1,
       "description":
@@ -780,7 +808,7 @@ class Constant {
         "ability": "Escape"
       }
     },
-    "Running-Double Run": {
+    "Running-DoubleRun": {
       "name": "Running",
       "block": 1,
       "description":
@@ -818,7 +846,7 @@ class Constant {
     //   "ability": "TwoBoom",
     //   "special": null
     // },
-    "Miss Fire": {
+    "MissFire": {
       "name": "Miss Fire",
       "block": 1,
       "description":
@@ -857,7 +885,7 @@ class Constant {
     //   "ability": "LunchTime",
     //   "special": null
     // },
-    "Reshuffle Hand": {
+    "ReshuffleHand": {
       "name": "Reshuffle Hand",
       "block": 1,
       "description":
@@ -867,7 +895,7 @@ class Constant {
       "ability": "ReshuffleHand",
       "special": null
     },
-    "Switch Ranger": {
+    "SwitchRanger": {
       "name": "Switch Ranger",
       "block": 1,
       "description": "Switch your character with another player of your choice",
@@ -876,14 +904,14 @@ class Constant {
       "ability": "SwitchRanger",
       "special": null
     },
-    "Ressurect": {
-      "name": "Ressurect",
+    "Resurrect": {
+      "name": "Resurrect",
       "block": 1,
       "description":
           "Revive one of your pet that has been removed from the game to the bottom of the pet deck",
       "color": "gold",
       "cardNum": 2,
-      "ability": "Ressurect",
+      "ability": "Resurrect",
       "special": null,
     },
     // "Running": {
@@ -896,7 +924,7 @@ class Constant {
     //   "ability": "Running",
     //   "special": null
     // },
-    "Go Forward-Banzai": {
+    "GoForward-Banzai": {
       "name": "Go Forward",
       "block": 1,
       "description": "Swap YOUR pet with any card on the left side",
@@ -912,7 +940,7 @@ class Constant {
         "ability": "Banzai"
       }
     },
-    "Go Backward-Banzai": {
+    "GoBackward-Banzai": {
       "name": "Go Backward",
       "block": 1,
       "description": "Swap YOUR pet with any card on the right side",
@@ -945,7 +973,7 @@ class Constant {
         "ability": "Banzai"
       }
     },
-    "Get Cover-Water Bulb": {
+    "GetCover-WaterBulb": {
       "name": "Get Cover",
       "block": 1,
       "description":
@@ -962,7 +990,7 @@ class Constant {
         "ability": "WaterBulb"
       }
     },
-    "Armor-Vampiric Move": {
+    "Armor-VampiricMove": {
       "name": "Armor",
       "block": 1,
       "description": "Cover your chosen pet to get additional life +1",
@@ -978,7 +1006,7 @@ class Constant {
         "ability": "VampiricMove"
       }
     },
-    "Boom-Vampiric Bite": {
+    "Boom-VampiricBite": {
       "name": "Boom",
       "block": 1,
       "description":
@@ -995,7 +1023,7 @@ class Constant {
         "ability": "VampiricBite"
       }
     },
-    "Hide-Corpse Cover": {
+    "Hide-CorpseCover": {
       "name": "Hide",
       "block": 1,
       "description":
@@ -1045,7 +1073,7 @@ class Constant {
         "ability": "Avoid"
       }
     },
-    "Bump Left-Steal": {
+    "BumpLeft-Steal": {
       "name": "Bump Left",
       "block": 1,
       "description":
@@ -1062,7 +1090,7 @@ class Constant {
         "ability": "Steal"
       }
     },
-    "Bump Right-Charge": {
+    "BumpRight-Charge": {
       "name": "Bump Right",
       "block": 1,
       "description":
@@ -1079,7 +1107,7 @@ class Constant {
         "ability": "Charge"
       }
     },
-    "Mine-Mega Mine": {
+    "Mine-MegaMine": {
       "name": "Mine",
       "block": 1,
       "description":
@@ -1175,10 +1203,11 @@ class Constant {
       "ability": "Illusion",
       "special": null
     },
-    "Boom-Poison Darts": {
+    "Boom-PoisonDarts": {
       "name": "Boom",
       "block": 1,
-      "description": "Use this card to destroy the targeted pet. Remove the aim card",
+      "description":
+          "Use this card to destroy the targeted pet. Remove the aim card",
       "color": "gold",
       "cardNum": 3,
       "ability": "Boom",
@@ -1191,7 +1220,7 @@ class Constant {
         "ability": "PoisonDarts"
       }
     },
-    "Running-Air Shield": {
+    "Running-AirShield": {
       "name": "Running",
       "block": 1,
       "description":
@@ -1208,7 +1237,7 @@ class Constant {
         "ability": "AirShield"
       }
     },
-    "Running-Air Compressor": {
+    "Running-AirCompressor": {
       "name": "Running",
       "block": 1,
       "description":
@@ -1236,7 +1265,7 @@ class Constant {
       "ability": "Fogging",
       "special": null
     },
-    "Machine Gun": {
+    "MachineGun": {
       "name": "Machine Gun",
       "block": 2,
       "description": "Boom all aim cards on the pet line",
@@ -1266,7 +1295,7 @@ class Constant {
   };
 
   static const Map<String, Map<String, dynamic>> CANVAS_ACTIVATION = {
-    "Instant Escape": {
+    "InstantEscape": {
       "name": "Instant Escape",
       "block": 1,
       "description": "",
@@ -1330,7 +1359,7 @@ class Constant {
       "ranger": "Archetype",
       "ability": "Thievery"
     },
-    "Mega Charge": {
+    "MegaCharge": {
       "name": "Mega Charge",
       "block": 1,
       "description": "",
@@ -1339,14 +1368,14 @@ class Constant {
       "ranger": "G.R.",
       "ability": "MegaCharge"
     },
-    "Junk Yard Master": {
+    "JunkYardMaster": {
       "name": "Junk Yard Master",
       "block": 1,
       "description": "",
       "color": "brown",
       "cardNum": 1,
       "ranger": "Zero-Arms",
-      "ability": "Junk Yard Master"
+      "ability": "JunkYardMaster"
     },
     "Manipulation": {
       "name": "Manipulation",
@@ -1366,7 +1395,7 @@ class Constant {
       "ranger": "Camiere",
       "ability": "Tsunami"
     },
-    "Dark Terror": {
+    "DarkTerror": {
       "name": "Dark Terror",
       "block": 1,
       "description": "",

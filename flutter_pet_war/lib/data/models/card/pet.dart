@@ -31,7 +31,7 @@ class Pet {
       color: data["color"],
       ranger: data["ranger"],
       life: data["life"],
-      cardNum: data["cardNum"],
+      cardNum: data["cardNum"] ?? 1,
     );
   }
 

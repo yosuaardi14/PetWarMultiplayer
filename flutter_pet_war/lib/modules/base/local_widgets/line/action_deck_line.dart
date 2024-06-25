@@ -3,12 +3,13 @@ import 'package:flutter_pet_war/core/utils/game_utils.dart';
 import 'package:flutter_pet_war/core/values/constant.dart';
 import 'package:flutter_pet_war/data/models/card/action.dart';
 import 'package:flutter_pet_war/modules/base/controllers/base_game_controller.dart';
+import 'package:flutter_pet_war/modules/base/controllers/base_game_firebase_controller.dart';
 import 'package:flutter_pet_war/modules/base/local_widgets/base_card.dart';
 import 'package:flutter_pet_war/modules/base/local_widgets/card/action_card.dart';
 import 'package:flutter_pet_war/modules/base/local_widgets/card/empty_card.dart';
 import 'package:get/get.dart';
 
-class ActionDeckLine<T extends BaseGameController> extends GetView<T> {
+class ActionDeckLine<T extends BaseGameFirebaseController> extends GetView<T> {
   final int line;
   const ActionDeckLine({super.key, this.line = 0});
 
@@ -29,10 +30,7 @@ class ActionDeckLine<T extends BaseGameController> extends GetView<T> {
                   child: Center(
                     child: Text(
                       "ACTION",
-                      style: TextStyle(
-                          color: Colors.red,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.red, fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -74,8 +72,7 @@ class ActionDeckLine<T extends BaseGameController> extends GetView<T> {
                       height: Constant.CARD_HEIGHT + 35,
                       child: Obx(
                         () => ReorderableListView(
-                          buildDefaultDragHandles:
-                              false, //controller.isMovingAim(),
+                          buildDefaultDragHandles: false, //controller.isMovingAim(),
                           scrollDirection: Axis.horizontal,
                           onReorder: controller.onReorderAim,
                           children: [
@@ -90,10 +87,8 @@ class ActionDeckLine<T extends BaseGameController> extends GetView<T> {
                                   action = ActionModel.fromJson(e.value!);
                                   actionCard = ActionCard(action: action);
                                 }
-                                if (action == null &&
-                                    controller.aimList[e.key] != null) {
-                                  action = ActionModel(
-                                      id: "", name: "", ability: "", block: 2);
+                                if (action == null && controller.aimList[e.key] != null) {
+                                  action = ActionModel(id: "", name: "", ability: "", block: 2);
                                   actionCard = Visibility(
                                     visible: false,
                                     maintainState: true,
@@ -103,11 +98,8 @@ class ActionDeckLine<T extends BaseGameController> extends GetView<T> {
                                   );
                                 }
                                 return Padding(
-                                  key: ValueKey(Constant.CANVAS_TEXT[line]
-                                          [e.key] +
-                                      (line + e.key).toString()),
-                                  padding:
-                                      const EdgeInsets.only(right: 5, left: 5),
+                                  key: ValueKey(Constant.CANVAS_TEXT[line][e.key] + (line + e.key).toString()),
+                                  padding: const EdgeInsets.only(right: 5, left: 5),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
@@ -116,14 +108,11 @@ class ActionDeckLine<T extends BaseGameController> extends GetView<T> {
                                         //     (line + e.key).toString()),
                                         data: e.value,
                                         type: action != null //e.value != null
-                                            ? GameUtils.onActionDeckTypeCard(
-                                                controller, e.key)
-                                            : GameUtils
-                                                .onActionDeckTypeCardEmpty(
-                                                    controller, e.key),
+                                            ? GameUtils.onActionDeckTypeCard(controller, e.key)
+                                            : GameUtils.onActionDeckTypeCardEmpty(controller, e.key),
                                         onAcceptWithDetails: (details) async {
                                           print("ActionDeckLine onAccept");
-                                          controller.sendCommand(
+                                          controller.sendAction(
                                             details.data,
                                             extraprop: {
                                               "index": e.key,
@@ -131,14 +120,12 @@ class ActionDeckLine<T extends BaseGameController> extends GetView<T> {
                                             },
                                           );
                                         },
-                                        showCondition:
-                                            controller.aimList[e.key] != null,
+                                        showCondition: controller.aimList[e.key] != null,
                                         // controller.actionUp[e.key] != null,
                                         emptyChild: emptyCard,
                                         child: actionCard ?? emptyCard,
                                       ),
-                                      if (controller.isMovingAim() &&
-                                          e.value != null)
+                                      if (controller.isMovingAim() && e.value != null)
                                         Container(
                                           width: Constant.CARD_WIDTH,
                                           height: 25,
@@ -153,8 +140,7 @@ class ActionDeckLine<T extends BaseGameController> extends GetView<T> {
                                           ),
                                         ),
                                       Visibility(
-                                        visible: e.value != null &&
-                                            controller.isHaunted(),
+                                        visible: e.value != null && controller.isHaunted(),
                                         maintainSize: true,
                                         maintainAnimation: true,
                                         maintainState: true,

@@ -4,6 +4,7 @@ import 'package:flutter_pet_war/core/utils/game_utils.dart';
 import 'package:flutter_pet_war/core/values/constant.dart';
 import 'package:flutter_pet_war/data/models/card/action.dart';
 import 'package:flutter_pet_war/data/models/card/pet.dart';
+import 'package:flutter_pet_war/modules/base/controllers/base_game_firebase_controller.dart';
 import 'package:flutter_pet_war/modules/base/local_widgets/base_card.dart';
 import 'package:flutter_pet_war/modules/base/local_widgets/card/action_card.dart';
 import 'package:flutter_pet_war/modules/base/local_widgets/card/empty_card.dart';
@@ -11,7 +12,7 @@ import 'package:flutter_pet_war/modules/base/local_widgets/card/pet_card.dart';
 import 'package:flutter_pet_war/modules/base/local_widgets/dialog/card_list_dialog.dart';
 import 'package:get/get.dart';
 
-class PetDeckLine<T extends BaseGameController> extends GetView<T> {
+class PetDeckLine<T extends BaseGameFirebaseController> extends GetView<T> {
   final int line;
   const PetDeckLine({super.key, this.line = 1});
 
@@ -34,10 +35,7 @@ class PetDeckLine<T extends BaseGameController> extends GetView<T> {
                     child: Center(
                       child: Text(
                         "PET LINE",
-                        style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.red, fontSize: 24, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -75,9 +73,8 @@ class PetDeckLine<T extends BaseGameController> extends GetView<T> {
                     Obx(
                       () => SizedBox(
                         width: (Constant.CARD_WIDTH + 7) * 6 + 10 * 6,
-                        height: controller.isMoveThePet()
-                            ? Constant.CARD_HEIGHT + 5 + 35
-                            : Constant.CARD_HEIGHT + 5 + 35,
+                        height:
+                            controller.isMoveThePet() ? Constant.CARD_HEIGHT + 5 + 35 : Constant.CARD_HEIGHT + 5 + 35,
                         child: ReorderableListView(
                           buildDefaultDragHandles: controller.isMoveThePet(),
                           scrollDirection: Axis.horizontal,
@@ -98,23 +95,18 @@ class PetDeckLine<T extends BaseGameController> extends GetView<T> {
 
                                 if (e.value.isNotEmpty) {
                                   if (e.value[0].containsKey("ability")) {
-                                    action = ActionModel.fromJson(
-                                        Map<String, dynamic>.from(e.value[0]));
+                                    action = ActionModel.fromJson(Map<String, dynamic>.from(e.value[0]));
                                     actionCard = ActionCard(action: action);
                                     card = actionCard;
                                   } else {
-                                    pet = Pet.fromJson(
-                                        Map<String, dynamic>.from(e.value[0]));
+                                    pet = Pet.fromJson(Map<String, dynamic>.from(e.value[0]));
                                     petCard = PetCard(pet: pet);
                                     card = petCard;
                                   }
                                 }
                                 return Padding(
-                                  key: ValueKey(Constant.CANVAS_TEXT[line]
-                                          [e.key] +
-                                      (line + e.key).toString()),
-                                  padding:
-                                      const EdgeInsets.only(right: 5, left: 5),
+                                  key: ValueKey(Constant.CANVAS_TEXT[line][e.key] + (line + e.key).toString()),
+                                  padding: const EdgeInsets.only(right: 5, left: 5),
                                   child: Column(
                                     // key: ValueKey(Constant.CANVAS_TEXT[line][e.key] +
                                     //     (line + e.key).toString()),
@@ -124,10 +116,9 @@ class PetDeckLine<T extends BaseGameController> extends GetView<T> {
                                         // key: ValueKey(Constant.CANVAS_TEXT[line]
                                         //         [e.key] +
                                         //     (line + e.key).toString()),
-                                        type: GameUtils.onPetLineTypeCard(
-                                            controller, e.key),
+                                        type: GameUtils.onPetLineTypeCard(controller, e.key),
                                         onAcceptWithDetails: (details) async {
-                                          controller.sendCommand(
+                                          controller.sendAction(
                                             details.data,
                                             extraprop: {
                                               "index": e.key,
@@ -146,9 +137,8 @@ class PetDeckLine<T extends BaseGameController> extends GetView<T> {
                                         )
                                       else
                                         Visibility(
-                                          visible: e.value.isNotEmpty &&
-                                              e.value.length > 1 &&
-                                              !controller.isMoveThePet(),
+                                          visible:
+                                              e.value.isNotEmpty && e.value.length > 1 && !controller.isMoveThePet(),
                                           maintainSize: true,
                                           maintainAnimation: true,
                                           maintainState: true,
@@ -178,9 +168,7 @@ class PetDeckLine<T extends BaseGameController> extends GetView<T> {
                     if (controller.initPetDeckFinish())
                       Obx(
                         () => Visibility(
-                          visible: controller.petDeckLength() -
-                                  controller.petLine.length >
-                              0,
+                          visible: controller.petDeckLength() - controller.petLine().length > 0,
                           maintainSize: true,
                           maintainAnimation: true,
                           maintainState: true,
@@ -190,8 +178,7 @@ class PetDeckLine<T extends BaseGameController> extends GetView<T> {
                               Deck(
                                 text: Constant.DECK_TEXT[line],
                                 isPet: true,
-                                size: controller.petDeckLength() -
-                                    controller.petLine.length,
+                                size: controller.petDeckLength() - controller.petLine().length,
                               ),
                               const SizedBox(height: 30),
                             ],

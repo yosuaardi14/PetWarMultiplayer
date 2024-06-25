@@ -86,8 +86,7 @@ class CircularQueue<T> {
     }
     // var temp = getRange(len);
     // dev.inspect(temp);
-    for (var i = 0; i < size; i++) {
-    }
+    for (var i = 0; i < size; i++) {}
   }
 
   void printAll() {

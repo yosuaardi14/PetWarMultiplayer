@@ -1,27 +1,28 @@
-// class AbilityUtils {
-//   static onAbilityAction(
-//      controller,
-//     Map<String, dynamic> card, {
-//     Map<String, dynamic>? extraprop,
-//   }) async {
-//     bool isNotFound = false;
-//     var cardAbility = card["useSpecial"] == true
-//         ? card["special"]["ability"]
-//         : card["ability"];
-//     switch (cardAbility) {
+import 'package:flutter_pet_war/core/values/game_state.dart';
+import 'package:flutter_pet_war/modules/base/controllers/base_game_firebase_controller.dart';
+
+class AbilityUtils {
+  static onAbilityAction(
+    BaseGameFirebaseController controller,
+    Map<String, dynamic> card, {
+    Map<String, dynamic>? extraprop,
+  }) async {
+    bool isNotFound = false;
+    var cardAbility = card["useSpecial"] == true ? card["special"]["ability"] : card["ability"];
+    switch (cardAbility) {
 //       case "BumpLeft":
 //         await onBumpLeft(controller, card, extraprop: extraprop);
 //         break;
 //       case "BumpRight":
 //         await onBumpRight(controller, card, extraprop: extraprop);
 //         break;
-//       case "TwoAim":
+//       case "TwoAims":
 //         await onTwoAim(controller, card, extraprop: extraprop);
 //         break;
 //       case "Aim":
 //         await onAim(controller, card, extraprop: extraprop);
 //         break;
-//       case "TwoBoom":
+//       case "TwoBooms":
 //         await onTwoBoom(controller, card, extraprop: extraprop);
 //         break;
 //       case "Boom":
@@ -84,10 +85,10 @@
 //         await onMegaGrenade(controller, card, extraprop: extraprop);
 //         break;
 //       case "DoubleResurrect":
-//         await onDoubleRessurect(controller, card, extraprop: extraprop);
+//         await onDoubleResurrect(controller, card, extraprop: extraprop);
 //         controller.discardPile.add(card);
 //         break;
-//       case "Ressurect":
+//       case "Resurrect":
 //         await onResurrect(controller, card, extraprop: extraprop);
 //         controller.discardPile.add(card);
 //         break;
@@ -106,13 +107,15 @@
 //         await onRunning(controller, card, extraprop: extraprop);
 //         controller.discardPile.add(card);
 //         break;
-//       default:
-//         isNotFound = true;
-//     }
-//     if (!isNotFound) {
-//       controller.onFinishAction();
-//     }
-//   }
+      default:
+        // TODO Development only
+        controller.playerfinishAction(card, extraprop);
+        isNotFound = true;
+    }
+    if (!isNotFound) {
+      // controller.playerfinishAction();
+    }
+  }
 
 //   // Up
 //   static onAim(
@@ -130,7 +133,7 @@
 //       }
 //     }
 //     controller.onUpdateLineAndDeck();
-//   }
+//  }
 
 //   static onTwoAim(
 //     MultiplayerGameController controller,
@@ -593,10 +596,10 @@
 //     Map<String, dynamic> card, {
 //     Map<String, dynamic>? extraprop,
 //   }) async {
-//     if (GameUtils.onCheckRessurect(
+//     if (GameUtils.onCheckResurrect(
 //         controller.playerArr[controller.nowTurn()])) {
 //       controller.petDeck().addElement([
-//         GameUtils.getRessurectPet(controller.playerArr[controller.nowTurn()])
+//         GameUtils.getResurrectPet(controller.playerArr[controller.nowTurn()])
 //       ]);
 //       controller.playerArr[controller.nowTurn()].life.value++;
 //     }
@@ -704,7 +707,7 @@
 //     Map<String, dynamic>? extraprop,
 //   }) async {}
 
-//   static onDoubleRessurect(
+//   static onDoubleResurrect(
 //     MultiplayerGameController controller,
 //     Map<String, dynamic> card, {
 //     Map<String, dynamic>? extraprop,
@@ -775,4 +778,4 @@
 //     }
 //     // controller.discardPile.add(card);
 //   }
-// }
+}

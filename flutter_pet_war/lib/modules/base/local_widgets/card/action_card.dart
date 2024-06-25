@@ -9,11 +9,7 @@ class ActionCard extends StatelessWidget {
   final bool cardBlockDrag;
   final bool useSpecial;
   const ActionCard(
-      {super.key,
-      required this.action,
-      this.playerCard = false,
-      this.useSpecial = false,
-      this.cardBlockDrag = false});
+      {super.key, required this.action, this.playerCard = false, this.useSpecial = false, this.cardBlockDrag = false});
 
   @override
   Widget build(BuildContext context) {
@@ -70,10 +66,7 @@ class ActionCard extends StatelessWidget {
                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          width: (playerCard
-                                  ? Constant.PLAYER_CARD_WIDTH
-                                  : Constant.CARD_WIDTH) -
-                              35,
+                          width: (playerCard ? Constant.PLAYER_CARD_WIDTH : Constant.CARD_WIDTH) - 35,
                           padding: const EdgeInsets.all(5.0),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
@@ -116,8 +109,7 @@ class ActionCard extends StatelessWidget {
         elevation: 4,
         child: Container(
           width: playerCard ? Constant.PLAYER_CARD_WIDTH : Constant.CARD_WIDTH,
-          height:
-              playerCard ? Constant.PLAYER_CARD_HEIGHT : Constant.CARD_HEIGHT,
+          height: playerCard ? Constant.PLAYER_CARD_HEIGHT : Constant.CARD_HEIGHT,
           // padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
@@ -150,10 +142,7 @@ class ActionCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
-                      width: (playerCard
-                              ? Constant.PLAYER_CARD_WIDTH
-                              : Constant.CARD_WIDTH) -
-                          30,
+                      width: (playerCard ? Constant.PLAYER_CARD_WIDTH : Constant.CARD_WIDTH) - 30,
                       padding: const EdgeInsets.all(5.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
@@ -224,8 +213,7 @@ class SpecialActionCard extends StatelessWidget {
         elevation: 4,
         child: Container(
           width: playerCard ? Constant.PLAYER_CARD_WIDTH : Constant.CARD_WIDTH,
-          height:
-              playerCard ? Constant.PLAYER_CARD_HEIGHT : Constant.CARD_HEIGHT,
+          height: playerCard ? Constant.PLAYER_CARD_HEIGHT : Constant.CARD_HEIGHT,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             color: Colors.white,
@@ -233,12 +221,8 @@ class SpecialActionCard extends StatelessWidget {
           child: Stack(
             children: [
               Container(
-                width: playerCard
-                    ? Constant.PLAYER_CARD_WIDTH
-                    : Constant.CARD_WIDTH,
-                height: playerCard
-                    ? Constant.PLAYER_CARD_HEIGHT / 2
-                    : Constant.CARD_HEIGHT / 2,
+                width: playerCard ? Constant.PLAYER_CARD_WIDTH : Constant.CARD_WIDTH,
+                height: playerCard ? Constant.PLAYER_CARD_HEIGHT / 2 : Constant.CARD_HEIGHT / 2,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   color: Colors.yellow,
@@ -247,12 +231,8 @@ class SpecialActionCard extends StatelessWidget {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  width: playerCard
-                      ? Constant.PLAYER_CARD_WIDTH
-                      : Constant.CARD_WIDTH,
-                  height: playerCard
-                      ? Constant.PLAYER_CARD_HEIGHT / 2
-                      : Constant.CARD_HEIGHT / 2,
+                  width: playerCard ? Constant.PLAYER_CARD_WIDTH : Constant.CARD_WIDTH,
+                  height: playerCard ? Constant.PLAYER_CARD_HEIGHT / 2 : Constant.CARD_HEIGHT / 2,
                   decoration: BoxDecoration(
                     color: GF.colorFromString(action.special!.color),
                   ),
@@ -285,10 +265,7 @@ class SpecialActionCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Container(
-                      width: (playerCard
-                              ? Constant.PLAYER_CARD_WIDTH
-                              : Constant.CARD_WIDTH) -
-                          15,
+                      width: (playerCard ? Constant.PLAYER_CARD_WIDTH : Constant.CARD_WIDTH) - 15,
                       alignment: Alignment.center,
                       padding: const EdgeInsets.all(5.0),
                       decoration: BoxDecoration(
@@ -299,9 +276,7 @@ class SpecialActionCard extends StatelessWidget {
                       child: Text(
                         action.name,
                         style: TextStyle(
-                          fontSize: playerCard
-                              ? Constant.PLAYER_FONT_SIZE
-                              : Constant.FONT_SIZE,
+                          fontSize: playerCard ? Constant.PLAYER_FONT_SIZE : Constant.FONT_SIZE,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
@@ -333,28 +308,20 @@ class SpecialActionCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Container(
-                        width: (playerCard
-                                ? Constant.PLAYER_CARD_WIDTH
-                                : Constant.CARD_WIDTH) -
-                            10,
+                        width: (playerCard ? Constant.PLAYER_CARD_WIDTH : Constant.CARD_WIDTH) - 10,
                         alignment: Alignment.center,
                         padding: const EdgeInsets.all(5.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(color: Colors.black),
-                          color:
-                              GF.colorFromString(action.special!.color, true),
+                          color: GF.colorFromString(action.special!.color, true),
                         ),
                         child: Text(
                           action.special!.name,
                           style: TextStyle(
-                            fontSize: playerCard
-                                ? Constant.PLAYER_FONT_SIZE
-                                : Constant.FONT_SIZE,
+                            fontSize: playerCard ? Constant.PLAYER_FONT_SIZE : Constant.FONT_SIZE,
                             fontWeight: FontWeight.bold,
-                            color: action.special!.ranger == "Gaoh"
-                                ? Colors.white
-                                : Colors.black,
+                            color: action.special!.ranger == "Gaoh" ? Colors.white : Colors.black,
                           ),
                         ),
                       ),
