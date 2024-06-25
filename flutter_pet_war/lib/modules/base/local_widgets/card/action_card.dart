@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pet_war/core/utils/global_functions.dart';
 import 'package:flutter_pet_war/core/values/constant.dart';
 import 'package:flutter_pet_war/data/models/card/action.dart';
 
@@ -8,19 +9,16 @@ class ActionCard extends StatelessWidget {
   final bool cardBlockDrag;
   final bool useSpecial;
   const ActionCard(
-      {super.key,
-      required this.action,
-      this.playerCard = false,
-      this.useSpecial = false,
-      this.cardBlockDrag = false});
+      {super.key, required this.action, this.playerCard = false, this.useSpecial = false, this.cardBlockDrag = false});
 
   @override
   Widget build(BuildContext context) {
     if (action.special != null) {
       return SpecialActionCard(
-          action: action,
-          playerCard: playerCard,
-          useSpecial: action.useSpecial);
+        action: action,
+        playerCard: playerCard,
+        useSpecial: action.useSpecial,
+      );
     }
     if (action.block == 2 && playerCard == false && cardBlockDrag == false) {
       return Transform.rotate(
@@ -35,27 +33,64 @@ class ActionCard extends StatelessWidget {
             child: Container(
               width: Constant.CARD_WIDTH,
               height: Constant.CARD_HEIGHT,
-              padding: const EdgeInsets.all(8),
+              // padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: Colors.white,
+                color: Colors.yellow,
               ),
               child: Stack(
                 children: [
+                  Container(
+                    width: Constant.CARD_WIDTH,
+                    height: Constant.CARD_HEIGHT,
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.yellow,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: Colors.black),
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                   Align(
-                    alignment: Alignment.topLeft,
+                    alignment: Alignment.topRight,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.min,
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          action.name,
-                          style: const TextStyle(
-                            fontSize: Constant.ACTION_FONT_SIZE,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.green,
+                        Container(
+                          width: (playerCard ? Constant.PLAYER_CARD_WIDTH : Constant.CARD_WIDTH) - 35,
+                          padding: const EdgeInsets.all(5.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(color: Colors.black),
+                            color: Colors.yellow.shade100,
+                          ),
+                          child: Text(
+                            action.name,
+                            style: const TextStyle(
+                              fontSize: Constant.ACTION_FONT_SIZE,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Icon(
+                      GF.getIconByAbility(action.ability),
+                      color: Colors.black,
+                      size: 40,
                     ),
                   ),
                 ],
@@ -74,29 +109,77 @@ class ActionCard extends StatelessWidget {
         elevation: 4,
         child: Container(
           width: playerCard ? Constant.PLAYER_CARD_WIDTH : Constant.CARD_WIDTH,
-          height:
-              playerCard ? Constant.PLAYER_CARD_HEIGHT : Constant.CARD_HEIGHT,
-          padding: const EdgeInsets.all(8),
+          height: playerCard ? Constant.PLAYER_CARD_HEIGHT : Constant.CARD_HEIGHT,
+          // padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: Colors.white,
+            color: Colors.yellow,
           ),
           child: Stack(
             children: [
+              Container(
+                width: Constant.CARD_WIDTH,
+                height: Constant.CARD_HEIGHT,
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.yellow,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(color: Colors.black),
+                    color: Colors.white,
+                  ),
+                ),
+              ),
               Align(
-                alignment: Alignment.topLeft,
+                alignment: Alignment.topRight,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
-                      action.name,
-                      style: const TextStyle(
-                        fontSize: Constant.ACTION_FONT_SIZE,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green,
+                    Container(
+                      width: (playerCard ? Constant.PLAYER_CARD_WIDTH : Constant.CARD_WIDTH) - 30,
+                      padding: const EdgeInsets.all(5.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: Colors.black),
+                        color: Colors.yellow.shade100,
+                      ),
+                      child: Text(
+                        action.name,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: Constant.ACTION_FONT_SIZE,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ],
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: Container(
+                  width: 35,
+                  height: 35,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25),
+                    border: Border.all(color: Colors.black),
+                    color: Colors.yellow,
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Icon(
+                  GF.getIconByAbility(action.ability),
+                  color: Colors.black,
+                  size: 40,
                 ),
               ),
             ],
@@ -130,28 +213,80 @@ class SpecialActionCard extends StatelessWidget {
         elevation: 4,
         child: Container(
           width: playerCard ? Constant.PLAYER_CARD_WIDTH : Constant.CARD_WIDTH,
-          height:
-              playerCard ? Constant.PLAYER_CARD_HEIGHT : Constant.CARD_HEIGHT,
-          padding: const EdgeInsets.all(8),
+          height: playerCard ? Constant.PLAYER_CARD_HEIGHT : Constant.CARD_HEIGHT,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             color: Colors.white,
           ),
           child: Stack(
             children: [
+              Container(
+                width: playerCard ? Constant.PLAYER_CARD_WIDTH : Constant.CARD_WIDTH,
+                height: playerCard ? Constant.PLAYER_CARD_HEIGHT / 2 : Constant.CARD_HEIGHT / 2,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.yellow,
+                ),
+              ),
               Align(
-                alignment: Alignment.topLeft,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  width: playerCard ? Constant.PLAYER_CARD_WIDTH : Constant.CARD_WIDTH,
+                  height: playerCard ? Constant.PLAYER_CARD_HEIGHT / 2 : Constant.CARD_HEIGHT / 2,
+                  decoration: BoxDecoration(
+                    color: GF.colorFromString(action.special!.color),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(color: Colors.black),
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(color: Colors.black),
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.topRight,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(
-                      action.name,
-                      style: TextStyle(
-                        fontSize: playerCard
-                            ? Constant.PLAYER_FONT_SIZE
-                            : Constant.FONT_SIZE,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green,
+                    Container(
+                      width: (playerCard ? Constant.PLAYER_CARD_WIDTH : Constant.CARD_WIDTH) - 15,
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(5.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: Colors.black),
+                        color: Colors.yellow.shade100,
+                      ),
+                      child: Text(
+                        action.name,
+                        style: TextStyle(
+                          fontSize: playerCard ? Constant.PLAYER_FONT_SIZE : Constant.FONT_SIZE,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Center(
+                      child: Icon(
+                        GF.getIconByAbility(action.ability),
+                        color: Colors.black,
                       ),
                     ),
                   ],
@@ -165,19 +300,35 @@ class SpecialActionCard extends StatelessWidget {
                 ),
               ),
               Align(
-                alignment: Alignment.bottomRight,
+                alignment: Alignment.bottomLeft,
                 child: RotatedBox(
                   quarterTurns: 2,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
-                        action.special!.name,
-                        style: TextStyle(
-                          fontSize: playerCard
-                              ? Constant.PLAYER_FONT_SIZE
-                              : Constant.FONT_SIZE,
-                          fontWeight: FontWeight.bold,
+                      Container(
+                        width: (playerCard ? Constant.PLAYER_CARD_WIDTH : Constant.CARD_WIDTH) - 10,
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(5.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(color: Colors.black),
+                          color: GF.colorFromString(action.special!.color, true),
+                        ),
+                        child: Text(
+                          action.special!.name,
+                          style: TextStyle(
+                            fontSize: playerCard ? Constant.PLAYER_FONT_SIZE : Constant.FONT_SIZE,
+                            fontWeight: FontWeight.bold,
+                            color: action.special!.ranger == "Gaoh" ? Colors.white : Colors.black,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Center(
+                        child: Icon(
+                          GF.getIconByAbility(action.special?.ability),
                           color: Colors.black,
                         ),
                       ),

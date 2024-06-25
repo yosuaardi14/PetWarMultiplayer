@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pet_war/modules/home/controllers/home_controller.dart';
+import 'package:flutter_pet_war/modules/home/controllers/home_firebase_controller.dart';
 import 'package:get/get.dart';
 
-class CreateRoomDialog extends GetView<HomeController> {
+class CreateRoomDialog extends GetView<HomeFirebaseController> {
   const CreateRoomDialog({super.key});
 
   @override
@@ -54,19 +55,19 @@ class CreateRoomDialog extends GetView<HomeController> {
               },
             ),
           ),
-          const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text("Mode Tim"),
-              Obx(
-                () => Switch(
-                  value: controller.teamMode(),
-                  onChanged: controller.onChangeMode,
-                ),
-              ),
-            ],
-          ),
+          // const SizedBox(height: 20),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     const Text("Mode Tim"),
+          //     Obx(
+          //       () => Switch(
+          //         value: controller.teamMode(),
+          //         onChanged: controller.onChangeMode,
+          //       ),
+          //     ),
+          //   ],
+          // ),
           const SizedBox(height: 20),
           SizedBox(
             width: 250,

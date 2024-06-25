@@ -7,88 +7,124 @@ const { Server } = require('socket.io');
 const io = new Server(server);
 const port = process.env.PORT || 3000;
 const cors = require('cors');
+const session = require('express-session');
+const sharedSession = require('express-socket.io-session');
+
+
+// Session middleware
+const sessionMiddleware = session({
+    secret: 'pet-war',
+    resave: false,
+    saveUninitialized: true
+});
+
 
 // User Defined
-const Game = require("./game/main");
-const Player = require('./game/models/player');
-
-// const game = new Game(io);
-let rooms = {};
+const RoomManager = require('./game/room_manager');
+const roomManager = new RoomManager(io);
 
 app.use(cors());
 // app.use(express.static(__dirname));
 app.use(express.static(__dirname + "/public")); // For UI
 
+app.use(sessionMiddleware);
+
+// Share session middleware with Socket.IO
+io.use(sharedSession(sessionMiddleware, {
+    autoSave: true
+}));
+
 // Handle socket.io connections
 io.on('connection', (socket) => {
     console.log('a user connected:', socket.id);
 
+    const sessionId = socket.handshake.query.sessionId;
+    if (sessionId) {
+        // Retrieve session from storage if needed, or handle sessionId
+        console.log('User connected with session ID:', sessionId);
+        socket.handshake.session.id = sessionId;
+    } else {
+        console.log('New user connected');
+    }
+
+    // Save socket ID in session
+    socket.handshake.session.socketId = socket.id;
+    socket.handshake.session.save();
+
+    // ADMIN
+
+    socket.on('admin:room', (data) => {
+        roomManager.showAdminRoomList(socket);
+    });
+
+    // USER
+
     socket.on('spectateRoom', (roomID) => {
-        if (rooms[roomID]) {
-            socket.join(roomID);
-            io.to(socket.id).emit("spectateRoom", "Joined");
-        } else {
-            io.to(socket.id).emit("spectateRoom", "Room not Found");
-            // io.to.(socket.id).emit("onSpectateInit", rooms[roomID].game.getInitialData());
+        console.log(socket.handshake.session.socketId + " spectate " + roomID);
+        roomManager.spectateRoom(socket, roomID);
+    });
+
+    socket.on('spectatorData', (roomID) => {
+        // Send Data to Client Only to All in Room (Update Game Canvas)
+        // Send Player Card Deck (who have finish the action before) 
+        console.log("spectatorData room:" + roomID);
+        const temp = roomManager.detailRoom(roomID);
+        io.to(socket.handshake.session.socketId).emit("spectatorData", temp.game.getUpdatedData());
+    });
+
+    socket.on('createRoom', (data) => {
+        console.log(socket.handshake.session.socketId + " create " + data["roomId"]);
+        roomManager.createRoom(socket, data);
+    });
+
+    socket.on('roomList', (_) => {
+        console.log("roomList");
+        roomManager.showRoomList(socket);
+    });
+
+    socket.on('kickPlayer', (data) => {
+        const roomID = data["roomId"];
+        const playerId = data["playerId"];
+
+        if (!rooms[roomID]) {
+
         }
+        // let dataRoom = Object.assign({}, rooms);
+        // dataRoom.forEach(roomID => {
+        //     console.log(dataRoom[roomID]);
+        //     delete dataRoom[roomID]["game"];
+        // });
+        // io.emit("kickPlayer", dataRoom);
+    });
+
+    socket.on('leaveRoom', (data) => {
+        console.log("leaveRoom");
+        roomManager.leaveRoom(data);
     });
 
     socket.on('joinRoom', (roomID) => {
-        console.log("joinRoom " + roomID);
-        if (!rooms[roomID]) {
-            rooms[roomID] = {
-                "game": new Game(io),
-                "status": "EMPTY",
-                "num": 0,
-                "ready": 0
-            };
-        }
+        console.log(socket.handshake.session.socketId + "joinRoom " + roomID);
 
-        let game = rooms[roomID]["game"];
+        let gameRoom = roomManager.detailRoom(roomID);
 
-        if ((rooms[roomID]["num"] + 1) > game.playerNum) {
-            console.log("Room is Full");
-            io.to(socket.id).emit("joinRoom", "Room is Full");
-        } else {
-            console.log(socket.id + " join room " + roomID);
-            socket.join(roomID);
-            rooms[roomID][socket.id] = { id: socket.id, name: null };
-            game.playerObj[socket.id] = new Player(socket.id, "", game.maxLife);
-            rooms[roomID]["num"] = rooms[roomID]["num"] + 1;
-            rooms[roomID]["status"] = "WAITING";
-            io.to(socket.id).emit("joinRoom", "Please send your Name");
-        }
-        console.log("Room Num Player: " + rooms[roomID]["num"]);
+        let game = gameRoom.game;
 
-        socket.on('playerRoomList', (data) => {
+        roomManager.joinRoom(socket, roomID);
 
-        });
+        console.log("Room " + roomID + " Num Player: " + gameRoom.num);
 
         socket.on('setPlayerName', (data) => {
-            console.log("setPlayerName " + data.name);
-            rooms[roomID][socket.id].name = data.name;
-            game.playerObj[socket.id].name = data.name;
-            io.to(socket.id).emit("setPlayerName", socket.id);
-            // console.log(game.getAllPlayerName());
+            console.log(socket.rooms);
+            console.log("setPlayerName " + data);
+            gameRoom.setPlayerName(socket.handshake.session.socketId, data);
+            io.to(socket.handshake.session.socketId).emit("setPlayerName", socket.handshake.session.socketId);
             io.to(roomID).emit("playerRoomList", game.getAllPlayerName());
-            if (rooms[roomID]["num"] === game.playerNum) {
-                rooms[roomID]["status"] = "INITGAME";
-                game.init(roomID);
-                // game.init(roomID);
-            }
+            gameRoom.checkGamePreparation();
         });
 
         socket.on('onGameInit', (data) => {
             console.log("client init data: " + data);
-            if (data === "ready") {
-                rooms[roomID]["ready"] = rooms[roomID]["ready"] + 1;
-            }
-            if (rooms[roomID]["ready"] === rooms[roomID]["num"]) {
-                console.log("Game Ready to Start");
-                rooms[roomID]["status"] = "STARTGAME";
-                game.ready();
-                // game.ready();
-            }
+            gameRoom.onResponseReady(data);
         });
 
         socket.on('onGameReady', (data) => {
@@ -143,22 +179,34 @@ io.on('connection', (socket) => {
             console.log("onGameFinish" + data);
         });
 
+        socket.on('message', (data) => {
+            // Send Data to Client Only to All in Room (Update Game Canvas)
+            // Send Player Card Deck (who have finish the action before) 
+            console.log("message" + data);
+            const playerName = gameRoom.playerList[socket.handshake.session.socketId]["name"];
+            let chatText = playerName + "\t\t: " + data;
+            io.to(roomID).emit("message", chatText);
+        });
+
         socket.on('disconnect', () => {
-            console.log('user on room disconnect:', socket.id);
-            if (rooms[roomID]) {
-                delete rooms[roomID][socket.id];
-                rooms[roomID]["num"] = rooms[roomID]["num"] - 1;
-                io.to(roomID).emit('playerDisconnected', socket.id);
-                if (Object.keys(rooms[roomID]).length === 0) {
-                    delete rooms[roomID];
-                }
-            }
+            console.log('user with id on room disconnect:', socket.id);
+            console.log('user with sessionid on room disconnect:', socket.handshake.session.socketId);
+            // if (rooms[roomID]) {
+            //     delete rooms[roomID][socket.handshake.session.socketId];
+            //     rooms[roomID]["num"] = rooms[roomID]["num"] - 1;
+            //     io.to(roomID).emit('playerDisconnected', socket.handshake.session.socketId);
+            //     if (Object.keys(rooms[roomID]).length === 0) {
+            //         delete rooms[roomID];
+            //     }
+            // }
         });
     });
 
     // Reconnection logic
     socket.on('disconnecting', () => {
-        console.log('user disconnecting:' + socket.id);
+        console.log('user disconnecting:' + socket.handshake.session.socketId);
+        console.log('user disconnecting sessionid:' + socket.handshake.session.socketId);
+
         let roomsToLeave = Object.keys(socket.rooms);
 
         console.log("'user disconnecting room list:'" + roomsToLeave);
@@ -167,9 +215,9 @@ io.on('connection', (socket) => {
             console.log(rooms[roomID]);
             if (rooms[roomID]) {
                 console.log('room disconnecting from room:', roomID);
-                delete rooms[roomID][socket.id];
+                delete rooms[roomID][socket.handshake.session.socketId];
                 rooms[roomID]["num"] = rooms[roomID]["num"] - 1;
-                io.to(roomID).emit('playerDisconnected', socket.id);
+                io.to(roomID).emit('playerDisconnected', socket.handshake.session.socketId);
                 if (Object.keys(rooms[roomID]).length === 0) {
                     delete rooms[roomID];
                 }
@@ -178,15 +226,15 @@ io.on('connection', (socket) => {
     });
 
     socket.on('reconnect', () => {
-        console.log('user reconnected:', socket.id);
-        const roomsToJoin = Object.keys(socket.rooms).filter(room => room !== socket.id);
+        console.log('user reconnected:', socket.handshake.session.socketId);
+        const roomsToJoin = Object.keys(socket.rooms).filter(room => room !== socket.handshake.session.socketId);
         roomsToJoin.forEach(room => {
             socket.join(room);
             if (!rooms[room]) {
                 rooms[room] = {};
             }
-            rooms[room][socket.id] = { id: socket.id, name: null, x: 100, y: 100, color: colorList[rooms[roomID]["num"] % colorList.length] };
-            io.to(room).emit('playerReconnected', rooms[room][socket.id]);
+            rooms[room][socket.handshake.session.socketId] = { id: socket.handshake.session.socketId, name: null, x: 100, y: 100, color: colorList[rooms[roomID]["num"] % colorList.length] };
+            io.to(room).emit('playerReconnected', rooms[room][socket.handshake.session.socketId]);
         });
     });
 });

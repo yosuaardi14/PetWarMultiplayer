@@ -53,8 +53,7 @@ class LoginView extends GetView<LoginController> {
                             width: 300,
                             height: 50,
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
                               child: ElevatedButton(
                                 onPressed: controller.onLogin,
                                 child: const Text("Masuk"),

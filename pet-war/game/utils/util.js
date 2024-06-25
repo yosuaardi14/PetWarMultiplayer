@@ -31,6 +31,19 @@ class Util {
         return data;
     }
 
+    static shuffleRange(data, start = 0, end) {
+        if (end > data.length) {
+            end = data.length;
+        }
+        for (let i = start; i < end; i++) {
+            // Generate a random index between i (inclusive) and end (exclusive)
+            const rand = Math.floor(Math.random() * (end - i)) + i;
+            // Swap elements at indices i and rand
+            [data[i], data[rand]] = [data[rand], data[i]];
+        }
+        return data;
+    }
+
     static generateRandomString(length = 12) {
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         let result = '';
@@ -116,7 +129,6 @@ class Util {
         data.fill(null, 0, size);
         return data;
     }
-
 }
 
 module.exports = Util;

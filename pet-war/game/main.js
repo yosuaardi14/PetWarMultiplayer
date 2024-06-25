@@ -1,4 +1,5 @@
 const Data = require('./values/data');
+const DataTwo = require('./values/data_two');
 const Player = require('./models/player');
 const CircularQueue = require('./utils/circular_queue');
 const GameUtil = require('./utils/game_util');
@@ -21,7 +22,8 @@ class Main {
 
         //Not Visible
         this.actionDeck = [];
-        this.petDeck = new CircularQueue();
+        // this.petDeck = new CircularQueue();
+        this.petDeck = []; // array of array of map
         this.discardPile = [];
 
         //
@@ -29,7 +31,7 @@ class Main {
         this.playerObj = {};
         this.playerIdArr = [];
         this.playerNum = 1;//2;
-        this.maxLife = 5; //5;
+        this.maxLife = 5;
         this.nowTurnId = "";
         this.turn = 0; // For finding the next turn (if player dead, increase value until get player who still alive)
         this.totalTurn = 0;
@@ -94,8 +96,11 @@ class Main {
         this.initRanger();
 
         // INIT Pet Line and Deck
-        this.petDeck = GameUtil.initPetDeck(this.playerObj);
-        this.petLine = this.petDeck.getRange(6);
+        // this.petDeck = GameUtil.initPetDeck(this.playerObj);
+        this.petDeck = GameUtil.initPetDeckNew(this.playerObj);
+        console.log(this.petDeck);
+        this.petLine = Array.from(this.petDeck.slice(0, 6));
+        
         // // console.log(this.petDeck);
         // this.convertPetDeck();
     }
@@ -128,14 +133,14 @@ class Main {
 
     // READY
     dealActionCard(size) {
-        const cardName = ["Two Aim", "Bump Left", "Bump Right"];
+        const cardName = ["Aim", "Aim", "Aim"];
         for (let i = 0; i < size; i++) {
             for (let playerId in this.playerObj) {
                 let player = this.playerObj[playerId];
                 if (this.playerIdArr.indexOf(playerId) == 0 && this.devMode) {
                     let card = this.actionDeck.find(item => item.name === cardName[i]);
                     if (card === undefined) {
-                        card = this.actionDeck.find(item => item.special.name === cardName[i]);
+                        card = this.actionDeck.find(item => item.special != null && item.special.name === cardName[i]);
                         if (card === undefined) {
                             card = this.actionDeck.splice(0, 1)[0];
                         }
@@ -146,7 +151,6 @@ class Main {
                     let card = this.actionDeck.splice(0, 1);
                     player.cardDeck.push(card[0]);
                 }
-
             }
         }
 
@@ -166,7 +170,7 @@ class Main {
 
         for (let i = 0; i < this.petLine.length; i++) {
             firstPet = this.petLine[i][0];
-            if (firstPet.name !== Data.PET["Jungle"].name) {
+            if (firstPet.name !== DataTwo.PET["Forest"].name) {
                 break;
             }
         }
@@ -231,6 +235,9 @@ class Main {
                 // this.io.to(this.nowTurnId).emit("confirmAction", "discardPile");
             } else {
                 this.onInfoAction(data["card"], true);
+                if (data["card"] != null) {
+                    data["card"]["block"] = 1;
+                }
                 this.discardPile.push(data["card"]);
                 this.io.to(this.nowTurnId).emit("confirmAction", "");
             }
@@ -264,7 +271,9 @@ class Main {
     }
 
     onFinishAction() {
-        this.petLine = this.petDeck.getRange(6);
+        // this.petLine = this.petDeck.getRange(6);
+        this.petLine = Array.from(this.petDeck.slice(0, 6));
+        console.log(this.petLine);
         let text = "[";
         for (let i = 0; i < this.petLine.length; i++) {
             text += `[${this.petLine[i].length}],`;
@@ -323,25 +332,6 @@ class Main {
     }
 
     checkHideAndTrapTurn(playerId) {
-        // // remove hide if player index == hideList.indexOf() >= 0 but it impossible to have to hide in same time
-        // let hideIndexList = Util.findAllIndex(this.hideList, playerId);
-        // // console.log("hideList" + hideIndexList);
-        // // if (hideIndexList.length > 0) {
-        // for (let i = 0; i < hideIndexList.length; i++) {
-        //     this.hideList[hideIndexList[i]] = null;
-        //     this.io.to(this.roomID).emit("infoAction", "Hide dari " + this.playerObj[playerId]["name"] + " telah menghilang");
-        //     AbilityUtil.removeActionCardOnIndex(this, "Hide", hideIndexList[i]);
-        // }
-        // // }
-
-        // let trapIndexList = Util.findAllIndex(this.trapList, playerId);
-        // // if (trapIndexList.length > 0) {
-        // for (let i = 0; i < trapIndexList.length; i++) {
-        //     this.trapList[trapIndexList[i]] = null;
-        //     this.io.to(this.roomID).emit("infoAction", "Trap dari " + this.playerObj[playerId]["name"] + " telah menghilang");
-        //     AbilityUtil.removeActionCardOnIndex(this, "Trap", trapIndexList[i]);
-        // }
-        // // }
         this.removeHideAndTrap(playerId);
     }
 
@@ -388,7 +378,7 @@ class Main {
             "actionDeckLength": this.actionDeck.length,
             // "petDeck": this.petDeck.toArray(),
             "grenadeList": this.grenadeList,
-            "petDeckLength": this.petDeck.toArray().length,
+            "petDeckLength": this.petDeck.length,
             "petLine": this.petLine,
             "actionDown": this.actionDown,
             "discardPile": this.discardPile,
@@ -403,8 +393,9 @@ class Main {
         this.io.to(roomID).emit("onGameInit", JSON.stringify(this.getInitialData()));
     }
 
-    sendDataToClient() {
-        this.petLine = this.petDeck.getRange(6);
+    getUpdatedData() {
+        // this.petLine = this.petDeck.getRange(6);
+        this.petLine = Array.from(this.petDeck.slice(0, 6));
         const gameData = {
             "aimList": this.aimList,
             "actionUp": this.actionUp,
@@ -412,12 +403,16 @@ class Main {
             "actionDeckLength": this.actionDeck.length,
             // "petDeck": this.petDeck.toArray(),
             "grenadeList": this.grenadeList,
-            "petDeckLength": this.petDeck.toArray().length,
+            "petDeckLength": this.petDeck.length,
             "petLine": this.petLine,
             "actionDown": this.actionDown,
             "discardPile": this.discardPile,
             "playerInfoList": this.playerInfoList,
         };
+        return gameData;
+    }
+
+    sendDataToClient() {
         // const gameData = {
         //     "aimList": this.aimList,
         //     "actionUp": this.getIdFromArray(this.actionUp),
@@ -429,7 +424,7 @@ class Main {
         // };
         // // console.log(gameData);
         // // console.log(JSON.stringify(gameData));
-        this.io.to(this.roomID).emit("finishAction", JSON.stringify(gameData));
+        this.io.to(this.roomID).emit("finishAction", JSON.stringify(this.getUpdatedData()));
     }
 
     sendCardDeckToClient() {

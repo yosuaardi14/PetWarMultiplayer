@@ -1,31 +1,30 @@
 const Data = require('../values/data');
+const DataTwo = require('../values/data_two');
+const DataExpansion = require('../values/data_expansion');
+const DataNaviBattle = require('../values/data_navi_battle');
+const DataLeader = require('../values/data_leader');
 const Util = require('./util');
 const CircularQueue = require('./circular_queue');
 
 class GameUtil {
     static initActionDeck() {
         let actionDeck = [];
-        for (var i in Data.ACTION) {
-            let actionCard = Object.assign({}, Data.ACTION[i]);
-            // if (actionCard.block != undefined) {
-            //     actionCard["block"] = 1;
-            // }
+        let cardDB = Data.ACTION;
+        for (var i in cardDB) {
+            let actionCard = Object.assign({}, cardDB[i]);
             switch (i) {
-                // case "Grenade":
-                // case "Grenade-Mega Grenade":
-                //     actionCard["extraprop"] = { "turn": 0 };
-                //     break;
                 case "Aim-Trap":
+                    actionCard["prop"] = { "playerId": "", "index": -1 };
+                    break;
                 case "Hide":
                 case "Hide-Master Hide":
+                case "Hide-Corpse Cover":
                     actionCard["prop"] = { "playerId": "" };
                     break;
-                // case "Shield":
-                //     actionCard["prop"] = { "life": 2 };
-                //     break;
             }
-            if (actionCard["prop"] != null)
+            if (actionCard["prop"] != null) {
                 console.log(actionCard["prop"]);
+            }
             var size = actionCard["cardNum"];
             for (var j = 0; j < size; j++) {
                 let cardName = actionCard["name"];
@@ -57,7 +56,8 @@ class GameUtil {
     }
 
     static initCanvasRanger() {
-        let rangerList = Array.from(Data.CANVAS_RANGER);
+        let cardDB = Data.CANVAS_RANGER;
+        let rangerList = Array.from(cardDB);
         for (var i = 0; i < rangerList.length; i++) {
             let ranger = Object.assign({}, rangerList[i]);
             ranger["id"] = Util.generateId("ranger");
@@ -68,26 +68,19 @@ class GameUtil {
     }
 
     static initPetDeck(playerObj) {
+        let cardDB = Data.PET;
         const petDeck = new CircularQueue();
-        const jungleSize = Data.PET["Jungle"]["cardNum"]; // Assume this is the default value or fetch from Constant.PET["Jungle"]["cardNum"] ?? 0;
+        const forestSize = cardDB["Forest"]["cardNum"];
 
-        for (let i = 0; i < jungleSize; i++) {
-            let pet = Object.assign({}, Data.PET["Jungle"]);
+        for (let i = 0; i < forestSize; i++) {
+            let pet = Object.assign({}, cardDB["Forest"]);
             pet["id"] = Util.generateId("pet");
             petDeck.addElement([pet]);
         }
 
-        // playerArr.forEach(player => {
-        //     for (let j = 0; j < player.maxLife; j++) {
-        //         let pet = Object.assign({}, Data.PET[player.ranger["pet"]]);
-        //         pet["id"] = Util.generateId("pet");
-        //         petDeck.addElement([pet]);
-        //     }
-        // });
-
         Object.values(playerObj).forEach(player => {
             for (let j = 0; j < player.maxLife; j++) {
-                let pet = Object.assign({}, Data.PET[player.ranger["pet"]]);
+                let pet = Object.assign({}, cardDB[player.ranger["pet"]]);
                 pet["id"] = Util.generateId("pet");
                 petDeck.addElement([pet]);
             }
@@ -97,20 +90,53 @@ class GameUtil {
         return petDeck;
     }
 
+    static initPetDeckNew(playerObj) {
+        let cardDB = Data.PET;
+        let petDeck = [];
+        const forestSize = 3;//cardDB["Forest"]["cardNum"]; // Assume this is the default value or fetch from Constant.PET["Forest"]["cardNum"] ?? 0;
+
+        for (let i = 0; i < forestSize; i++) {
+            let pet = Object.assign({}, cardDB["Forest"]);
+            pet["id"] = Util.generateId("pet");
+            petDeck.push([pet]);
+        }
+
+        Object.values(playerObj).forEach(player => {
+            for (let j = 0; j < player.maxLife; j++) {
+                let pet = Object.assign({}, cardDB[player.ranger["pet"]]);
+                pet["id"] = Util.generateId("pet");
+                petDeck.push([pet]);
+            }
+        });
+
+        petDeck = Util.shuffle(petDeck);
+        return petDeck;
+    }
+
     static getPlayerIdByPet(petName, playerObj) {
         for (const playerId in playerObj) {
             const player = playerObj[playerId];
             if (player.ranger["pet"] === petName) {
+                console.log("getPlayerIdByPet(" + petName + ", playerObj)" + player.id);
                 return player.id;
             }
         }
+        console.log("getPlayerIdByPet(" + petName + ", playerObj) Not Found");
         return "";
     }
 
     static resetCard(card) {
         card.useSpecial = false;
-        if (card.name == "Two Aim" || card.name == "Two Boom") {
+        if (card.name == "Two Aims" || card.name == "Two Booms") {
             card.block = 2;
+        }
+        // TODO CHECK
+        if (card.prop != null) {
+            if (card.name.indexOf("Hide") >= 0) {
+                card.prop = { "playerId": "" };
+            } else {
+                card.prop = { "playerId": "", "index": -1 };
+            }
         }
         return card;
     }
