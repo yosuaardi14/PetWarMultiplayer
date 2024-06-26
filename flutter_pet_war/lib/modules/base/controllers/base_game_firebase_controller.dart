@@ -45,6 +45,7 @@ class BaseGameFirebaseController extends GetxController {
 
   final playerInfoList = <Map<String, dynamic>>[].obs;
   final playerInfoObj = <String, dynamic>{}.obs;
+  final playerIdArr = <String>[].obs;
   final nowTurnPlayerName = "".obs;
   final nowTurnPlayerId = "".obs;
   final playerObj = RxPlayer().obs;
@@ -54,6 +55,7 @@ class BaseGameFirebaseController extends GetxController {
   final initActionDeckFinish = false.obs;
   final initPetDeckFinish = false.obs;
   final initDiscardPileFinish = false.obs;
+  final initPlayerInfoFinish = false.obs;
 
   //
   final discardPileCurrentCard = <String, dynamic>{}.obs;
@@ -73,11 +75,18 @@ class BaseGameFirebaseController extends GetxController {
   final gameLog = <String>[].obs;
 
   final roomId = "".obs;
+  final hostId = "".obs;
 
   @override
   void onInit() {
     loadData();
     super.onInit();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    data.close();
   }
 
   void loadData() async {
@@ -92,104 +101,33 @@ class BaseGameFirebaseController extends GetxController {
   void listenToStream() {
     if (Get.parameters["roomId"] != null) {
       data.bindStream(firestoreService.getCollectionByDocIdStream("room", Get.parameters["roomId"]!).map((e) {
+        print("bindStream ${e?["status"] ?? ""} - ${e?["state"]?["name"] ?? ""}");
         onGameStateCheck(e);
         return e;
       }));
     }
   }
 
+  void resetInitStatus() {
+    initActionDeckFinish(false);
+    initPetDeckFinish(false);
+    initDiscardPileFinish(false);
+    initPlayerFinish(false);
+    initPlayerInfoFinish(false);
+  }
+
   void onGameStateCheck(Map<String, dynamic>? e) async {
     print("onGameStateCheck");
-    // if (e?["game"]["actionDeck"] != null) {
-    //   for (var id in e?["game"]["actionDeck"]) {
-    //     try {
-    //       print(CardUtils.getActionCardById(id));
-    //     } catch (e) {
-    //       print(id + "Error");
-    //     }
-    //   }
-    // }
-    // if (e?["game"]?["petDeck"] != null) {
-    //   petLine.clear();
-    //   for (var pet in e?["game"]["petDeck"]) {
-    //     print(pet);
-    //     List<Map<String, dynamic>> petListObj =
-    //         Map<String, Map<String, dynamic>>.from(pet)
-    //             .entries
-    //             .map((e) => e.value)
-    //             .toList();
-    //     petLine.add(petListObj);
-    //     print(petLine);
-    //     if (petLine.length >= 6) {
-    //       break;
-    //     }
-    //   }
-    //   print(petLine.length);
-    //   petDeckLength(0);
-    //   initPetDeckFinish(true);
-    // }
-    // if (e?["playerInfoList"] != null) {
-    //   playerInfoObj(e?["playerInfoList"]);
-    //   print(playerInfoObj);
-    // }
-    // if (e?["state"] != null) {
-    //   showHostPanel(false);
-    //   print(e?["state"]);
-    //   if (e?["state"]["name"] == GameState.initGame.name) {
-    //     print(GameState.initGame.name);
-    //     // onInitGame();
-    //   } else if (e?["state"]["name"] == GameState.nextTurn.name) {
-    //     print(GameState.nextTurn.name);
-    //   } else if (e?["state"]["name"] == GameState.sendAction.name) {
-    //     print(GameState.sendAction.name);
-    //   } else if (e?["state"]["name"] == GameState.confirmAction.name) {
-    //     print(GameState.confirmAction.name);
-    //   } else if (e?["state"]["name"] == GameState.finishAction.name) {
-    //     print(GameState.finishAction.name);
-    //     onNextTurn(e);
-    //   } else if (e?["state"]["name"] == GameState.gameFinish.name) {
-    //     print(GameState.gameFinish.name);
-    //   }
-    // } else {
-    //   showHostPanel(e?["host"] == playerData["id"]);
-    //   print(e?["status"]);
-    //   if (e?["status"] == GameState.waiting.name) {
-    //     print(GameState.waiting.name);
-    //   } else if (e?["status"] == GameState.ready.name) {
-    //     print(GameState.ready.name);
-    //     print(playerData()["id"]);
-    //     if (e?["host"] == playerData()["id"]) {
-    //       Map<String, dynamic> data = {
-    //         "state": {
-    //           "name": GameState.initGame.name,
-    //           "turn": null,
-    //           "card": {},
-    //           "extraprop": {
-    //             "line": -1,
-    //             "index": -1,
-    //             "type": null,
-    //           }
-    //         },
-    //       };
-    //       await firestoreService.updateData(
-    //           "room", Get.parameters["roomId"]!, data);
-    //     }
-    //   } else if (e?["status"] == GameState.start.name) {
-    //     print(GameState.start.name);
-    //   } else if (e?["status"] == GameState.finish.name) {
-    //     print(GameState.finish.name);
-    //   }
-    // }
     updateLineAndDeck(e);
     if (e?["status"] == GameState.waiting.name) {
       print(GameState.waiting.name);
       showHostPanel(e?["host"] == playerData["id"]);
-      playerInfoObj(e?["playerInfoList"]);
+      resetInitStatus();
       //TODO if player == room MaxNum automatic initGame
     } else if (e?["status"] == GameState.ready.name) {
       print(GameState.ready.name);
       showHostPanel(false);
-      print(playerData()["id"]);
+      // print(playerData()["id"]);
       if (e?["host"] == playerData()["id"]) {
         Map<String, dynamic> data = {
           "status": GameState.start.name,
@@ -210,12 +148,14 @@ class BaseGameFirebaseController extends GetxController {
       print(GameState.start.name);
       showHostPanel(false);
       if (e?["state"] != null) {
-        print(e?["state"]);
+        // print(e?["state"]);
         if (e?["state"]["name"] == GameState.initGame.name) {
           print(GameState.initGame.name);
+          playerInfoObj(e?["playerInfoList"]);
           onInitGameFinish(e);
         } else if (e?["state"]["name"] == GameState.playerTurn.name) {
           print(GameState.playerTurn.name);
+          nowTurnPlayerId(e?["state"]?["turn"]);
 
           if (e?["state"]?["turn"] == playerData["id"]) {
             onPlayerTurn(e);
@@ -254,8 +194,7 @@ class BaseGameFirebaseController extends GetxController {
       String winner = "${e?["winner"]} adalah Sang PET WAR MASTER";
       notifyWinner(winner);
     }
-
-    print(e);
+    // print(e);
   }
 
   void fetchCardDatabase() async {
@@ -287,7 +226,7 @@ class BaseGameFirebaseController extends GetxController {
         "isDead": false,
         "defeatedPet": []
       };
-      print(data["ranger"]["pet"]);
+      // print(data["ranger"]["pet"]);
       playerInfo[player.key] = data;
       rangerList.remove(rangerList[rand]);
     }
@@ -316,7 +255,7 @@ class BaseGameFirebaseController extends GetxController {
         "totalTurn": 0,
       }
     };
-    print(data);
+    // print(data);
     await firestoreService.updateData("room", Get.parameters["roomId"]!, data);
     showHostPanel(false);
   }
@@ -337,7 +276,7 @@ class BaseGameFirebaseController extends GetxController {
         }
       },
     };
-    print(data);
+    // print(data);
     updateLineAndDeck(e);
     await firestoreService.updateData("room", Get.parameters["roomId"]!, data);
   }
@@ -388,7 +327,7 @@ class BaseGameFirebaseController extends GetxController {
       var nextTurnId = playerIdArr[turn % playerIdArr.length];
       for (var i = 0; i < playerIdArr.length; i++) {
         nextTurnId = playerIdArr[turn % playerIdArr.length];
-        print(playerInfo);
+        // print(playerInfo);
         if (playerInfo[nextTurnId]["isDead"] == false) {
           break;
         }
@@ -437,7 +376,7 @@ class BaseGameFirebaseController extends GetxController {
 
     for (int i = 0; i < petLine.length; i++) {
       firstPet = petLine[i]["0"]!;
-      print(firstPet);
+      // print(firstPet);
       if (firstPet["name"] != Constant.PET['Forest']?["name"]) {
         break;
       }
@@ -456,7 +395,7 @@ class BaseGameFirebaseController extends GetxController {
       playerIdArr.add(playerId);
     });
 
-    print(playerIdArr);
+    // print(playerIdArr);
 
     int firstPlayerIndex = playerIdArr.indexOf(nowTurnId);
     if (firstPlayerIndex != 0) {
@@ -464,7 +403,7 @@ class BaseGameFirebaseController extends GetxController {
       playerIdArr[0] = playerIdArr[firstPlayerIndex];
       playerIdArr[firstPlayerIndex] = temp;
 
-      print(playerIdArr);
+      // print(playerIdArr);
     }
     return playerIdArr;
   }
@@ -477,7 +416,7 @@ class BaseGameFirebaseController extends GetxController {
       var cardDeck = List<Map<String, dynamic>>.from(
         json["cardDeck"].map((e) => e),
       );
-      print(cardDeck);
+      // print(cardDeck);
       playerObj().setCardDeck(cardDeck);
     } catch (e) {
       printError();
@@ -489,7 +428,7 @@ class BaseGameFirebaseController extends GetxController {
         .cardDeck()[index]
         .update("useSpecial", (value) => !(playerObj().cardDeck[index]["useSpecial"] ?? false));
     playerObj.refresh();
-    print(playerObj().cardDeck());
+    // print(playerObj().cardDeck());
   }
 
   void rotateCard(int index) {
@@ -501,7 +440,7 @@ class BaseGameFirebaseController extends GetxController {
       return 2;
     });
     playerObj.refresh();
-    print(playerObj().cardDeck());
+    // print(playerObj().cardDeck());
   }
 
   void onStartDragCard(Map<String, dynamic> value) {
@@ -567,6 +506,7 @@ class BaseGameFirebaseController extends GetxController {
   }
 
   void updateLineAndDeck(Map<String, dynamic>? e) {
+    hostId(e?["host"] ?? "");
     updatePlayerUI(e);
     if (e?["game"]?["petDeck"] != null) {
       petLine.clear();
@@ -578,7 +518,7 @@ class BaseGameFirebaseController extends GetxController {
             )
             .toList();
         petLine.add(petListObj);
-        print(petLine);
+        // print(petLine);
         if (petLine.length >= 6) {
           break;
         }
@@ -602,6 +542,9 @@ class BaseGameFirebaseController extends GetxController {
         grenadeList(List<int?>.from(e?["game"]?["grenadeList"]));
         discardPile(List<Map<String, dynamic>>.from(e?["game"]?["discardPile"] ?? []));
         initDiscardPileFinish(true);
+        if (discardPile.isNotEmpty) {
+          discardPileCurrentCard(discardPile.last);
+        }
       } catch (e) {
         e.printError();
       }
@@ -613,10 +556,18 @@ class BaseGameFirebaseController extends GetxController {
     if (e?["playerInfoList"] != null) {
       playerInfoObj(e?["playerInfoList"] ?? {});
     }
+
+    if (e?["game"]?["playerIdArr"] != null) {
+      playerIdArr(List<String>.from(e?["game"]?["playerIdArr"]));
+    }
   }
 
   void updatePlayerUI(Map<String, dynamic>? e) {
-    print(e?["playerInfoList"][playerData["id"]]);
+    // print(e?["playerInfoList"][playerData["id"]]);
+    // if (e?["playerInfoList"]?["ranger"] == null) {
+    //   playerInfoObj({});
+    //   return;
+    // }
     try {
       playerObj().setFromJson(Map<String, dynamic>.from(e?["playerInfoList"][playerData["id"]]));
       // playerObj().setFromJson({
@@ -632,6 +583,7 @@ class BaseGameFirebaseController extends GetxController {
         ),
       );
       initPlayerFinish(true);
+      initPlayerInfoFinish(true);
     } catch (e) {
       e.printError();
     }
@@ -810,7 +762,7 @@ class BaseGameFirebaseController extends GetxController {
       }
       initDiscardPileFinish(true);
     } catch (e) {
-      print("Error OOO");
+      // print("Error OOO");
       // e.printError();
     }
   }
