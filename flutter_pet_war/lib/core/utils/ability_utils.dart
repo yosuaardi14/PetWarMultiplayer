@@ -3,6 +3,7 @@ import 'package:flutter_pet_war/core/utils/global_functions.dart';
 import 'package:flutter_pet_war/core/values/constant.dart';
 import 'package:flutter_pet_war/core/values/game_state.dart';
 import 'package:flutter_pet_war/modules/base/controllers/base_game_firebase_controller.dart';
+import 'package:get/get.dart';
 
 class AbilityUtils {
   static onAbilityAction(
@@ -22,9 +23,9 @@ class AbilityUtils {
 //       case "TwoAims":
 //         await onTwoAim(controller, card, extraprop: extraprop);
 //         break;
-//       case "Aim":
-//         await onAim(controller, card, extraprop: extraprop);
-//         break;
+      case "Aim":
+        await onAim(controller, card, extraprop: extraprop);
+        break;
 //       case "TwoBooms":
 //         await onTwoBoom(controller, card, extraprop: extraprop);
 //         break;
@@ -43,10 +44,9 @@ class AbilityUtils {
 //       case "GoBackward":
 //         await onGoBackward(controller, card, extraprop: extraprop);
 //         break;
-//       case "MoveThePet":
-//         await onMoveThePet(controller, card, extraprop: extraprop);
-//         controller.discardPile.add(card);
-//         break;
+      case "MoveThePet":
+        await onMoveThePet(controller, card, extraprop: extraprop);
+        break;
 //       case "Typhoon":
 //         await onTyphoon(controller, card, extraprop: extraprop);
 //         controller.discardPile.add(card);
@@ -54,9 +54,9 @@ class AbilityUtils {
 //       case "GetCover":
 //         await onGetCover(controller, card, extraprop: extraprop);
 //         break;
-//       case "Armor":
-//         await onArmor(controller, card, extraprop: extraprop);
-//         break;
+      case "Armor":
+        await onArmor(controller, card, extraprop: extraprop);
+        break;
 //       case "Kamikaze":
 //         await onKamikaze(controller, card, extraprop: extraprop);
 //         break;
@@ -69,9 +69,9 @@ class AbilityUtils {
 //       case "Shield":
 //         await onShield(controller, card, extraprop: extraprop);
 //         break;
-//       case "Hide":
-//         await onHide(controller, card, extraprop: extraprop);
-//         break;
+      case "Hide":
+        await onHide(controller, card, extraprop: extraprop);
+        break;
 //       case "MasterHide":
 //         await onMasterHide(controller, card, extraprop: extraprop);
 //         break;
@@ -95,10 +95,9 @@ class AbilityUtils {
 //         await onResurrect(controller, card, extraprop: extraprop);
 //         controller.discardPile.add(card);
 //         break;
-//       case "LunchTime": // DONE
-//         await onLunchTime(controller, card, extraprop: extraprop);
-//         controller.discardPile.add(card);
-//         break;
+      case "LunchTime": // DONE
+        await onLunchTime(controller, card, extraprop: extraprop);
+        break;
 //       case "Escape":
 //         await onEscape(controller, card, extraprop: extraprop);
 //         break;
@@ -106,10 +105,9 @@ class AbilityUtils {
 //         await onDoubleRun(controller, card, extraprop: extraprop);
 //         controller.discardPile.add(card);
 //         break;
-//       case "Running": // DONE
-//         await onRunning(controller, card, extraprop: extraprop);
-//         controller.discardPile.add(card);
-//         break;
+      case "Running": // DONE
+        await onRunning(controller, card, extraprop: extraprop);
+        break;
       default:
         // TODO Development only
         controller.playerfinishAction(card, extraprop);
@@ -126,15 +124,22 @@ class AbilityUtils {
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    if (extraprop != null) {
-      int index = extraprop["index"] ?? -1;
-      if (index != -1) {
-        controller.aimList[index] = true;
-        controller.actionUp[index] = card;
-      } else {
-        controller.discardPile.add(card);
+    try {
+      if (extraprop != null) {
+        int index = extraprop["index"] ?? -1;
+        if (index != -1) {
+          controller.aimList[index] = true;
+          controller.actionUp[index] = card;
+        } else {
+          controller.discardPilePerTurn.add(card);
+        }
       }
+    } catch (e) {
+      e.printError();
+    } finally {
+      controller.playerfinishAction(card, extraprop);
     }
+
     // controller.onUpdateLineAndDeck();
   }
 
@@ -391,9 +396,15 @@ class AbilityUtils {
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    if (extraprop != null) {
-      controller.petDeck().data[extraprop["index"]].insert(0, card);
-      print("onArmor: ${controller.petDeck().data[extraprop["index"]]}");
+    try {
+      if (extraprop != null) {
+        controller.petDeckNew()[extraprop["index"]].insert(0, card);
+        print("onArmor: ${controller.petDeck().data[extraprop["index"]]}");
+      }
+    } catch (e) {
+      e.printError();
+    } finally {
+      controller.playerfinishAction(card, extraprop);
     }
     // controller.onUpdateLineAndDeck();
   }
@@ -404,9 +415,15 @@ class AbilityUtils {
     Map<String, dynamic>? extraprop,
   }) async {
     // TODO Set hide card to the top
-    if (extraprop != null) {
-      controller.petDeck().data[extraprop["index"]].insert(0, card);
-      print("onHide: ${controller.petDeck().data[extraprop["index"]]}");
+    try {
+      if (extraprop != null) {
+        controller.petDeckNew()[extraprop["index"]].insert(0, card);
+        print("onHide: ${controller.petDeck().data[extraprop["index"]]}");
+      }
+    } catch (e) {
+      e.printError();
+    } finally {
+      controller.playerfinishAction(card, extraprop);
     }
 
     // controller.onUpdateLineAndDeck();
@@ -579,18 +596,24 @@ class AbilityUtils {
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    List<Map<String, dynamic>> tempCard = [];
-    // var actionCard = [];
-    for (var i = 0; i < controller.petDeck().data[0].length; i++) {
-      if (controller.petDeck().data[0][i].containsKey("ability")) {
-        controller.discardPile.add(controller.petDeck().data[0][i]);
-      } else {
-        tempCard.add(controller.petDeck().data[0][i]);
+    try {
+      List<Map<String, dynamic>> tempCard = [];
+      var tempPetDeck = controller.petDeckNew();
+      for (var i = 0; i < tempPetDeck[0].length; i++) {
+        if (tempPetDeck[0][i].containsKey("ability")) {
+          controller.discardPilePerTurn().add(tempPetDeck[0][i]);
+        } else {
+          tempCard.add(tempPetDeck[0][i]);
+        }
       }
+      controller.petDeckNew()[0] = tempCard;
+      var front = controller.petDeckNew().removeAt(0);
+      controller.petDeckNew().add(front);
+    } catch (e) {
+      e.printError();
+    } finally {
+      controller.playerfinishAction(card, extraprop);
     }
-    controller.petDeck().data[0] = tempCard;
-    controller.petDeck().moveForwardAll();
-    // controller.onUpdateLineAndDeck();
   }
 
   static onTyphoon(
@@ -618,10 +641,18 @@ class AbilityUtils {
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    controller.isMoveThePet(true);
-    Future.delayed(const Duration(seconds: 5), () {
-      controller.isMoveThePet(false);
-    });
+    try {
+      controller.isMoveThePet(true);
+      controller.startTimer(10);
+      await Future.delayed(const Duration(seconds: 10), () {
+        controller.isMoveThePet(false);
+      });
+      controller.petDeckNew().replaceRange(0, controller.petLine().length, controller.petLine());
+    } catch (e) {
+      e.printError();
+    } finally {
+      controller.playerfinishAction(card, extraprop);
+    }
   }
 
   static onLunchTime(
@@ -629,13 +660,19 @@ class AbilityUtils {
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    for (var i = 0; i < controller.actionUp.length; i++) {
-      if (controller.actionUp[i] != null) {
-        controller.discardPile.add(controller.actionUp[i]!);
+    try {
+      for (var i = 0; i < controller.actionUp.length; i++) {
+        if (controller.actionUp[i] != null) {
+          controller.discardPilePerTurn.add(controller.actionUp[i]!);
+        }
       }
+      GF.setListElementNull(controller.actionUp(), 6);
+      GF.setListElementNull(controller.aimList(), 6);
+    } catch (e) {
+      e.printError();
+    } finally {
+      controller.playerfinishAction(card, extraprop);
     }
-    GF.setListElementNull(controller.actionUp(), 6);
-    GF.setListElementNull(controller.aimList(), 6);
   }
 
   // Special

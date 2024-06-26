@@ -245,7 +245,7 @@ class GameUtils {
       "Bump Right",
       //
       "Boom",
-      "Two Boom",
+      "Two Booms",
       "Miss",
       // JS
       "Air Shield"
@@ -265,7 +265,7 @@ class GameUtils {
         : controller.playerSelectedCard()["name"];
     var dragTargetCardList = [
       "Aim",
-      "Two Aim",
+      "Two Aims",
     ];
     if (dragTargetCardList.contains(cardName) && controller.aimList[cardIndex] == null) {
       return WidgetMode.dragTarget;
@@ -395,7 +395,7 @@ class GameUtils {
         : controller.playerSelectedCard()["name"];
     var actionUpList = [
       "Aim",
-      "Two Aim",
+      "Two Aims",
     ];
 
     if (GF.isListFull(controller.aimList) && actionUpList.contains(cardName)) {

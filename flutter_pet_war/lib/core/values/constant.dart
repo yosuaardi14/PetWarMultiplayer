@@ -17,6 +17,38 @@ class Constant {
   static const List<String> CANVAS_TEXT = ["CANVAS", "RANGER", "PETWAR"];
   static const List<String> DECK_TEXT = ["Action\nDeck", "Pet\nDeck", "Discard\nPile"];
 
+  static const List<String> DISCARD_PILE_TYPE_CARD = [
+    "Running",
+    "Typhoon",
+    "Lunch Time",
+    "Move The Pet",
+    "Resurrect",
+    //Special
+    "Double Run",
+    "Double Resurrect",
+    "Moving Aim",
+
+    // Special II
+    "Boo",
+    "Avoid",
+    "Steal", // ? PetLine
+    "Scavenge",
+    "Corpse Cover", // ? need check has pet player pet in BackEnd
+    "Vampiric Move",
+
+    // US
+    "Apocalypse",
+    "Voodoo",
+
+    // JS
+    "Illusion",
+
+    // CA
+    "Fogging",
+    "Machine Gun",
+    "Wild",
+  ];
+
   static const List<Map<String, dynamic>> CANVAS_RANGER = [
     {
       "name": "Dobel",
@@ -1128,7 +1160,7 @@ class Constant {
     },
     "MachineGun": {
       "name": "Machine Gun",
-      "block": 2,
+      "block": 1,
       "description": "Boom all aim cards on the pet line",
       "color": "gold",
       "cardNum": 1,

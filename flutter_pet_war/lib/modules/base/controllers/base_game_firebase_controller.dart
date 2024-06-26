@@ -40,6 +40,7 @@ class BaseGameFirebaseController extends GetxController {
   final actionDeck = <Map<String, dynamic>>[].obs;
   final actionDeckLength = 0.obs;
   final petDeck = CircularQueue<List<Map<String, dynamic>>>().obs;
+  final petDeckNew = <List<Map<String, dynamic>>>[].obs;
   final petDeckLength = 0.obs;
   final discardPile = <Map<String, dynamic>>[].obs;
 
@@ -76,6 +77,9 @@ class BaseGameFirebaseController extends GetxController {
 
   final roomId = "".obs;
   final hostId = "".obs;
+
+  // TEMP
+  final discardPilePerTurn = <Map<String, dynamic>>[].obs;
 
   @override
   void onInit() {
@@ -284,6 +288,10 @@ class BaseGameFirebaseController extends GetxController {
   void onPlayerTurn(Map<String, dynamic>? e) {
     notifyTurn();
     isPlayerTurn(true);
+    if (playerObj().cardDeck.length < 3) {
+      playerObj().cardDeck.add(CardUtils.getActionCardById(List<String>.from(e?["game"]["actionDeck"])[0]));
+      actionDeck.removeAt(0);
+    }
   }
 
   void onConfirmAction(Map<String, dynamic>? e) async {
@@ -301,6 +309,11 @@ class BaseGameFirebaseController extends GetxController {
     isPlayerTurn(false);
     try {
       Map<String, dynamic> copyData = Map<String, dynamic>.from(e ?? {});
+      if (copyData["game"]["actionDeck"].length <= 0) {
+        copyData["game"]["actionDeck"] =
+            List<Map<String, dynamic>>.from(copyData["game"]["discardPile"]).map((e) => (e["id"] ?? "")).toList();
+        copyData["game"]["discardPile"] = [];
+      }
       // getCard
       (List<String>, Map<String, dynamic>) playerGetCard = getCard(
         List<String>.from(copyData["game"]["actionDeck"]),
@@ -471,14 +484,26 @@ class BaseGameFirebaseController extends GetxController {
   }
 
   void playerfinishAction(Map<String, dynamic> card, Map<String, dynamic>? extraprop) async {
+    // bool discardCard = extraprop == null; //Constant.DISCARD_PILE_TYPE_CARD.contains(card["name"]);
+    List<Map<String, dynamic>> discardCard = [
+      if (extraprop == null) card,
+      ...discardPilePerTurn(),
+    ];
+    List<Map<String, dynamic>> cardDeck = playerObj().cardDeck;
+    cardDeck.remove(card);
     Map<String, dynamic> data = {
       "playerInfoList": {
         playerData["id"]: {
-          "cardDeck": FieldValue.arrayRemove([card]),
+          "cardDeck": cardDeck, //FieldValue.arrayRemove([card]),
         }
       },
       "game": {
-        "discardPile": FieldValue.arrayUnion([card]),
+        "aimList": aimList(), //[null, null, null, null, null, null],
+        "actionUp": actionUp(),
+        "grenadeList": grenadeList(),
+        "actionDown": actionDown(),
+        "petDeck": GF.convertListofListMapToListMap(petDeckNew()),
+        if (discardCard.isNotEmpty) "discardPile": FieldValue.arrayUnion(discardCard),
       },
       "state": {
         "name": GameState.finishAction.name,
@@ -491,6 +516,7 @@ class BaseGameFirebaseController extends GetxController {
       }
     };
     await firestoreService.updateData("room", Get.parameters["roomId"]!, data);
+    discardPilePerTurn().clear();
   }
 
   /////////////////////////////////////////  CONFIRMACTION FUNCTION  /////////////////////////////////////////
@@ -510,6 +536,7 @@ class BaseGameFirebaseController extends GetxController {
     updatePlayerUI(e);
     if (e?["game"]?["petDeck"] != null) {
       petLine.clear();
+      petDeckNew.clear();
       for (var pet in e?["game"]["petDeck"]) {
         List<Map<String, dynamic>> petListObj = Map<String, Map<String, dynamic>>.from(pet)
             .entries
@@ -517,12 +544,13 @@ class BaseGameFirebaseController extends GetxController {
               (e) => e.value,
             )
             .toList();
-        petLine.add(petListObj);
         // print(petLine);
-        if (petLine.length >= 6) {
-          break;
-        }
+        // if (petLine.length < 6) {
+        //   petLine.add(petListObj);
+        // }
+        petDeckNew.add(petListObj);
       }
+      petLine.value = petDeckNew.getRange(0, 6).toList();
       petDeckLength(e?["game"]?["petDeck"]?.length ?? 0);
       initPetDeckFinish(true);
     }
@@ -563,19 +591,10 @@ class BaseGameFirebaseController extends GetxController {
   }
 
   void updatePlayerUI(Map<String, dynamic>? e) {
-    // print(e?["playerInfoList"][playerData["id"]]);
-    // if (e?["playerInfoList"]?["ranger"] == null) {
-    //   playerInfoObj({});
-    //   return;
-    // }
     try {
-      playerObj().setFromJson(Map<String, dynamic>.from(e?["playerInfoList"][playerData["id"]]));
-      // playerObj().setFromJson({
-      //   "name": "A",
-      //   "life": 5,
-      //   "maxLife": 5,
-      //   "isDead": false,
-      // });
+      playerObj().setFromJson(Map<String, dynamic>.from(
+        e?["playerInfoList"][playerData["id"]],
+      ));
       playerObj().setRanger(e?["playerInfoList"]?[playerData["id"]]["ranger"]);
       playerObj().setCardDeck(
         List<Map<String, dynamic>>.from(
