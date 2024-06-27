@@ -1,11 +1,13 @@
+import 'package:flutter_pet_war/core/utils/base_ability_utils.dart';
+import 'package:flutter_pet_war/core/utils/card_utils.dart';
 import 'package:flutter_pet_war/core/utils/game_utils.dart';
 import 'package:flutter_pet_war/core/utils/global_functions.dart';
 import 'package:flutter_pet_war/core/values/constant.dart';
-import 'package:flutter_pet_war/core/values/game_state.dart';
 import 'package:flutter_pet_war/modules/base/controllers/base_game_firebase_controller.dart';
 import 'package:get/get.dart';
 
 class AbilityUtils {
+  static const errorPrefix = "AbilityUtils:";
   static onAbilityAction(
     BaseGameFirebaseController controller,
     Map<String, dynamic> card, {
@@ -14,97 +16,96 @@ class AbilityUtils {
     bool isNotFound = false;
     var cardAbility = card["useSpecial"] == true ? card["special"]["ability"] : card["ability"];
     switch (cardAbility) {
-//       case "BumpLeft":
-//         await onBumpLeft(controller, card, extraprop: extraprop);
-//         break;
-//       case "BumpRight":
-//         await onBumpRight(controller, card, extraprop: extraprop);
-//         break;
-//       case "TwoAims":
-//         await onTwoAim(controller, card, extraprop: extraprop);
-//         break;
+      case "BumpLeft":
+        await onBumpLeft(controller, card, extraprop: extraprop);
+        break;
+      case "BumpRight":
+        await onBumpRight(controller, card, extraprop: extraprop);
+        break;
+      case "TwoAims":
+        await onTwoAims(controller, card, extraprop: extraprop);
+        break;
       case "Aim":
         await onAim(controller, card, extraprop: extraprop);
         break;
-//       case "TwoBooms":
-//         await onTwoBoom(controller, card, extraprop: extraprop);
-//         break;
-//       case "Boom":
-//         await onBoom(controller, card, extraprop: extraprop);
-//         break;
-//       case "Doom":
-//         await onDoom(controller, card, extraprop: extraprop);
-//         break;
+      case "TwoBooms":
+        await onTwoBooms(controller, card, extraprop: extraprop);
+        break;
+      case "Boom":
+        await onBoom(controller, card, extraprop: extraprop);
+        break;
+      case "Doom":
+        await onDoom(controller, card, extraprop: extraprop);
+        break;
 //       case "Miss":
 //         await onMiss(controller, card, extraprop: extraprop);
 //         break;
-//       case "GoForward":
-//         await onGoForward(controller, card, extraprop: extraprop);
-//         break;
-//       case "GoBackward":
-//         await onGoBackward(controller, card, extraprop: extraprop);
-//         break;
+      case "GoForward":
+        await onGoForward(controller, card, extraprop: extraprop);
+        break;
+      case "GoBackward":
+        await onGoBackward(controller, card, extraprop: extraprop);
+        break;
       case "MoveThePet":
         await onMoveThePet(controller, card, extraprop: extraprop);
         break;
-//       case "Typhoon":
-//         await onTyphoon(controller, card, extraprop: extraprop);
-//         controller.discardPile.add(card);
-//         break;
+      case "Typhoon":
+        await onTyphoon(controller, card, extraprop: extraprop);
+        break;
 //       case "GetCover":
 //         await onGetCover(controller, card, extraprop: extraprop);
 //         break;
       case "Armor":
         await onArmor(controller, card, extraprop: extraprop);
         break;
-//       case "Kamikaze":
-//         await onKamikaze(controller, card, extraprop: extraprop);
-//         break;
-//       case "GoAnyward":
-//         await onGoAnyward(controller, card, extraprop: extraprop);
-//         break;
-//       case "OverShock":
-//         await onOverShock(controller, card, extraprop: extraprop);
-//         break;
-//       case "Shield":
-//         await onShield(controller, card, extraprop: extraprop);
-//         break;
+      case "Kamikaze":
+        await onKamikaze(controller, card, extraprop: extraprop);
+        break;
+      case "GoAnyward":
+        await onGoAnyward(controller, card, extraprop: extraprop);
+        break;
+      case "OverShock":
+        await onOverShock(controller, card, extraprop: extraprop);
+        break;
+      case "Shield":
+        await onShield(controller, card, extraprop: extraprop);
+        break;
       case "Hide":
         await onHide(controller, card, extraprop: extraprop);
         break;
 //       case "MasterHide":
 //         await onMasterHide(controller, card, extraprop: extraprop);
 //         break;
-//       case "Trap":
-//         await onTrap(controller, card, extraprop: extraprop);
-//         break;
-//       case "MovingAim":
-//         await onMovingAim(controller, card, extraprop: extraprop);
-//         break;
-//       case "Grenade":
-//         await onGrenade(controller, card, extraprop: extraprop);
-//         break;
-//       case "MegaGrenade":
-//         await onMegaGrenade(controller, card, extraprop: extraprop);
-//         break;
-//       case "DoubleResurrect":
-//         await onDoubleResurrect(controller, card, extraprop: extraprop);
-//         controller.discardPile.add(card);
-//         break;
-//       case "Resurrect":
-//         await onResurrect(controller, card, extraprop: extraprop);
-//         controller.discardPile.add(card);
-//         break;
+      case "Trap":
+        await onTrap(controller, card, extraprop: extraprop);
+        break;
+      case "MovingAim":
+        await onMovingAim(controller, card, extraprop: extraprop);
+        break;
+      case "Grenade":
+        await onGrenade(controller, card, extraprop: extraprop);
+        break;
+      case "MegaGrenade":
+        await onMegaGrenade(controller, card, extraprop: extraprop);
+        break;
+      case "DoubleResurrect":
+        await onDoubleResurrect(controller, card, extraprop: extraprop);
+        controller.discardPile.add(card);
+        break;
+      case "Resurrect":
+        await onResurrect(controller, card, extraprop: extraprop);
+        controller.discardPile.add(card);
+        break;
       case "LunchTime": // DONE
         await onLunchTime(controller, card, extraprop: extraprop);
         break;
 //       case "Escape":
 //         await onEscape(controller, card, extraprop: extraprop);
 //         break;
-//       case "DoubleRun":
-//         await onDoubleRun(controller, card, extraprop: extraprop);
-//         controller.discardPile.add(card);
-//         break;
+      case "DoubleRun":
+        await onDoubleRun(controller, card, extraprop: extraprop);
+        controller.discardPile.add(card);
+        break;
       case "Running": // DONE
         await onRunning(controller, card, extraprop: extraprop);
         break;
@@ -131,36 +132,46 @@ class AbilityUtils {
           controller.aimList[index] = true;
           controller.actionUp[index] = card;
         } else {
-          controller.discardPilePerTurn.add(card);
+          controller.discardPilePerTurn.add(CardUtils.resetCard(card));
         }
       }
     } catch (e) {
-      e.printError();
+      e.printError(info: errorPrefix);
     } finally {
       controller.playerfinishAction(card, extraprop);
     }
-
-    // controller.onUpdateLineAndDeck();
   }
 
-  static onTwoAim(
+  static onTwoAims(
     BaseGameFirebaseController controller,
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    if (extraprop != null) {
-      int index = extraprop["index"] ?? -1;
-      if (index != -1) {
-        controller.aimList[index] = true;
-        if (index + 1 < 6) {
-          controller.aimList[index + 1] = true;
+    try {
+      if (extraprop != null) {
+        int index = extraprop["index"] ?? -1;
+        if (index != -1) {
+          if (card["block"] == 1) {
+            onAim(controller, card, extraprop: extraprop);
+          } else {
+            controller.aimList[index] = true;
+            if ((index + 1 < 6) && (controller.aimList[index + 1] == null)) {
+              controller.aimList[index + 1] = true;
+              card["block"] = 2; // add card block in UI to rotate;
+            } else {
+              card["block"] = 1;
+            }
+            controller.actionUp[index] = card;
+          }
+        } else {
+          controller.discardPilePerTurn.add(CardUtils.resetCard(card));
         }
-        controller.actionUp[index] = card;
-      } else {
-        controller.discardPile.add(card);
       }
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
     }
-    // controller.onUpdateLineAndDeck();
   }
 
   static onBoom(
@@ -168,188 +179,130 @@ class AbilityUtils {
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    // if (extraprop != null) {
-    //   int index = extraprop["index"] ?? -1;
+    try {
+      if (extraprop != null) {
+        int index = extraprop["index"] ?? -1;
+        int line = extraprop["line"] ?? -1;
 
-    //   if (index != -1) {
-    //     if (extraprop["line"] == 0) {
-    //       controller.discardPile.add(controller.actionUp[index]!);
-    //       controller.aimList[index] = null;
-    //       controller.actionUp[index] = null;
-    //       if (index < controller.petDeck().data.length) {
-    //         if (controller.petDeck().getAt(index).first["name"] != Constant.PET["Forest"]?["name"]) {
-    //           if (controller.petDeck().getAt(index).length > 1) {
-    //             var card = controller.petDeck().getAt(index).first;
-    //             if (card["name"] == "Shield") {
-    //               // check shield life (armor 2x)
-    //               controller.discardPile.add(card);
-    //               controller.petDeck().getAt(index).removeAt(0);
-    //             } else if (card["name"] == "Armor") {
-    //               controller.discardPile.add(card);
-    //               controller.petDeck().getAt(index).removeAt(0);
-    //             } else if (card["name"] == "Hide") {
-    //               // do nothing
-    //             } else {
-    //               // jika pet
-    //               var indexPlayerPet = GameUtils.getPlayerIndexByPet(
-    //                   controller.petDeck().getAt(index).first["name"], controller.playerArr());
-    //               if (indexPlayerPet != -1) {
-    //                 controller.playerArr()[indexPlayerPet].life.value--;
-    //               }
-    //               controller.petDeck().getAt(index).removeAt(0);
-    //             }
-    //           } else {
-    //             var indexPlayerPet = GameUtils.getPlayerIndexByPet(
-    //                 controller.petDeck().getAt(index).first["name"], controller.playerArr());
-    //             if (indexPlayerPet != -1) {
-    //               controller.playerArr()[indexPlayerPet].life.value--;
-    //             }
-    //             controller.petDeck().removeAt(index);
-    //           }
-    //         }
-    //       }
-    //     } else {
-    //       // Kamikaze
-    //       if (GameUtils.checkAvailableCardOnPetLine("Kamikaze", controller.petLine(), index)) {
-    //         var start = index == 0 ? 0 : index - 1;
-    //         var end = index == 5 ? index : index + 1;
-    //         for (var i = start; i < end; i++) {
-    //           // TODO discard pile the lpg zord and kamikaze
-    //           if (i < controller.petDeck().data.length) {
-    //             if (controller.petDeck().getAt(i).first["name"] != Constant.PET["Forest"]?["name"]) {
-    //               if (controller.petDeck().getAt(i).length > 1) {
-    //                 var card = controller.petDeck().getAt(i).first;
-    //                 if (card["name"] == "Shield") {
-    //                   // check shield life (armor 2x)
-    //                   controller.discardPile.add(card);
-    //                   controller.petDeck().getAt(i).removeAt(0);
-    //                 } else if (card["name"] == "Armor") {
-    //                   controller.discardPile.add(card);
-    //                   controller.petDeck().getAt(i).removeAt(0);
-    //                 } else if (card["name"] == "Hide") {
-    //                   // do nothing
-    //                 } else {
-    //                   // jika pet
-    //                   var indexPlayerPet = GameUtils.getPlayerIndexByPet(
-    //                       controller.petDeck().getAt(i).first["name"], controller.playerArr());
-    //                   if (indexPlayerPet != -1) {
-    //                     controller.playerArr()[indexPlayerPet].life.value--;
-    //                   }
-    //                   controller.petDeck().getAt(i).removeAt(0);
-    //                 }
-    //               } else {
-    //                 var indexPlayerPet = GameUtils.getPlayerIndexByPet(
-    //                     controller.petDeck().getAt(i).first["name"], controller.playerArr());
-    //                 if (indexPlayerPet != -1) {
-    //                   controller.playerArr()[indexPlayerPet].life.value--;
-    //                 }
-    //                 controller.petDeck().removeAt(i);
-    //               }
-    //             }
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
-    controller.discardPile.add(card);
-    // controller.onUpdateLineAndDeck();
+        if (index != -1) {
+          if (line == 0) {
+            if (controller.actionUp[index] != null) {
+              // check if the card is two aim
+              bool isTwoAim = controller.actionUp[index]?["name"] == Constant.ACTION["TwoAims"]?["name"] &&
+                  controller.actionUp[index]?["block"] == 2;
+              if (isTwoAim && controller.aimList[index + 1] != null) {
+                controller.actionUp[index]?["block"] = 1;
+                controller.actionUp[index + 1] = controller.actionUp[index];
+                controller.actionUp[index] = null;
+              } else {
+                controller.discardPilePerTurn.add(controller.actionUp[index]!);
+                controller.actionUp()[index] = null;
+              }
+            } else {
+              // two aim (virtual card)
+              bool isTwoAim = controller.actionUp[index - 1]?["name"] == Constant.ACTION["TwoAims"]?["name"] &&
+                  controller.actionUp[index - 1]?["block"] == 2;
+              if (isTwoAim && controller.aimList[index - 1] != null) {
+                controller.actionUp[index - 1]?["block"] = 1;
+              }
+            }
+            controller.aimList[index] = null;
+            BaseAbilityUtils.onDestroyPet(controller, index);
+          } else if (line == 1) {
+            BaseAbilityUtils.onDestroyPet(controller, index);
+          }
+        }
+      }
+      controller.discardPilePerTurn.add(CardUtils.resetCard(card));
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
+    }
   }
 
-  static onTwoBoom(
+  static onTwoBooms(
     BaseGameFirebaseController controller,
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    if (extraprop != null) {
-      int index = extraprop["index"] ?? -1;
-      if (index != -1) {
-        controller.discardPile.add(controller.actionUp[index]!);
-        controller.aimList[index] = null;
-        controller.actionUp[index] = null;
+    try {
+      if (extraprop != null) {
+        int index = extraprop["index"] ?? -1;
+        int line = extraprop["line"] ?? -1;
+        if (index != -1) {
+          if (card["block"] == 1) {
+            onBoom(controller, card, extraprop: extraprop);
+          } else {
+            if (line == 0) {
+              // remove AIM
+              // todo refactor using for
+              if (controller.actionUp[index] != null) {
+                controller.discardPilePerTurn.add(controller.actionUp[index]!);
+                controller.actionUp()[index] = null;
+              } else {
+                // two aim (virtual card)
+                bool isTwoAim = controller.actionUp[index - 1]?["name"] == Constant.ACTION["TwoAims"]?["name"] &&
+                    controller.actionUp[index - 1]?["block"] == 2;
+                if (isTwoAim && controller.aimList[index - 1] != null) {
+                  controller.actionUp[index - 1]?["block"] = 1;
+                }
+              }
+              controller.aimList[index] = null;
+              // bool leaveEmpty = BaseAbilityUtils.onDestroyPet(controller, index);
+              BaseAbilityUtils.onDestroyPet(controller, index);
+
+              if (index + 1 < 6 && controller.actionUp[index + 1] != null) {
+                bool isTwoAim = controller.actionUp[index + 1]?["name"] == Constant.ACTION["TwoAims"]?["name"] &&
+                    controller.actionUp[index + 1]?["block"] == 2;
+                if (isTwoAim && controller.aimList[index + 1 + 1] != null) {
+                  controller.actionUp[index + 1]?["block"] = 1;
+                  controller.actionUp()[index + 1 + 1] = controller.actionUp[index + 1];
+                  controller.actionUp()[index + 1] = null;
+                } else {
+                  controller.discardPilePerTurn.add(controller.actionUp[index + 1]!);
+                  controller.actionUp()[index + 1] = null;
+                }
+              }
+              if (index + 1 < 6 && controller.aimList[index + 1] == true) {
+                controller.aimList[index + 1] = null;
+                BaseAbilityUtils.onDestroyPet(controller, index);
+              }
+            } else if (line == 1) {
+              BaseAbilityUtils.onDestroyPet(controller, index);
+            }
+          }
+        }
       }
+      controller.discardPilePerTurn.add(CardUtils.resetCard(card));
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
     }
-    controller.discardPile.add(card);
-    // controller.onUpdateLineAndDeck();
   }
 
   static onMiss(
     BaseGameFirebaseController controller,
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
-  }) async {
-    // if (extraprop != null) {
-    //   int index = extraprop["index"] ?? -1;
-    //   if (index != -1) {
-    //     controller.discardPile.add(controller.actionUp[index]!);
-    //     controller.aimList[index] = null;
-    //     controller.actionUp[index] = null;
-    //     var missIndex = 0;
-    //     if (index == 0 || index == 5) {
-    //       //
-    //       missIndex = index == 0 ? index + 1 : index - 1;
-    //     } else {
-    //       // Show DIalog left or right
-    //       missIndex = index + await GF.showLeftRightDialog();
-    //     }
-
-    //     if (missIndex < controller.petDeck().data.length) {
-    //       if (controller.petDeck().getAt(missIndex).first["name"] != Constant.PET["Forest"]?["name"]) {
-    //         if (controller.petDeck().getAt(missIndex).length > 1) {
-    //           var card = controller.petDeck().getAt(missIndex).first;
-    //           if (card["name"] == "Shield") {
-    //             // check shield life (armor 2x)
-    //             controller.discardPile.add(card);
-    //             controller.petDeck().getAt(missIndex).removeAt(0);
-    //           } else if (card["name"] == "Armor") {
-    //             controller.discardPile.add(card);
-    //             controller.petDeck().getAt(missIndex).removeAt(0);
-    //           } else if (card["name"] == "Hide") {
-    //             // do nothing
-    //           } else {
-    //             // jika pet
-    //             var indexPlayerPet = GameUtils.getPlayerIndexByPet(
-    //                 controller.petDeck().getAt(missIndex).first["name"], controller.playerArr());
-    //             if (indexPlayerPet != -1) {
-    //               controller.playerArr()[indexPlayerPet].life.value--;
-    //             }
-    //             controller.petDeck().getAt(missIndex).removeAt(0);
-    //           }
-    //         } else {
-    //           var indexPlayerPet = GameUtils.getPlayerIndexByPet(
-    //               controller.petDeck().getAt(missIndex).first["name"], controller.playerArr());
-    //           if (indexPlayerPet != -1) {
-    //             controller.playerArr()[indexPlayerPet].life.value--;
-    //           }
-    //           controller.petDeck().removeAt(missIndex);
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
-    controller.discardPile.add(card);
-    // controller.onUpdateLineAndDeck();
-  }
+  }) async {}
 
   static onBumpLeft(
     BaseGameFirebaseController controller,
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    if (extraprop != null) {
-      int index = extraprop["index"] ?? 0;
-      if (index > 0) {
-        if (controller.actionUp[index - 1] == null) {
-          var action = controller.actionUp[index];
-          controller.aimList[index] = null;
-          controller.aimList[index - 1] = true;
-          controller.actionUp[index] = null;
-          controller.actionUp[index - 1] = action;
-        }
+    try {
+      if (extraprop != null) {
+        int index = extraprop["index"] ?? 0;
+        BaseAbilityUtils.onAimMove(controller, index > 0, index, -1);
       }
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
     }
-    controller.discardPile.add(card);
-    // controller.onUpdateLineAndDeck();
   }
 
   static onBumpRight(
@@ -357,20 +310,16 @@ class AbilityUtils {
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    if (extraprop != null) {
-      int index = extraprop["index"] ?? 5;
-      if (index < 5) {
-        if (controller.actionUp[index + 1] == null) {
-          var action = controller.actionUp[index];
-          controller.aimList[index] = null;
-          controller.aimList[index + 1] = true;
-          controller.actionUp[index] = null;
-          controller.actionUp[index + 1] = action;
-        }
+    try {
+      if (extraprop != null) {
+        int index = extraprop["index"] ?? 5;
+        BaseAbilityUtils.onAimMove(controller, index < 5, index, 1);
       }
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
     }
-    controller.discardPile.add(card);
-    // controller.onUpdateLineAndDeck();
   }
 
   // Down
@@ -379,15 +328,21 @@ class AbilityUtils {
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    if (extraprop != null) {
-      int index = extraprop["index"] ?? -1;
-      if (index != -1) {
-        controller.actionDown[index] = card;
-      } else {
-        controller.discardPile.add(card);
+    try {
+      if (extraprop != null) {
+        int index = extraprop["index"] ?? -1;
+        if (index != -1) {
+          controller.actionDown[index] = card;
+          controller.grenadeList[index] = 0;
+        } else {
+          controller.discardPile.add(card);
+        }
       }
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
     }
-    // controller.onUpdateLineAndDeck();
   }
 
   // Front
@@ -397,16 +352,12 @@ class AbilityUtils {
     Map<String, dynamic>? extraprop,
   }) async {
     try {
-      if (extraprop != null) {
-        controller.petDeckNew()[extraprop["index"]].insert(0, card);
-        print("onArmor: ${controller.petDeck().data[extraprop["index"]]}");
-      }
+      BaseAbilityUtils.addCardToPetFront(controller, card, extraprop);
     } catch (e) {
-      e.printError();
+      e.printError(info: errorPrefix);
     } finally {
       controller.playerfinishAction(card, extraprop);
     }
-    // controller.onUpdateLineAndDeck();
   }
 
   static onHide(
@@ -414,19 +365,13 @@ class AbilityUtils {
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    // TODO Set hide card to the top
     try {
-      if (extraprop != null) {
-        controller.petDeckNew()[extraprop["index"]].insert(0, card);
-        print("onHide: ${controller.petDeck().data[extraprop["index"]]}");
-      }
+      BaseAbilityUtils.addCardToPetFront(controller, card, extraprop);
     } catch (e) {
-      e.printError();
+      e.printError(info: errorPrefix);
     } finally {
       controller.playerfinishAction(card, extraprop);
     }
-
-    // controller.onUpdateLineAndDeck();
   }
 
   static onGoForward(
@@ -434,18 +379,17 @@ class AbilityUtils {
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    // check if there is no player pet, do nothing TODO
-    if (extraprop != null) {
-      int index = extraprop["index"] ?? 0;
-      if (index > 0) {
-        var pet = controller.petDeck().data[index];
-        var forwardPet = controller.petDeck().data[index - 1];
-        controller.petDeck().data[index] = forwardPet;
-        controller.petDeck().data[index - 1] = pet;
+    try {
+      if (extraprop != null) {
+        int index = extraprop["index"] ?? 0;
+        BaseAbilityUtils.onPetGo(controller, index > 0, index, -1);
       }
+      controller.discardPilePerTurn.add(CardUtils.resetCard(card));
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
     }
-    controller.discardPile.add(card);
-    // controller.onUpdateLineAndDeck();
   }
 
   static onGoBackward(
@@ -453,22 +397,21 @@ class AbilityUtils {
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    // check if there is no player pet, do nothing TODO
-    if (extraprop != null) {
-      int index = extraprop["index"] ?? 5;
-      int maxIndex = 5;
-      if (maxIndex > controller.petDeck().data.length - 1) {
-        maxIndex = controller.petDeck().data.length - 1;
+    try {
+      if (extraprop != null) {
+        int index = extraprop["index"] ?? 5;
+        int maxIndex = 5;
+        if (maxIndex > (controller.petDeckNew.length - 1)) {
+          maxIndex = controller.petDeckNew.length - 1;
+        }
+        BaseAbilityUtils.onPetGo(controller, index < maxIndex, index, 1);
       }
-      if (index < maxIndex) {
-        var pet = controller.petDeck().data[index];
-        var backWardPet = controller.petDeck().data[index + 1];
-        controller.petDeck().data[index] = backWardPet;
-        controller.petDeck().data[index + 1] = pet;
-      }
+      controller.discardPilePerTurn.add(CardUtils.resetCard(card));
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
     }
-    controller.discardPile.add(card);
-    // controller.onUpdateLineAndDeck();
   }
 
   static onGetCover(
@@ -524,60 +467,42 @@ class AbilityUtils {
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    // // TODO ERROR null value
-
-    // if (extraprop != null) {
-    //   int index = extraprop["index"] ?? -1;
-    //   if (index != -1) {
-    //     // Remove Aim if there is Aim Above
-    //     if (controller.actionUp[index] != null && controller.actionUp[index]?["name"] == "Aim") {
-    //       controller.discardPile.add(controller.actionUp[index]!);
-    //       controller.aimList[index] = null;
-    //       controller.actionUp[index] = null;
-    //     }
-    //     if (controller.petDeck().getAt(index).first["name"] != Constant.PET["Forest"]?["name"]) {
-    //       if (controller.petDeck().getAt(index).length > 1) {
-    //         var card = controller.petDeck().getAt(index).first;
-    //         if (card["name"] == "Shield") {
-    //           // check shield life (armor 2x)
-    //           controller.discardPile.add(card);
-    //           controller.petDeck().getAt(index).removeAt(0);
-    //         } else if (card["name"] == "Armor") {
-    //           controller.discardPile.add(card);
-    //           controller.petDeck().getAt(index).removeAt(0);
-    //         } else if (card["name"] == "Hide") {
-    //           // do nothing
-    //         } else {
-    //           // jika pet
-    //           var indexPlayerPet = GameUtils.getPlayerIndexByPet(
-    //               controller.petDeck().getAt(index).first["name"], controller.playerArr());
-    //           if (indexPlayerPet != -1) {
-    //             //substract the player life (attacked pet)
-    //             controller.playerArr()[indexPlayerPet].life.value--;
-    //           }
-    //           controller.petDeck().getAt(index).removeAt(0);
-    //         }
-    //       } else {
-    //         var indexPlayerPet =
-    //             GameUtils.getPlayerIndexByPet(controller.petDeck().getAt(index).first["name"], controller.playerArr());
-    //         if (indexPlayerPet != -1) {
-    //           //substract the player life (attacked pet)
-    //           controller.playerArr()[indexPlayerPet].life.value--;
-    //         }
-    //         controller.petDeck().removeAt(index);
-    //       }
-    //     }
-    //     // TODO Kamikaze copy from Boom after finish
-    //   }
-
-    //   controller.discardPile.add(card);
-    // }
-
-    // controller
-    //     .petDeck()
-    //     .data[extraprop?["index"]]
-    //     .insert(0, card);
-    // controller.onUpdateLineAndDeck();
+    try {
+      if (extraprop != null) {
+        int index = extraprop["index"] ?? -1;
+        if (index != -1) {
+          if (controller.actionUp[index] != null) {
+            // check if the card is two aim
+            bool isTwoAim = controller.actionUp[index]?["name"] == Constant.ACTION["TwoAims"]?["name"] &&
+                controller.actionUp[index]?["block"] == 2;
+            if (isTwoAim && controller.aimList[index + 1] != null) {
+              controller.actionUp[index]?["block"] = 1;
+              controller.actionUp()[index + 1] = controller.actionUp[index];
+              controller.actionUp()[index] = null;
+            } else {
+              controller.discardPilePerTurn.add(controller.actionUp[index]!);
+              controller.actionUp()[index] = null;
+            }
+          } else {
+            // two aim (virtual card)
+            if (controller.aimList[index] != null) {
+              bool isTwoAim = controller.actionUp[index - 1]?["name"] == Constant.ACTION["TwoAims"]?["name"] &&
+                  controller.actionUp[index - 1]?["block"] == 2;
+              if (isTwoAim && controller.aimList[index - 1] != null) {
+                controller.actionUp[index - 1]?["block"] = 1;
+              }
+            }
+          }
+          controller.aimList[index] = null;
+          BaseAbilityUtils.onDestroyPet(controller, index);
+        }
+        controller.discardPilePerTurn.add(CardUtils.resetCard(card));
+      }
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
+    }
   }
 
   static onResurrect(
@@ -585,18 +510,24 @@ class AbilityUtils {
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    // if (GameUtils.onCheckResurrect(controller.pl[controller.nowTurn()])) {
-    //   controller.petDeck().addElement([GameUtils.getResurrectPet(controller.playerArr[controller.nowTurn()])]);
-    //   controller.playerArr[controller.nowTurn()].life.value++;
-    // }
+    try {
+      controller.discardPilePerTurn.add(CardUtils.resetCard(card));
+      if (GameUtils.onCheckResurrect(controller.playerObj())) {
+        Map<String, dynamic> pet = controller.playerObj().defeatedPet.removeAt(0);
+        controller.petDeckNew().add([pet]);
+        controller.playerObj().life.value++;
+      }
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
+    }
   }
 
-  static onRunning(
-    BaseGameFirebaseController controller,
-    Map<String, dynamic> card, {
-    Map<String, dynamic>? extraprop,
-  }) async {
+  static onRunning(BaseGameFirebaseController controller, Map<String, dynamic> card,
+      {Map<String, dynamic>? extraprop, bool discardCard = true}) async {
     try {
+      controller.discardPilePerTurn.add(CardUtils.resetCard(card));
       List<Map<String, dynamic>> tempCard = [];
       var tempPetDeck = controller.petDeckNew();
       for (var i = 0; i < tempPetDeck[0].length; i++) {
@@ -610,7 +541,7 @@ class AbilityUtils {
       var front = controller.petDeckNew().removeAt(0);
       controller.petDeckNew().add(front);
     } catch (e) {
-      e.printError();
+      e.printError(info: errorPrefix);
     } finally {
       controller.playerfinishAction(card, extraprop);
     }
@@ -621,19 +552,25 @@ class AbilityUtils {
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    for (var i = 0; i < controller.petLine.length; i++) {
-      List<Map<String, dynamic>> tempCard = [];
-      for (var j = 0; j < controller.petDeck().getAt(i).length; j++) {
-        if (controller.petDeck().data[i][j].containsKey("ability")) {
-          controller.discardPile.add(controller.petDeck().getAt(i)[j]);
-        } else {
-          tempCard.add(controller.petDeck().getAt(i)[j]);
+    try {
+      controller.discardPilePerTurn.add(CardUtils.resetCard(card));
+      for (var i = 0; i < controller.petLine.length; i++) {
+        List<Map<String, dynamic>> tempCard = [];
+        for (var j = 0; j < controller.petDeckNew[i].length; j++) {
+          if (controller.petDeckNew()[i][j].containsKey("ability")) {
+            controller.discardPilePerTurn.add(controller.petDeckNew[i][j]);
+          } else {
+            tempCard.add(controller.petDeckNew[i][j]);
+          }
         }
+        controller.petDeckNew()[i] = tempCard;
       }
-      controller.petDeck().setAt(i, tempCard);
+      controller.petDeckNew().shuffle();
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
     }
-    controller.petDeck().shuffleAll();
-    // controller.onUpdateLineAndDeck();
   }
 
   static onMoveThePet(
@@ -642,6 +579,7 @@ class AbilityUtils {
     Map<String, dynamic>? extraprop,
   }) async {
     try {
+      controller.discardPilePerTurn.add(CardUtils.resetCard(card));
       controller.isMoveThePet(true);
       controller.startTimer(10);
       await Future.delayed(const Duration(seconds: 10), () {
@@ -649,7 +587,7 @@ class AbilityUtils {
       });
       controller.petDeckNew().replaceRange(0, controller.petLine().length, controller.petLine());
     } catch (e) {
-      e.printError();
+      e.printError(info: errorPrefix);
     } finally {
       controller.playerfinishAction(card, extraprop);
     }
@@ -661,6 +599,7 @@ class AbilityUtils {
     Map<String, dynamic>? extraprop,
   }) async {
     try {
+      controller.discardPilePerTurn.add(CardUtils.resetCard(card));
       for (var i = 0; i < controller.actionUp.length; i++) {
         if (controller.actionUp[i] != null) {
           controller.discardPilePerTurn.add(controller.actionUp[i]!);
@@ -669,7 +608,7 @@ class AbilityUtils {
       GF.setListElementNull(controller.actionUp(), 6);
       GF.setListElementNull(controller.aimList(), 6);
     } catch (e) {
-      e.printError();
+      e.printError(info: errorPrefix);
     } finally {
       controller.playerfinishAction(card, extraprop);
     }
@@ -681,14 +620,18 @@ class AbilityUtils {
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {}
+
   static onShield(
     BaseGameFirebaseController controller,
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    // apakah perlu menambahkan kartu shield menjadi 2 atau menambah extraprop TODO
-    for (var i = 0; i < 2; i++) {
-      onArmor(controller, card, extraprop: extraprop);
+    try {
+      BaseAbilityUtils.addCardToPetFront(controller, card, extraprop);
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
     }
   }
 
@@ -697,13 +640,17 @@ class AbilityUtils {
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    if (!GF.isListNull(controller.actionUp)) {
+    try {
+      controller.discardPilePerTurn.add(CardUtils.resetCard(card));
       controller.isMovingAim(true);
-      Future.delayed(const Duration(seconds: 5), () {
+      controller.startTimer(5);
+      await Future.delayed(const Duration(seconds: 5), () {
         controller.isMovingAim(false);
       });
-    } else {
-      print("onMovingAim: no AIM");
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
     }
   }
 
@@ -711,15 +658,34 @@ class AbilityUtils {
     BaseGameFirebaseController controller,
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
-  }) async {}
+  }) async {
+    try {
+      BaseAbilityUtils.addCardToPetFront(controller, card, extraprop);
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
+    }
+  }
 
   static onDoubleResurrect(
     BaseGameFirebaseController controller,
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    for (var i = 0; i < 2; i++) {
-      onResurrect(controller, card, extraprop: extraprop);
+    try {
+      controller.discardPilePerTurn.add(CardUtils.resetCard(card));
+      for (var i = 0; i < 2; i++) {
+        if (GameUtils.onCheckResurrect(controller.playerObj())) {
+          Map<String, dynamic> pet = controller.playerObj().defeatedPet.removeAt(0);
+          controller.petDeckNew().add([pet]);
+          controller.playerObj().life.value++;
+        }
+      }
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
     }
   }
 
@@ -727,7 +693,50 @@ class AbilityUtils {
     BaseGameFirebaseController controller,
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
-  }) async {}
+  }) async {
+    try {
+      if (extraprop != null) {
+        var index = extraprop["index"] ?? 5;
+        var res = 0;
+        if (index == 0 || index == controller.petLine.length - 1) {
+          if (index == 0) {
+            res = 1;
+          } else {
+            // controller.petLine.length
+            res = -1;
+          }
+        } else {
+          res = await GF.showLeftRightDialog();
+        }
+        int goIndex = res < 0 ? -2 : 2; // extraprop["goIndex"] ?? -1;
+        bool condition = true;
+        int petDeckLength = controller.petDeckNew.length;
+
+        // Calculate the new position after applying goIndex
+        var newPosition = index + goIndex;
+
+        // Ensure the new position is within the valid range
+        if (newPosition < 0) {
+          newPosition = 0;
+          condition = !(newPosition == index);
+        } else if (newPosition > petDeckLength) {
+          newPosition = petDeckLength;
+          condition = !(newPosition == index);
+        } else {
+          if (newPosition > 5) {
+            newPosition = 5;
+          }
+          condition = true;
+        }
+        BaseAbilityUtils.onPetGo(controller, condition, index, newPosition - index);
+      }
+      controller.discardPilePerTurn.add(CardUtils.resetCard(card));
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
+    }
+  }
 
   static onOverShock(
     BaseGameFirebaseController controller,
@@ -742,8 +751,26 @@ class AbilityUtils {
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    for (var i = 0; i < 2; i++) {
-      onRunning(controller, card, extraprop: extraprop);
+    try {
+      controller.discardPilePerTurn.add(CardUtils.resetCard(card));
+      for (var i = 0; i < 2; i++) {
+        List<Map<String, dynamic>> tempCard = [];
+        var tempPetDeck = controller.petDeckNew();
+        for (var i = 0; i < tempPetDeck[0].length; i++) {
+          if (tempPetDeck[0][i].containsKey("ability")) {
+            controller.discardPilePerTurn().add(tempPetDeck[0][i]);
+          } else {
+            tempCard.add(tempPetDeck[0][i]);
+          }
+        }
+        controller.petDeckNew()[0] = tempCard;
+        var front = controller.petDeckNew().removeAt(0);
+        controller.petDeckNew().add(front);
+      }
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
     }
   }
 
@@ -758,15 +785,27 @@ class AbilityUtils {
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    if (extraprop != null) {
-      int index = extraprop["index"] ?? -1;
-      if (index != -1) {
-        controller.actionDown[index] = card;
-      } else {
-        controller.discardPile.add(card);
+    try {
+      if (extraprop != null) {
+        int index = extraprop["index"] ?? -1;
+        if (index != -1) {
+          controller.actionDown[index] = card;
+          controller.grenadeList[index] = 0;
+          if (index + 1 <= 5) {
+            controller.grenadeList[index + 1] = 0;
+          }
+          if (index - 1 >= 0) {
+            controller.grenadeList[index - 1] = 0;
+          }
+        } else {
+          controller.discardPile.add(card);
+        }
       }
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
     }
-    // controller.onUpdateLineAndDeck();
   }
 
   static onKamikaze(
@@ -774,14 +813,12 @@ class AbilityUtils {
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
   }) async {
-    if (extraprop != null) {
-      int index = extraprop["index"] ?? -1;
-      if (index != -1) {
-        controller.petDeck().data[extraprop["index"]].insert(0, card);
-      } else {
-        controller.discardPile.add(card);
-      }
+    try {
+      BaseAbilityUtils.addCardToPetFront(controller, card, extraprop);
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
     }
-    // controller.discardPile.add(card);
   }
 }
