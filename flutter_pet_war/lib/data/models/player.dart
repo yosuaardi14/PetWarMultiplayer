@@ -49,6 +49,7 @@ class RxPlayer {
   final life = 0.obs;
   final isDead = false.obs;
   final rangerName = "".obs;
+  final defeatedPet = <Map<String, dynamic>>[].obs;
 
   RxPlayer();
 
@@ -78,6 +79,10 @@ class RxPlayer {
     isDead.value = data["isDead"];
   }
 
+  void setDefeatedPet(List<Map<String, dynamic>> defeatedPet) {
+    this.defeatedPet.value = defeatedPet;
+  }
+
   void setFromJson(Map<String, dynamic> data) {
     name.value = data["name"];
     ranger.value = data["ranger"] ?? {};
@@ -86,6 +91,7 @@ class RxPlayer {
     life.value = data["life"];
     isDead.value = data["isDead"];
     rangerName.value = data["rangerName"] ?? "";
+    defeatedPet.value = List<Map<String, dynamic>>.from(data["defeatedPet"] ?? []);
   }
 
   factory RxPlayer.fromJson(Map<String, dynamic> data) {

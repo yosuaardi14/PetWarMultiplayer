@@ -484,17 +484,21 @@ class BaseGameFirebaseController extends GetxController {
   }
 
   void playerfinishAction(Map<String, dynamic> card, Map<String, dynamic>? extraprop) async {
-    // bool discardCard = extraprop == null; //Constant.DISCARD_PILE_TYPE_CARD.contains(card["name"]);
     List<Map<String, dynamic>> discardCard = [
-      if (extraprop == null) card,
       ...discardPilePerTurn(),
     ];
-    List<Map<String, dynamic>> cardDeck = playerObj().cardDeck;
+    // Player Data
+    List<Map<String, dynamic>> cardDeck = playerObj().cardDeck();
+    List<Map<String, dynamic>> defeatedPet = playerObj().defeatedPet();
     cardDeck.remove(card);
+
+    // Send Data
     Map<String, dynamic> data = {
       "playerInfoList": {
         playerData["id"]: {
+          "life": playerObj().life(),
           "cardDeck": cardDeck, //FieldValue.arrayRemove([card]),
+          "defeatedPet": defeatedPet,
         }
       },
       "game": {
