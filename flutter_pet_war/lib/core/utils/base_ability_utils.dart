@@ -137,4 +137,14 @@ class BaseAbilityUtils {
   }
 
   static onDestroyPet(BaseGameFirebaseController controller, int targetIndex) {}
+
+  static onCover(BaseGameFirebaseController controller, int index, int targetIndex) {
+    if (targetIndex != -1) {
+      if (controller.petDeckNew()[targetIndex].first != Constant.PET["Forest"]?["name"]) {
+        var tempPet = controller.petDeckNew()[index];
+        controller.petDeckNew[targetIndex].addAll(tempPet);
+        controller.petDeckNew().removeAt(index);
+      }
+    }
+  }
 }

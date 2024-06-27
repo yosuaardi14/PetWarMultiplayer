@@ -16,18 +16,20 @@ class GameUtils {
 
   static List<Map<String, dynamic>> initActionDeck({bool shuffle = true}) {
     List<Map<String, dynamic>> actionDeck = [];
-    for (var action in Constant.ACTION.entries) {
+    Map<String, Map<String, dynamic>> masterActionCard = Map<String, Map<String, dynamic>>.from(Constant.ACTION);
+    masterActionCard.removeWhere((key, value) => value["type"] != "Pet War");
+    for (var action in masterActionCard.entries) {
       var actionCard = Map<String, dynamic>.from(action.value);
-      switch (action.key) {
-        case "Aim-Trap":
-          actionCard["prop"] = {"playerId": "", "index": -1};
-          break;
-        case "Hide":
-        case "Hide-MasterHide":
-        case "Hide-CorpseCover":
-          actionCard["prop"] = {"playerId": ""};
-          break;
-      }
+      // switch (action.key) {
+      //   case "Aim-Trap":
+      //     actionCard["prop"] = {"playerId": "", "index": -1};
+      //     break;
+      //   case "Hide":
+      //   case "Hide-MasterHide":
+      //   case "Hide-CorpseCover":
+      //     actionCard["prop"] = {"playerId": ""};
+      //     break;
+      // }
       var size = int.tryParse(action.value["cardNum"].toString()) ?? 1;
       for (var i = 0; i < size; i++) {
         actionCard["id"] = GF.generateId("action", action.value, i);
@@ -420,6 +422,7 @@ class GameUtils {
       "Bump Left",
       "Bump Right",
       "Boom",
+      "Two Booms",
       // JS
       "Air Shield",
     ];

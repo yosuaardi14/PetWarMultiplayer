@@ -321,20 +321,118 @@ class Constant {
       "life": 1,
       "cardNum": 5
     },
-    "Sunge": {"name": "Sunge", "description": "", "color": "deeppink", "ranger": "Vonstaire", "life": 1, "cardNum": 5},
-    "Minion": {"name": "Minion", "description": "", "color": "red", "ranger": "Ashtray", "life": 1, "cardNum": 5},
-    "Waung": {"name": "Waung", "description": "", "color": "deepblue", "ranger": "Bonci", "life": 1, "cardNum": 5},
-    "Paleo": {"name": "Paleo", "description": "", "color": "deeppurple", "ranger": "Neo", "life": 1, "cardNum": 5},
-    "Soeharti": {"name": "Soeharti", "description": "", "color": "yellow", "ranger": "Daiya", "life": 1, "cardNum": 5},
-    "Marmar": {"name": "Marmar", "description": "", "color": "lightgreen", "ranger": "Elliot", "life": 1, "cardNum": 5},
-    "Giro": {"name": "Giro", "description": "", "color": "green", "ranger": "Rei", "life": 1, "cardNum": 5},
-    "Vulcan": {"name": "Vulcan", "description": "", "color": "brown", "ranger": "Javelin", "life": 1, "cardNum": 5},
-    "King": {"name": "King", "description": "", "color": "blue", "ranger": "Louise", "life": 1, "cardNum": 5},
-    "Bratz": {"name": "Bratz", "description": "", "color": "lightpurple", "ranger": "Bracula", "life": 1, "cardNum": 5},
-    "Vao": {"name": "Vao", "description": "", "color": "black", "ranger": "Gaoh", "life": 1, "cardNum": 5},
-    "Menejeur": {"name": "Menejeur", "description": "", "color": "silver", "ranger": "Mazo", "life": 2, "cardNum": 5},
-    "Lavu": {"name": "Lavu", "description": "", "color": "deeporange", "ranger": "Visca", "life": 1, "cardNum": 5},
-    "Raven": {"name": "Raven", "description": "", "color": "purple", "ranger": "Lynn", "life": 1, "cardNum": 5},
+    "Sunge": {
+      "name": "Sunge",
+      "description": "",
+      "color": "deeppink",
+      "ranger": "Vonstaire",
+      "life": 1,
+      "cardNum": 5,
+    },
+    "Minion": {
+      "name": "Minion",
+      "description": "",
+      "color": "red",
+      "ranger": "Ashtray",
+      "life": 1,
+      "cardNum": 5,
+    },
+    "Waung": {
+      "name": "Waung",
+      "description": "",
+      "color": "deepblue",
+      "ranger": "Bonci",
+      "life": 1,
+      "cardNum": 5,
+    },
+    "Paleo": {
+      "name": "Paleo",
+      "description": "",
+      "color": "deeppurple",
+      "ranger": "Neo",
+      "life": 1,
+      "cardNum": 5,
+    },
+    "Soeharti": {
+      "name": "Soeharti",
+      "description": "",
+      "color": "yellow",
+      "ranger": "Daiya",
+      "life": 1,
+      "cardNum": 5,
+    },
+    "Marmar": {
+      "name": "Marmar",
+      "description": "",
+      "color": "lightgreen",
+      "ranger": "Elliot",
+      "life": 1,
+      "cardNum": 5,
+    },
+    "Giro": {
+      "name": "Giro",
+      "description": "",
+      "color": "green",
+      "ranger": "Rei",
+      "life": 1,
+      "cardNum": 5,
+    },
+    "Vulcan": {
+      "name": "Vulcan",
+      "description": "",
+      "color": "brown",
+      "ranger": "Javelin",
+      "life": 1,
+      "cardNum": 5,
+    },
+    "King": {
+      "name": "King",
+      "description": "",
+      "color": "blue",
+      "ranger": "Louise",
+      "life": 1,
+      "cardNum": 5,
+    },
+    "Bratz": {
+      "name": "Bratz",
+      "description": "",
+      "color": "lightpurple",
+      "ranger": "Bracula",
+      "life": 1,
+      "cardNum": 5,
+    },
+    "Vao": {
+      "name": "Vao",
+      "description": "",
+      "color": "black",
+      "ranger": "Gaoh",
+      "life": 1,
+      "cardNum": 5,
+    },
+    "Menejeur": {
+      "name": "Menejeur",
+      "description": "",
+      "color": "silver",
+      "ranger": "Mazo",
+      "life": 2,
+      "cardNum": 5,
+    },
+    "Lavu": {
+      "name": "Lavu",
+      "description": "",
+      "color": "deeporange",
+      "ranger": "Visca",
+      "life": 1,
+      "cardNum": 5,
+    },
+    "Raven": {
+      "name": "Raven",
+      "description": "",
+      "color": "purple",
+      "ranger": "Lynn",
+      "life": 1,
+      "cardNum": 5,
+    },
     "EnchantedForest": {
       "name": "Enchanted Forest",
       "description":
@@ -382,6 +480,7 @@ class Constant {
   static const Map<String, Map<String, dynamic>> ACTION = {
     "Aim": {
       "name": "Aim",
+      "type": "Pet War",
       "block": 1,
       "description": "Put this card above the pet you want to be targeted in the \"Pet Line\"",
       "color": "gold",
@@ -391,6 +490,7 @@ class Constant {
     },
     "Boom": {
       "name": "Boom",
+      "type": "Pet War",
       "block": 1,
       "description": "Use this card to destroy the targeted pet. Remove the aim card",
       "color": "gold",
@@ -400,6 +500,7 @@ class Constant {
     },
     "Doom": {
       "name": "Doom",
+      "type": "Pet War",
       "block": 1,
       "description": "Destroying target whether it was aimed or not. If the card was aimed, remove the aim card also",
       "color": "gold",
@@ -409,6 +510,7 @@ class Constant {
     },
     "TwoAims": {
       "name": "Two Aims",
+      "type": "Pet War",
       "block": 2,
       "description":
           "Put TWO AIMS card sideways above any adjacent pets, tilt back to the normal position if one of them was destroyed",
@@ -419,6 +521,7 @@ class Constant {
     },
     "TwoBooms": {
       "name": "Two Booms",
+      "type": "Pet War",
       "block": 2,
       "description":
           "Destory any two adjacent targeted pets, both with aim cards above them. Remove the aim cards. If there's no any adjacent aim card if become single boom",
@@ -429,6 +532,7 @@ class Constant {
     },
     "Miss": {
       "name": "Miss",
+      "type": "Pet War",
       "block": 1,
       "description": "Destroy the pet next to the targeted pet (left or right) and the remove the used aim card",
       "color": "gold",
@@ -438,6 +542,7 @@ class Constant {
     },
     "Hide": {
       "name": "Hide",
+      "type": "Pet War",
       "block": 1,
       "description":
           "Cover your chosen pet with this card. The covered pet can't be destroyed until this card removed after one round",
@@ -448,6 +553,7 @@ class Constant {
     },
     "Running": {
       "name": "Running",
+      "type": "Pet War",
       "block": 1,
       "description":
           "Move forward all cards in the \"pet line\" remove the card in the very from of the line to the bottom of the deck, replace the blank spot with new card from deck",
@@ -458,6 +564,7 @@ class Constant {
     },
     "GoForward": {
       "name": "Go Forward",
+      "type": "Pet War",
       "block": 1,
       "description": "Swap YOUR pet with any card on the left side",
       "color": "gold",
@@ -467,6 +574,7 @@ class Constant {
     },
     "GoBackward": {
       "name": "Go Backward",
+      "type": "Pet War",
       "block": 1,
       "description": "Swap YOUR pet with any card on the right side",
       "color": "gold",
@@ -476,6 +584,7 @@ class Constant {
     },
     "MoveThePet": {
       "name": "Move The Pet",
+      "type": "Pet War",
       "block": 1,
       "description": "Rearrange all pet cards in the \"Pet Line\" anyway you like. Aim cards don't move",
       "color": "gold",
@@ -485,6 +594,7 @@ class Constant {
     },
     "Typhoon": {
       "name": "Typhoon",
+      "type": "Pet War",
       "block": 1,
       "description":
           "Reshuffle all the pet cards in the \"Pet Line\" and the pet deck. Draw six new pet cards into the line",
@@ -495,6 +605,7 @@ class Constant {
     },
     "GetCover": {
       "name": "Get Cover",
+      "type": "Pet War",
       "block": 1,
       "description":
           "Put YOUR pet underneath the nearest pet. Your pet moves along with the covering pet, and remain hidden until the covering is destroyed",
@@ -505,6 +616,7 @@ class Constant {
     },
     "Armor": {
       "name": "Armor",
+      "type": "Pet War",
       "block": 1,
       "description": "Cover your chosen pet to get additional life +1",
       "color": "gold",
@@ -514,6 +626,7 @@ class Constant {
     },
     "LunchTime": {
       "name": "Lunch Time",
+      "type": "Pet War",
       "block": 1,
       "description": "Remove all aim cards in the \"Pet Line\"",
       "color": "gold",
@@ -523,6 +636,7 @@ class Constant {
     },
     "Grenade-MegaGrenade": {
       "name": "Grenade",
+      "type": "Pet War",
       "block": 1,
       "description":
           "Put this card below any pet card in the \"Pet Line\". When the third player ends their turn after this card was placed, remove the grenade card and the pet above it. (has no effect to the forest card)",
@@ -540,6 +654,7 @@ class Constant {
     },
     "Aim-Kamikaze": {
       "name": "Aim",
+      "type": "Pet War",
       "block": 1,
       "description": "Put this card above the pet you want to be targeted in the \"Pet Line\"",
       "color": "gold",
@@ -556,6 +671,7 @@ class Constant {
     },
     "Resurrect-DoubleResurrect": {
       "name": "Resurrect",
+      "type": "Pet War",
       "block": 1,
       "description": "Revive one of your pet that has been removed from the game to the bottom of the pet deck",
       "color": "gold",
@@ -572,6 +688,7 @@ class Constant {
     },
     "GoForward-GoAnyward": {
       "name": "Go Forward",
+      "type": "Pet War",
       "block": 1,
       "description": "Swap YOUR pet with any card on the left side",
       "color": "gold",
@@ -587,6 +704,7 @@ class Constant {
     },
     "GoBackward-GoAnyward": {
       "name": "Go Backward",
+      "type": "Pet War",
       "block": 1,
       "description": "Swap YOUR pet with any card on the right side",
       "color": "gold",
@@ -602,6 +720,7 @@ class Constant {
     },
     "Boom-OverShock": {
       "name": "Boom",
+      "type": "Pet War",
       "block": 1,
       "description": "Use this card to destroy the targeted pet. Remove the aim card",
       "color": "gold",
@@ -618,6 +737,7 @@ class Constant {
     },
     "Armor-Shield": {
       "name": "Armor",
+      "type": "Pet War",
       "block": 1,
       "description": "Cover your chosen pet to get additional life +1",
       "color": "gold",
@@ -633,6 +753,7 @@ class Constant {
     },
     "Hide-MasterHide": {
       "name": "Hide",
+      "type": "Pet War",
       "block": 1,
       "description":
           "Cover your chosen pet with this card. The covered pet can't be destroyed until this card removed after one round",
@@ -650,6 +771,7 @@ class Constant {
     },
     "Aim-Trap": {
       "name": "Aim",
+      "type": "Pet War",
       "block": 1,
       "description": "Put this card above the pet you want to be targeted in the \"Pet Line\"",
       "color": "gold",
@@ -666,6 +788,7 @@ class Constant {
     },
     "BumpLeft-MovingAim": {
       "name": "Bump Left",
+      "type": "Pet War",
       "block": 1,
       "description":
           "Move any aim card one step to the left. If there is another aim card on the position, nothing happens",
@@ -682,6 +805,7 @@ class Constant {
     },
     "BumpRight-MovingAim": {
       "name": "Bump Right",
+      "type": "Pet War",
       "block": 1,
       "description":
           "Move any aim card one step to the right. If there is another aim card on the position, nothing happens",
@@ -698,6 +822,7 @@ class Constant {
     },
     "Running-Escape": {
       "name": "Running",
+      "type": "Pet War",
       "block": 1,
       "description":
           "Move forward all cards in the \"pet line\" remove the card in the very from of the line to the bottom of the deck, replace the blank spot with new card from deck",
@@ -715,6 +840,7 @@ class Constant {
     },
     "Running-DoubleRun": {
       "name": "Running",
+      "type": "Pet War",
       "block": 1,
       "description":
           "Move forward all cards in the \"pet line\" remove the card in the very from of the line to the bottom of the deck, replace the blank spot with new card from deck",
@@ -753,6 +879,7 @@ class Constant {
     // },
     "MissFire": {
       "name": "Miss Fire",
+      "type": "Pet War II",
       "block": 1,
       "description": "Destroy the pet next to the aimed pet (left or right). Remove the used aim card",
       "color": "gold",
@@ -791,6 +918,7 @@ class Constant {
     // },
     "ReshuffleHand": {
       "name": "Reshuffle Hand",
+      "type": "Pet War II",
       "block": 1,
       "description":
           "Collect all action card in hands from all players and shuffle it (action deck not included) and deal the action cards",
@@ -801,6 +929,7 @@ class Constant {
     },
     "SwitchRanger": {
       "name": "Switch Ranger",
+      "type": "Pet War II",
       "block": 1,
       "description": "Switch your character with another player of your choice",
       "color": "gold",
@@ -810,6 +939,7 @@ class Constant {
     },
     "Resurrect": {
       "name": "Resurrect",
+      "type": "Pet War II",
       "block": 1,
       "description": "Revive one of your pet that has been removed from the game to the bottom of the pet deck",
       "color": "gold",
@@ -829,6 +959,7 @@ class Constant {
     // },
     "GoForward-Banzai": {
       "name": "Go Forward",
+      "type": "Pet War II",
       "block": 1,
       "description": "Swap YOUR pet with any card on the left side",
       "color": "gold",
@@ -845,6 +976,7 @@ class Constant {
     },
     "GoBackward-Banzai": {
       "name": "Go Backward",
+      "type": "Pet War II",
       "block": 1,
       "description": "Swap YOUR pet with any card on the right side",
       "color": "gold",
@@ -861,6 +993,7 @@ class Constant {
     },
     "Boom-Banzai": {
       "name": "Boom",
+      "type": "Pet War II",
       "block": 1,
       "description": "Use this card to destroy the targeted pet. Remove the aim card",
       "color": "gold",
@@ -877,6 +1010,7 @@ class Constant {
     },
     "GetCover-WaterBulb": {
       "name": "Get Cover",
+      "type": "Pet War II",
       "block": 1,
       "description":
           "Put YOUR pet underneath the nearest pet. Your pet moves along with the covering pet, and remain hidden until the covering is destroyed",
@@ -893,6 +1027,7 @@ class Constant {
     },
     "Armor-VampiricMove": {
       "name": "Armor",
+      "type": "Pet War II",
       "block": 1,
       "description": "Cover your chosen pet to get additional life +1",
       "color": "gold",
@@ -909,6 +1044,7 @@ class Constant {
     },
     "Boom-VampiricBite": {
       "name": "Boom",
+      "type": "Pet War II",
       "block": 1,
       "description": "Use this card to destroy the targeted pet. Remove the aim card",
       "color": "gold",
@@ -925,6 +1061,7 @@ class Constant {
     },
     "Hide-CorpseCover": {
       "name": "Hide",
+      "type": "Pet War II",
       "block": 1,
       "description":
           "Cover your chosen pet with this card. The covered pet can't be destroyed until this card removed after one round",
@@ -942,6 +1079,7 @@ class Constant {
     },
     "Aim-Scavenge": {
       "name": "Aim",
+      "type": "Pet War II",
       "block": 1,
       "description": "Put this card above the pet you want to be targeted in the \"Pet Line\"",
       "color": "gold",
@@ -958,6 +1096,7 @@ class Constant {
     },
     "Aim-Avoid": {
       "name": "Aim",
+      "type": "Pet War II",
       "block": 1,
       "description": "Put this card above the pet you want to be targeted in the \"Pet Line\"",
       "color": "gold",
@@ -973,6 +1112,7 @@ class Constant {
     },
     "BumpLeft-Steal": {
       "name": "Bump Left",
+      "type": "Pet War II",
       "block": 1,
       "description":
           "Move any aim card one step to the left. If there is another aim card on the position, nothing happens",
@@ -989,6 +1129,7 @@ class Constant {
     },
     "BumpRight-Charge": {
       "name": "Bump Right",
+      "type": "Pet War II",
       "block": 1,
       "description":
           "Move any aim card one step to the right. If there is another aim card on the position, nothing happens",
@@ -1006,6 +1147,7 @@ class Constant {
     },
     "Mine-MegaMine": {
       "name": "Mine",
+      "type": "Pet War II",
       "block": 1,
       "description":
           "Put this card under any pet card on the Pet Line. When a Running or Boo card played, destroy the pet above the mine card",
@@ -1023,6 +1165,7 @@ class Constant {
     },
     "Aim-Haunted": {
       "name": "Aim",
+      "type": "Pet War II",
       "block": 1,
       "description": "Put this card above the pet you want to be targeted in the \"Pet Line\"",
       "color": "gold",
@@ -1038,6 +1181,7 @@ class Constant {
     },
     "Running-Boo": {
       "name": "Running",
+      "type": "Pet War II",
       "block": 1,
       "description":
           "Move forward all cards in the \"pet line\" remove the card in the very from of the line to the bottom of the deck, replace the blank spot with new card from deck",
@@ -1056,6 +1200,7 @@ class Constant {
     // Leader
     "Aim-Voodoo": {
       "name": "Aim",
+      "type": "Pet War Leader",
       "block": 1,
       "description": "Put this card above the pet you want to be targeted in the \"Pet Line\"",
       "color": "gold",
@@ -1072,6 +1217,7 @@ class Constant {
     },
     "Boom-Apocalypse": {
       "name": "Boom",
+      "type": "Pet War Leader",
       "block": 1,
       "description": "Use this card to destroy the targeted pet. Remove the aim card",
       "color": "gold",
@@ -1089,6 +1235,7 @@ class Constant {
     // Navi Battle
     "Illusion": {
       "name": "Illusion",
+      "type": "Pet War Navi Battle",
       "block": 1,
       "description":
           "Take all forest cards in the pet line, reshuffle it with the pet deck. Put the new cards in the blank areas",
@@ -1099,6 +1246,7 @@ class Constant {
     },
     "Boom-PoisonDarts": {
       "name": "Boom",
+      "type": "Pet War Navi Battle",
       "block": 1,
       "description": "Use this card to destroy the targeted pet. Remove the aim card",
       "color": "gold",
@@ -1115,6 +1263,7 @@ class Constant {
     },
     "Running-AirShield": {
       "name": "Running",
+      "type": "Pet War Navi Battle",
       "block": 1,
       "description":
           "Move forward all cards in the \"pet line\" remove the card in the very from of the line to the bottom of the deck, replace the blank spot with new card from deck",
@@ -1132,6 +1281,7 @@ class Constant {
     },
     "Running-AirCompressor": {
       "name": "Running",
+      "type": "Pet War Navi Battle",
       "block": 1,
       "description":
           "Move forward all cards in the \"pet line\" remove the card in the very from of the line to the bottom of the deck, replace the blank spot with new card from deck",
@@ -1150,6 +1300,7 @@ class Constant {
     // Expansion
     "Fogging": {
       "name": "Fogging",
+      "type": "Pet War Canvas Activation",
       "block": 1,
       "description":
           "Collect all pet cards that are in the \"Pet Line\" (not including pet deck), reshuffle, and place the back in the \"Pet Line\" facing down",
@@ -1160,6 +1311,7 @@ class Constant {
     },
     "MachineGun": {
       "name": "Machine Gun",
+      "type": "Pet War Canvas Activation",
       "block": 1,
       "description": "Boom all aim cards on the pet line",
       "color": "gold",
@@ -1169,6 +1321,7 @@ class Constant {
     },
     "Wild": {
       "name": "Wild",
+      "type": "Pet War Canvas Activation",
       "block": 1,
       "description": "This card acts as your special skill",
       "color": "gold",
@@ -1178,6 +1331,7 @@ class Constant {
     },
     "Hypnotize": {
       "name": "Hypnotize",
+      "type": "Pet War Canvas Activation",
       "block": 1,
       "description": "Move any pet you choose one step forward or backward",
       "color": "gold",

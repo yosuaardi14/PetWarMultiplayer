@@ -4,6 +4,7 @@ import 'package:flutter_pet_war/core/utils/game_utils.dart';
 import 'package:flutter_pet_war/core/utils/global_functions.dart';
 import 'package:flutter_pet_war/core/values/constant.dart';
 import 'package:flutter_pet_war/modules/base/controllers/base_game_firebase_controller.dart';
+import 'package:flutter_pet_war/modules/game/local_widgets/dialog/master_hide_dialog.dart';
 import 'package:get/get.dart';
 
 class AbilityUtils {
@@ -52,9 +53,9 @@ class AbilityUtils {
       case "Typhoon":
         await onTyphoon(controller, card, extraprop: extraprop);
         break;
-//       case "GetCover":
-//         await onGetCover(controller, card, extraprop: extraprop);
-//         break;
+      case "GetCover":
+        await onGetCover(controller, card, extraprop: extraprop);
+        break;
       case "Armor":
         await onArmor(controller, card, extraprop: extraprop);
         break;
@@ -73,9 +74,9 @@ class AbilityUtils {
       case "Hide":
         await onHide(controller, card, extraprop: extraprop);
         break;
-//       case "MasterHide":
-//         await onMasterHide(controller, card, extraprop: extraprop);
-//         break;
+      case "MasterHide":
+        await onMasterHide(controller, card, extraprop: extraprop);
+        break;
       case "Trap":
         await onTrap(controller, card, extraprop: extraprop);
         break;
@@ -90,21 +91,18 @@ class AbilityUtils {
         break;
       case "DoubleResurrect":
         await onDoubleResurrect(controller, card, extraprop: extraprop);
-        controller.discardPile.add(card);
         break;
       case "Resurrect":
         await onResurrect(controller, card, extraprop: extraprop);
-        controller.discardPile.add(card);
         break;
       case "LunchTime": // DONE
         await onLunchTime(controller, card, extraprop: extraprop);
         break;
-//       case "Escape":
-//         await onEscape(controller, card, extraprop: extraprop);
-//         break;
+      case "Escape":
+        await onEscape(controller, card, extraprop: extraprop);
+        break;
       case "DoubleRun":
         await onDoubleRun(controller, card, extraprop: extraprop);
-        controller.discardPile.add(card);
         break;
       case "Running": // DONE
         await onRunning(controller, card, extraprop: extraprop);
@@ -335,6 +333,7 @@ class AbilityUtils {
     Map<String, dynamic>? extraprop,
   }) async {
     try {
+      controller.discardPilePerTurn.add(CardUtils.resetCard(card));
       if (extraprop != null) {
         int index = extraprop["index"] ?? 0;
         BaseAbilityUtils.onAimMove(controller, index > 0, index, -1);
@@ -352,6 +351,7 @@ class AbilityUtils {
     Map<String, dynamic>? extraprop,
   }) async {
     try {
+      controller.discardPilePerTurn.add(CardUtils.resetCard(card));
       if (extraprop != null) {
         int index = extraprop["index"] ?? 5;
         BaseAbilityUtils.onAimMove(controller, index < 5, index, 1);
@@ -461,45 +461,26 @@ class AbilityUtils {
     Map<String, dynamic>? extraprop,
   }) async {
     // check if there is no player pet, do nothing TODO
-    if (extraprop != null) {
-      const minIndex = 0;
-      var maxIndex = 5;
-      if (maxIndex > controller.petLine.length) {
-        maxIndex = controller.petLine.length - 1;
-      }
-      int index = extraprop["index"] ?? -1;
-      var coverIndex = -1;
-      if (index == minIndex || index == maxIndex) {
-        coverIndex = index == 0 ? index + 1 : index - 1;
-        if (controller.petDeck().getAt(coverIndex)[0]["name"] != Constant.PET["Forest"]?["name"]) {
-          controller.petDeck().getAt(coverIndex).addAll(controller.petDeck().removeAt(index));
-        }
-      } else {
-        // TODO
-        //show Dialog choose want to cover front or back
-        if (controller.petDeck().getAt(index + 1)[0]["name"] != Constant.PET["Forest"]?["name"] &&
-            controller.petDeck().getAt(index - 1)[0]["name"] != Constant.PET["Forest"]?["name"]) {
-          coverIndex = index + await GF.showLeftRightDialog();
-          if (coverIndex < controller.petLine.length) {
-            controller.petDeck().getAt(coverIndex).addAll(controller.petDeck().removeAt(index));
-          }
-        } else if (controller.petDeck().getAt(index + 1)[0]["name"] != Constant.PET["Forest"]?["name"]) {
-          coverIndex = index + 1;
-          if (coverIndex < controller.petLine.length) {
-            controller.petDeck().getAt(coverIndex).addAll(controller.petDeck().removeAt(index));
-          }
-        } else if (controller.petDeck().getAt(index + 1)[0]["name"] != Constant.PET["Forest"]?["name"]) {
-          coverIndex = index - 1;
-          if (coverIndex < controller.petLine.length) {
-            controller.petDeck().getAt(coverIndex).addAll(controller.petDeck().removeAt(index));
-          }
-        } else {
-          // do nothing
+    try {
+      controller.discardPilePerTurn.add(CardUtils.resetCard(card));
+      if (extraprop != null) {
+        int index = extraprop["index"] ?? -1;
+        if (index != -1) {
+          final coverIndex = await Get.dialog(
+            MasterHideDialog(
+              cardList: controller.petLine(),
+              index: index,
+              onGetCover: true,
+            ),
+          );
+          BaseAbilityUtils.onCover(controller, index, coverIndex);
         }
       }
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
     }
-    controller.discardPile.add(card);
-    // controller.onUpdateLineAndDeck();
   }
 
   //
@@ -509,6 +490,7 @@ class AbilityUtils {
     Map<String, dynamic>? extraprop,
   }) async {
     try {
+      controller.discardPilePerTurn.add(CardUtils.resetCard(card));
       if (extraprop != null) {
         int index = extraprop["index"] ?? -1;
         if (index != -1) {
@@ -537,7 +519,6 @@ class AbilityUtils {
           controller.aimList[index] = null;
           BaseAbilityUtils.onDestroyPet(controller, index);
         }
-        controller.discardPilePerTurn.add(CardUtils.resetCard(card));
       }
     } catch (e) {
       e.printError(info: errorPrefix);
@@ -575,7 +556,11 @@ class AbilityUtils {
         if (tempPetDeck[0][i].containsKey("ability")) {
           controller.discardPilePerTurn().add(tempPetDeck[0][i]);
         } else {
-          tempCard.add(tempPetDeck[0][i]);
+          if (i == (tempPetDeck[0].length - 1)) {
+            tempCard.add(controller.petDeckNew()[0][i]);
+          } else {
+            controller.petDeckNew().add([tempPetDeck[0][i]]);
+          }
         }
       }
       controller.petDeckNew()[0] = tempCard;
@@ -601,7 +586,11 @@ class AbilityUtils {
           if (controller.petDeckNew()[i][j].containsKey("ability")) {
             controller.discardPilePerTurn.add(controller.petDeckNew[i][j]);
           } else {
-            tempCard.add(controller.petDeckNew[i][j]);
+            if (tempCard.isNotEmpty) {
+              controller.petDeckNew().add([controller.petDeckNew[i][j]]);
+            } else {
+              tempCard.add(controller.petDeckNew[i][j]);
+            }
           }
         }
         controller.petDeckNew()[i] = tempCard;
@@ -660,7 +649,24 @@ class AbilityUtils {
     BaseGameFirebaseController controller,
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
-  }) async {}
+  }) async {
+    try {
+      controller.discardPilePerTurn.add(CardUtils.resetCard(card));
+      if (extraprop != null) {
+        int index = extraprop["index"] ?? -1;
+        if (index != -1) {
+          final coverIndex = await Get.dialog(
+            MasterHideDialog(cardList: controller.petLine(), index: index),
+          );
+          BaseAbilityUtils.onCover(controller, index, coverIndex);
+        }
+      }
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
+    }
+  }
 
   static onShield(
     BaseGameFirebaseController controller,
@@ -801,7 +807,11 @@ class AbilityUtils {
           if (tempPetDeck[0][i].containsKey("ability")) {
             controller.discardPilePerTurn().add(tempPetDeck[0][i]);
           } else {
-            tempCard.add(tempPetDeck[0][i]);
+            if (i == (tempPetDeck[0].length - 1)) {
+              tempCard.add(controller.petDeckNew()[0][i]);
+            } else {
+              controller.petDeckNew().add([tempPetDeck[0][i]]);
+            }
           }
         }
         controller.petDeckNew()[0] = tempCard;
@@ -819,7 +829,44 @@ class AbilityUtils {
     BaseGameFirebaseController controller,
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
-  }) async {}
+  }) async {
+    try {
+      controller.discardPilePerTurn.add(CardUtils.resetCard(card));
+      if (extraprop != null) {
+        int index = extraprop["index"] ?? -1;
+        if (index != -1 && controller.petDeckNew().length > 6) {
+          const firstPetDeckIndex = 6;
+          var petCard = controller.petDeckNew()[index];
+          for (var i = 0; i < petCard.length; i++) {
+            if (petCard[i].containsKey("ability")) {
+              // if there is armor/shield/hide remove (action card) move to discardPile
+              var actionCard = petCard[i];
+              controller.discardPilePerTurn.add(CardUtils.resetCard(actionCard));
+            } else {
+              // if there is other pet add to petDeck too
+              controller.petDeckNew().add([petCard[i]]);
+            }
+          }
+
+          controller.petDeckNew.value = GF.shuffleRange(
+            controller.petDeckNew(),
+            firstPetDeckIndex,
+            controller.petDeckNew().length,
+          );
+
+          // get first petDeck and put in the petCard oldIndex
+          var newPet = controller.petDeckNew()[firstPetDeckIndex];
+          // console.log(newPet[0].id)
+          controller.petDeckNew()[index] = newPet;
+          controller.petDeckNew().removeAt(firstPetDeckIndex);
+        }
+      }
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
+    }
+  }
 
   static onMegaGrenade(
     BaseGameFirebaseController controller,
