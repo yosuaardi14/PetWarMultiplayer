@@ -37,9 +37,9 @@ class AbilityUtils {
       case "Doom":
         await onDoom(controller, card, extraprop: extraprop);
         break;
-//       case "Miss":
-//         await onMiss(controller, card, extraprop: extraprop);
-//         break;
+      case "Miss":
+        await onMiss(controller, card, extraprop: extraprop);
+        break;
       case "GoForward":
         await onGoForward(controller, card, extraprop: extraprop);
         break;
@@ -286,7 +286,48 @@ class AbilityUtils {
     BaseGameFirebaseController controller,
     Map<String, dynamic> card, {
     Map<String, dynamic>? extraprop,
-  }) async {}
+  }) async {
+    try {
+      if (extraprop != null) {
+        int index = extraprop["index"] ?? -1;
+        if (index != -1) {
+          if (controller.actionUp[index] != null) {
+            // check if the card is two aim
+            bool isTwoAim = controller.actionUp[index]?["name"] == Constant.ACTION["TwoAims"]?["name"] &&
+                controller.actionUp[index]?["block"] == 2;
+            if (isTwoAim && controller.aimList[index + 1] != null) {
+              controller.actionUp[index]?["block"] = 1;
+              controller.actionUp[index + 1] = controller.actionUp[index];
+              controller.actionUp[index] = null;
+            } else {
+              controller.discardPilePerTurn.add(controller.actionUp[index]!);
+              controller.actionUp()[index] = null;
+            }
+          } else {
+            // two aim (virtual card)
+            bool isTwoAim = controller.actionUp[index - 1]?["name"] == Constant.ACTION["TwoAims"]?["name"] &&
+                controller.actionUp[index - 1]?["block"] == 2;
+            if (isTwoAim && controller.aimList[index - 1] != null) {
+              controller.actionUp[index - 1]?["block"] = 1;
+            }
+          }
+        }
+        controller.aimList[index] = null;
+        var missIndex = 0;
+        if (index == 0 || index == 5) {
+          missIndex = index == 0 ? index + 1 : index - 1;
+        } else {
+          missIndex = (await GF.showLeftRightDialog()) + index;
+        }
+        BaseAbilityUtils.onDestroyPet(controller, missIndex);
+      }
+      controller.discardPilePerTurn.add(CardUtils.resetCard(card));
+    } catch (e) {
+      e.printError(info: errorPrefix);
+    } finally {
+      controller.playerfinishAction(card, extraprop);
+    }
+  }
 
   static onBumpLeft(
     BaseGameFirebaseController controller,

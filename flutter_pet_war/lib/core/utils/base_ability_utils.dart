@@ -40,7 +40,7 @@ class BaseAbilityUtils {
           }
         }
       } else if (controller.actionUp[targetIndex] != null &&
-          controller.actionUp[targetIndex]?["name"] == Constant.ACTION["Two Aims"]?["name"] &&
+          controller.actionUp[targetIndex]?["name"] == Constant.ACTION["TwoAims"]?["name"] &&
           controller.actionUp[targetIndex]?["block"] == 2) {
         var aimCard = controller.actionUp[targetIndex];
         var targetPosAim = targetIndex + indexVal;
