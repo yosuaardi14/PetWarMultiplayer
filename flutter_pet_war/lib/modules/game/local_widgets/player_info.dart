@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pet_war/modules/base/controllers/base_game_firebase_controller.dart';
 import 'package:flutter_pet_war/modules/game/controllers/game_controller.dart';
-import 'package:flutter_pet_war/modules/game/controllers/game_firebase_controller.dart';
 import 'package:flutter_pet_war/modules/game/local_widgets/player/player_canvas_ranger.dart';
 import 'package:flutter_pet_war/modules/game/local_widgets/player/player_card_deck.dart';
 import 'package:flutter_pet_war/modules/game/local_widgets/player/player_pet.dart';

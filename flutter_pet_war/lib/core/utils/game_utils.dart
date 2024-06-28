@@ -513,4 +513,13 @@ class GameUtils {
   static Map<String, dynamic> getResurrectPet(RxPlayer player) {
     return Map<String, dynamic>.from(Constant.PET[player.ranger["pet"]]!);
   }
+
+  static String? getPlayerIdByPet(String cardName, Map<String, dynamic> playerObj) {
+    for (var player in playerObj.entries) {
+      if (cardName == player.value["ranger"]["pet"]) {
+        return player.key;
+      }
+    }
+    return null;
+  }
 }

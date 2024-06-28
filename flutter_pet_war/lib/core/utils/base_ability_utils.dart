@@ -1,3 +1,4 @@
+import 'package:flutter_pet_war/core/utils/game_utils.dart';
 import 'package:flutter_pet_war/core/values/constant.dart';
 import 'package:flutter_pet_war/modules/base/controllers/base_game_firebase_controller.dart';
 
@@ -136,15 +137,111 @@ class BaseAbilityUtils {
     }
   }
 
-  static onDestroyPet(BaseGameFirebaseController controller, int targetIndex) {}
-
   static onCover(BaseGameFirebaseController controller, int index, int targetIndex) {
     if (targetIndex != -1) {
-      if (controller.petDeckNew()[targetIndex].first != Constant.PET["Forest"]?["name"]) {
+      if (controller.petDeckNew()[targetIndex].first["name"] != Constant.PET["Forest"]?["name"]) {
         var tempPet = controller.petDeckNew()[index];
         controller.petDeckNew[targetIndex].addAll(tempPet);
         controller.petDeckNew().removeAt(index);
       }
     }
   }
+
+  static bool onDestroyPet(BaseGameFirebaseController controller, int targetIndex) {
+    if (targetIndex != -1) {
+      List<Map<String, dynamic>> targetCard = controller.petDeckNew()[targetIndex];
+
+      bool useSpecialAbility = targetCard.first["useSpecial"] == true;
+      bool isSpecialCard = targetCard.first["special"] != null;
+
+      String cardName = targetCard.first["name"];
+      String specialCardName = isSpecialCard ? (targetCard.first["special"]?["name"] ?? "") : "";
+
+      bool isForest = cardName == Constant.FOREST;
+      if (isForest) {
+        print("onDestroyPet isForest");
+        return false;
+      }
+
+      bool isHide = !useSpecialAbility && cardName == Constant.HIDE;
+      if (isHide) {
+        print("onDestroyPet isHide");
+        return false;
+      }
+
+      bool isShield = useSpecialAbility && specialCardName == Constant.SHIELD;
+      if (isShield) {
+        controller.petDeckNew()[targetIndex].first["useSpecial"] = false;
+        print("onDestroyPet isShield");
+        return false;
+      }
+
+      bool isArmor = !useSpecialAbility && specialCardName == Constant.ARMOR;
+      if (isArmor) {
+        controller.discardPilePerTurn.add(controller.petDeckNew()[targetIndex].removeAt(0));
+        print("onDestroyPet isArmor");
+        return false;
+      }
+
+      // Jika target merupakan Kamikaze
+      bool isKamikaze = useSpecialAbility && specialCardName == Constant.KAMIKAZE;
+      if (isKamikaze) {
+        // TODO Kamikaze
+        controller.discardPilePerTurn.add(controller.petDeckNew()[targetIndex].removeAt(0));
+        print("onDestroyPet isKamikaze");
+        return false;
+      }
+
+      // Jika target merupakan Trap, abaikan dulu kartu trapnya cek kartu yang dibawahnya
+      bool isTrap = useSpecialAbility && specialCardName == Constant.TRAP;
+      if (isTrap) {
+        // Rekursif ???
+        if (!targetCard[1].containsKey("ability")) {
+          // Pet
+          print("onDestroyPet isTrap and down the trap is Pet");
+          controller.discardPilePerTurn.add(controller.petDeckNew()[targetIndex].removeAt(0));
+          cardName = controller.petDeckNew()[targetIndex].first["name"];
+        } else {
+          print("onDestroyPet isTrap and down the trap is Action Card");
+          bool tempUseSpecialAbility = targetCard[1]["useSpecial"] == true;
+          String tempCardName = targetCard[1]["name"];
+          bool isHideDownTrap = !tempUseSpecialAbility && tempCardName == Constant.HIDE;
+          if (isHideDownTrap) {
+            print("onDestroyPet isTrap and down the trap is Hide");
+            return false;
+          } else {
+            print("onDestroyPet isTrap and down the trap is Action Card but not Hide");
+            controller.discardPilePerTurn.add(controller.petDeckNew()[targetIndex].removeAt(0));
+            return onDestroyPet(controller, targetIndex);
+          }
+          // return onDestroyPet(controller, targetIndex);
+        }
+      }
+
+      // Jika yang diserang adalah Pet
+      bool emptyBlock = false;
+      String? playerId = GameUtils.getPlayerIdByPet(cardName, controller.playerInfoObj());
+
+      if (playerId != null) {
+        print("onDestroyPet isPet");
+        // Kurangi nyawa, tambahkan Pet ke dalam defeatedPet dari Player Object
+        controller.playerInfoObj[playerId]["life"] -= 1;
+        controller.playerInfoObj[playerId]["defeatedPet"].add(controller.petDeckNew()[targetIndex].first);
+        if (targetCard.length > 1) {
+          controller.petDeckNew()[targetIndex].removeAt(0);
+          print("onDestroyPet isPet not empty block");
+        } else {
+          controller.petDeckNew().removeAt(targetIndex);
+          emptyBlock = true;
+          print("onDestroyPet isPet empty block");
+        }
+      } else {
+        print("onDestroyPet unknown card $cardName - $useSpecialAbility");
+      }
+      return emptyBlock;
+    }
+    return false;
+  }
+
+  static explodeGrenadeMine(BaseGameFirebaseController controller, int targetIndex) {}
 }

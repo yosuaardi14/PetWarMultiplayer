@@ -247,8 +247,7 @@ class AbilityUtils {
                 }
               }
               controller.aimList[index] = null;
-              // bool leaveEmpty = BaseAbilityUtils.onDestroyPet(controller, index);
-              BaseAbilityUtils.onDestroyPet(controller, index);
+              bool leaveEmpty = BaseAbilityUtils.onDestroyPet(controller, index);
 
               if (index + 1 < 6 && controller.actionUp[index + 1] != null) {
                 bool isTwoAim = controller.actionUp[index + 1]?["name"] == Constant.ACTION["TwoAims"]?["name"] &&
@@ -264,7 +263,7 @@ class AbilityUtils {
               }
               if (index + 1 < 6 && controller.aimList[index + 1] == true) {
                 controller.aimList[index + 1] = null;
-                BaseAbilityUtils.onDestroyPet(controller, index);
+                BaseAbilityUtils.onDestroyPet(controller, leaveEmpty ? index : index + 1);
               }
             } else if (line == 1) {
               BaseAbilityUtils.onDestroyPet(controller, index);
@@ -407,6 +406,9 @@ class AbilityUtils {
     Map<String, dynamic>? extraprop,
   }) async {
     try {
+      card["prop"] = {
+        "playerId": controller.playerData["id"],
+      };
       BaseAbilityUtils.addCardToPetFront(controller, card, extraprop);
     } catch (e) {
       e.printError(info: errorPrefix);
@@ -707,6 +709,9 @@ class AbilityUtils {
     Map<String, dynamic>? extraprop,
   }) async {
     try {
+      card["prop"] = {
+        "playerId": controller.playerData["id"],
+      };
       BaseAbilityUtils.addCardToPetFront(controller, card, extraprop);
     } catch (e) {
       e.printError(info: errorPrefix);

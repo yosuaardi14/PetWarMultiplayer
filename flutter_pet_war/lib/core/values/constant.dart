@@ -14,6 +14,28 @@ class Constant {
   static const double PLAYER_CARD_WIDTH = 110.0;
   static const double PLAYER_CARD_HEIGHT = 120.0;
 
+  static const int DEFAULT_MAX_LIFE = 5;
+  static const int GRENADE_TURN = 4;
+  static const int KING_MAX_TOKEN = 4;
+  static const int POISON_DART_TURNS = 3;
+  static const int ACTIVATION_CANVAS_COST = 2;
+
+  static const String MENEJEUR = "Menejeur";
+  static const String JUNGLE = "Jungle";
+  static const String FOREST = "Forest";
+  static const String ENCHANTED_FOREST = "Enchanted Forest";
+  static const String MAZE_FOREST = "Maze Forest";
+  static const String THORN_FOREST = "Thorn Forest";
+  static const String CURSED_FOREST = "Cursed Forest";
+  static const String CATAPULT_FOREST = "Catapult Forest";
+  static const String HIDE = "Hide";
+  static const String ARMOR = "Armor";
+  static const String TRAP = "Trap";
+  static const String SHIELD = "Shield";
+  static const String KAMIKAZE = "Kamikaze";
+  static const String CHARGE = "Charge";
+  static const String WATER_BULB = "Water Bulb";
+
   static const List<String> CANVAS_TEXT = ["CANVAS", "RANGER", "PETWAR"];
   static const List<String> DECK_TEXT = ["Action\nDeck", "Pet\nDeck", "Discard\nPile"];
 

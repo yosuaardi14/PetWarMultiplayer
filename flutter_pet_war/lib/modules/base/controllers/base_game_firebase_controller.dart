@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pet_war/core/utils/ability_utils.dart';
+import 'package:flutter_pet_war/core/utils/base_ability_utils.dart';
 import 'package:flutter_pet_war/core/utils/card_utils.dart';
 import 'package:flutter_pet_war/core/utils/circular_queue.dart';
 import 'package:flutter_pet_war/core/utils/game_utils.dart';
@@ -341,6 +342,7 @@ class BaseGameFirebaseController extends GetxController {
       for (var i = 0; i < playerIdArr.length; i++) {
         nextTurnId = playerIdArr[turn % playerIdArr.length];
         // print(playerInfo);
+        checkHideAndTrapTurn(nextTurnId);
         if (playerInfo[nextTurnId]["isDead"] == false) {
           break;
         }
@@ -350,6 +352,8 @@ class BaseGameFirebaseController extends GetxController {
       Map<String, dynamic> data = {
         "log": FieldValue.arrayUnion(["Giliran ${playerInfo[nextTurnId]["name"]}"]),
         "game": {
+          "petDeck": GF.convertListofListMapToListMap(petDeckNew()),
+          if (discardPilePerTurn.isNotEmpty) "discardPile": FieldValue.arrayUnion(discardPilePerTurn()),
           "turn": turn,
           "totalTurn": FieldValue.increment(1),
         },
@@ -367,6 +371,8 @@ class BaseGameFirebaseController extends GetxController {
       await firestoreService.updateData("room", Get.parameters["roomId"]!, data);
     } catch (e) {
       e.printError();
+    } finally {
+      discardPilePerTurn.clear();
     }
   }
 
@@ -484,6 +490,7 @@ class BaseGameFirebaseController extends GetxController {
   }
 
   void playerfinishAction(Map<String, dynamic> card, Map<String, dynamic>? extraprop) async {
+    await updateCardTurn();
     List<Map<String, dynamic>> discardCard = [
       ...discardPilePerTurn(),
     ];
@@ -533,6 +540,22 @@ class BaseGameFirebaseController extends GetxController {
     playerInfo[playerData["id"]]["cardDeck"].add(CardUtils.getActionCardById(actionDeck[0]));
     actionDeck.removeAt(0);
     return (actionDeck, playerInfo);
+  }
+
+  Future<void> updateCardTurn() async {
+    // Grenande
+    for (var i = 0; i < grenadeList().length; i++) {
+      if (grenadeList[i] == null) {
+        continue;
+      }
+      grenadeList[i] = (grenadeList()[i] ?? 0) + 1;
+      if (grenadeList[i] == Constant.GRENADE_TURN) {
+        grenadeList[i] = null;
+        // explode grenade
+        // need to add check if there is grenade, megagrenada, grenade -> will it explode or add checking in UI
+        await BaseAbilityUtils.explodeGrenadeMine(this, i);
+      }
+    }
   }
 
   void updateLineAndDeck(Map<String, dynamic>? e) {
@@ -665,7 +688,25 @@ class BaseGameFirebaseController extends GetxController {
   }
 
   /////////////////////////////////////////  NEXTURN FUNCTION  /////////////////////////////////////////
-  void checkHideAndTrapTurn() {}
+  void checkHideAndTrapTurn(String playerId) {
+    // Remove Hide or Trap
+    for (var i = 0; i < petLine().length; i++) {
+      List<Map<String, dynamic>> tempCard = [];
+      // Find and Remove Hide and Trap that Player Use one turn before
+      for (var j = 0; j < petDeckNew()[i].length; j++) {
+        if (petDeckNew[i][j]["name"] == Constant.HIDE || petDeckNew[i][j]["special"]?["name"] == Constant.TRAP) {
+          if (petDeckNew[i][j]["prop"]?["playerId"] == playerId) {
+            discardPilePerTurn.add(CardUtils.resetCard(petDeckNew[i][j]));
+          } else {
+            tempCard.add(petDeckNew[i][j]);
+          }
+        } else {
+          tempCard.add(petDeckNew[i][j]);
+        }
+      }
+      petDeckNew[i] = tempCard;
+    }
+  }
 
   /////////////////////////////////////////  GAMEFINISH FUNCTION  /////////////////////////////////////////
 
