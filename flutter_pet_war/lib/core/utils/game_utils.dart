@@ -19,7 +19,6 @@ class GameUtils {
     Map<String, Map<String, dynamic>> masterActionCard = Map<String, Map<String, dynamic>>.from(Constant.ACTION);
     masterActionCard.removeWhere((key, value) => value["type"] != "Pet War");
     for (var action in masterActionCard.entries) {
-      var actionCard = Map<String, dynamic>.from(action.value);
       // switch (action.key) {
       //   case "Aim-Trap":
       //     actionCard["prop"] = {"playerId": "", "index": -1};
@@ -32,6 +31,7 @@ class GameUtils {
       // }
       var size = int.tryParse(action.value["cardNum"].toString()) ?? 1;
       for (var i = 0; i < size; i++) {
+        var actionCard = Map<String, dynamic>.from(action.value);
         actionCard["id"] = GF.generateId("action", action.value, i);
         actionCard["useSpecial"] = false;
         actionCard.remove("cardNum");

@@ -502,6 +502,7 @@ class BaseGameFirebaseController extends GetxController {
     // Send Data
     Map<String, dynamic> data = {
       "playerInfoList": {
+        ...playerInfoObj,
         playerData["id"]: {
           "life": playerObj().life(),
           "cardDeck": cardDeck, //FieldValue.arrayRemove([card]),

@@ -176,7 +176,7 @@ class BaseAbilityUtils {
         return false;
       }
 
-      bool isArmor = !useSpecialAbility && specialCardName == Constant.ARMOR;
+      bool isArmor = !useSpecialAbility && cardName == Constant.ARMOR;
       if (isArmor) {
         controller.discardPilePerTurn.add(controller.petDeckNew()[targetIndex].removeAt(0));
         print("onDestroyPet isArmor");
