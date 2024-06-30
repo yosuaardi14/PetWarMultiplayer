@@ -21,6 +21,7 @@ class Constant {
   static const int ACTIVATION_CANVAS_COST = 2;
 
   static const String MENEJEUR = "Menejeur";
+  static const String LPG_ZORD = "LPG-Zord";
   static const String JUNGLE = "Jungle";
   static const String FOREST = "Forest";
   static const String ENCHANTED_FOREST = "Enchanted Forest";

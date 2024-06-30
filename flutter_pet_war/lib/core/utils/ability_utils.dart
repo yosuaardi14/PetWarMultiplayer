@@ -467,7 +467,11 @@ class AbilityUtils {
       controller.discardPilePerTurn.add(CardUtils.resetCard(card));
       if (extraprop != null) {
         int index = extraprop["index"] ?? -1;
-        if (index != -1) {
+        bool hasTrap = (controller.petDeckNew[index].indexWhere(
+              (card) => card["useSpecial"] == true && card["special"]?["name"] == Constant.TRAP,
+            )) !=
+            -1;
+        if (index != -1 && !hasTrap) {
           final coverIndex = await Get.dialog(
             MasterHideDialog(
               cardList: controller.petLine(),
@@ -554,20 +558,44 @@ class AbilityUtils {
       controller.discardPilePerTurn.add(CardUtils.resetCard(card));
       List<Map<String, dynamic>> tempCard = [];
       var tempPetDeck = controller.petDeckNew();
-      for (var i = 0; i < tempPetDeck[0].length; i++) {
-        if (tempPetDeck[0][i].containsKey("ability")) {
-          controller.discardPilePerTurn().add(tempPetDeck[0][i]);
+      int runningIndex = 0;
+      // TODO when there is trap
+      bool hasTrap = (controller.petDeckNew[0].indexWhere(
+            (card) => card["useSpecial"] == true && card["special"]?["name"] == Constant.TRAP,
+          )) !=
+          -1;
+      if (hasTrap) {
+        runningIndex = 1;
+      }
+
+      for (var i = 0; i < tempPetDeck[runningIndex].length; i++) {
+        if (tempPetDeck[runningIndex][i].containsKey("ability")) {
+          controller.discardPilePerTurn().add(tempPetDeck[runningIndex][i]);
         } else {
-          if (i == (tempPetDeck[0].length - 1)) {
-            tempCard.add(controller.petDeckNew()[0][i]);
+          if (i == (tempPetDeck[runningIndex].length - 1)) {
+            tempCard.add(controller.petDeckNew()[runningIndex][i]);
           } else {
-            controller.petDeckNew().add([tempPetDeck[0][i]]);
+            controller.petDeckNew().add([tempPetDeck[runningIndex][i]]);
           }
         }
       }
-      controller.petDeckNew()[0] = tempCard;
+      controller.petDeckNew()[runningIndex] = tempCard;
       var front = controller.petDeckNew().removeAt(0);
       controller.petDeckNew().add(front);
+      int startIndex = runningIndex != 0 ? 1 : 0;
+      for (var i = startIndex; i < controller.petLine.length - 1; i++) {
+        int cardIndexTrap = (controller.petDeckNew[i].indexWhere(
+          (card) => card["useSpecial"] == true && card["special"]?["name"] == Constant.TRAP,
+        ));
+        if (cardIndexTrap != -1) {
+          int trapIndex = controller.petDeckNew[i][cardIndexTrap]["prop"]?["trapIndex"] ?? -1;
+          if (trapIndex != -1 && trapIndex < controller.petLine.length) {
+            var tempPet = controller.petDeckNew[i];
+            controller.petDeckNew[i] = controller.petDeckNew[trapIndex];
+            controller.petDeckNew[trapIndex] = tempPet;
+          }
+        }
+      }
     } catch (e) {
       e.printError(info: errorPrefix);
     } finally {
@@ -656,7 +684,11 @@ class AbilityUtils {
       controller.discardPilePerTurn.add(CardUtils.resetCard(card));
       if (extraprop != null) {
         int index = extraprop["index"] ?? -1;
-        if (index != -1) {
+        bool hasTrap = (controller.petDeckNew[index].indexWhere(
+              (card) => card["useSpecial"] == true && card["special"]?["name"] == Constant.TRAP,
+            )) !=
+            -1;
+        if (index != -1 && !hasTrap) {
           final coverIndex = await Get.dialog(
             MasterHideDialog(cardList: controller.petLine(), index: index),
           );
@@ -709,9 +741,7 @@ class AbilityUtils {
     Map<String, dynamic>? extraprop,
   }) async {
     try {
-      card["prop"] = {
-        "playerId": controller.playerData["id"],
-      };
+      card["prop"] = {"playerId": controller.playerData["id"], "trapIndex": extraprop?["index"] ?? -1};
       BaseAbilityUtils.addCardToPetFront(controller, card, extraprop);
     } catch (e) {
       e.printError(info: errorPrefix);
@@ -806,22 +836,46 @@ class AbilityUtils {
     try {
       controller.discardPilePerTurn.add(CardUtils.resetCard(card));
       for (var i = 0; i < 2; i++) {
+        int runningIndex = 0;
+        // TODO when there is trap
+        bool hasTrap = (controller.petDeckNew[0].indexWhere(
+              (card) => card["useSpecial"] == true && card["special"]?["name"] == Constant.TRAP,
+            )) !=
+            -1;
+        if (hasTrap) {
+          runningIndex = 1;
+        }
         List<Map<String, dynamic>> tempCard = [];
         var tempPetDeck = controller.petDeckNew();
-        for (var i = 0; i < tempPetDeck[0].length; i++) {
-          if (tempPetDeck[0][i].containsKey("ability")) {
-            controller.discardPilePerTurn().add(tempPetDeck[0][i]);
+        for (var i = 0; i < tempPetDeck[runningIndex].length; i++) {
+          if (tempPetDeck[runningIndex][i].containsKey("ability")) {
+            controller.discardPilePerTurn().add(tempPetDeck[runningIndex][i]);
           } else {
-            if (i == (tempPetDeck[0].length - 1)) {
-              tempCard.add(controller.petDeckNew()[0][i]);
+            if (i == (tempPetDeck[runningIndex].length - 1)) {
+              tempCard.add(controller.petDeckNew()[runningIndex][i]);
             } else {
-              controller.petDeckNew().add([tempPetDeck[0][i]]);
+              controller.petDeckNew().add([tempPetDeck[runningIndex][i]]);
             }
           }
         }
-        controller.petDeckNew()[0] = tempCard;
+        controller.petDeckNew()[runningIndex] = tempCard;
         var front = controller.petDeckNew().removeAt(0);
         controller.petDeckNew().add(front);
+
+        int startIndex = runningIndex != 0 ? 1 : 0;
+        for (var i = startIndex; i < controller.petLine.length - 1; i++) {
+          int cardIndexTrap = (controller.petDeckNew[i].indexWhere(
+            (card) => card["useSpecial"] == true && card["special"]?["name"] == Constant.TRAP,
+          ));
+          if (cardIndexTrap != -1) {
+            int trapIndex = controller.petDeckNew[i][cardIndexTrap]["prop"]?["trapIndex"] ?? -1;
+            if (trapIndex != -1 && trapIndex < controller.petLine.length) {
+              var tempPet = controller.petDeckNew[i];
+              controller.petDeckNew[i] = controller.petDeckNew[trapIndex];
+              controller.petDeckNew[trapIndex] = tempPet;
+            }
+          }
+        }
       }
     } catch (e) {
       e.printError(info: errorPrefix);
@@ -839,7 +893,11 @@ class AbilityUtils {
       controller.discardPilePerTurn.add(CardUtils.resetCard(card));
       if (extraprop != null) {
         int index = extraprop["index"] ?? -1;
-        if (index != -1 && controller.petDeckNew().length > 6) {
+        bool canEscape = (controller.petDeckNew[index].indexWhere(
+              (card) => card["useSpecial"] == true && card["special"]?["name"] == Constant.TRAP,
+            )) ==
+            -1;
+        if (index != -1 && controller.petDeckNew().length > 6 && canEscape) {
           const firstPetDeckIndex = 6;
           var petCard = controller.petDeckNew()[index];
           for (var i = 0; i < petCard.length; i++) {
