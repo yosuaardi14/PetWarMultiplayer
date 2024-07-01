@@ -2,7 +2,6 @@ import 'package:flutter_pet_war/core/utils/global_functions.dart';
 import 'package:flutter_pet_war/core/values/constant.dart';
 import 'package:flutter_pet_war/data/models/player.dart';
 import 'package:flutter_pet_war/modules/base/controllers/base_game_firebase_controller.dart';
-import 'package:get/get.dart';
 
 class GameUtils {
   static List<Map<String, dynamic>> initCanvasRanger() {
@@ -17,47 +16,17 @@ class GameUtils {
 
   static List<Map<String, dynamic>> initActionDeck({bool shuffle = true}) {
     List<Map<String, dynamic>> actionDeck = [];
-    for (var action in Constant.ACTION.entries) {
-      var actionCard = Map<String, dynamic>.from(action.value);
-      switch (action.key) {
-        case "Aim-Trap":
-          actionCard["prop"] = {"playerId": "", "index": -1};
-          break;
-        case "Hide":
-        case "Hide-MasterHide":
-        case "Hide-CorpseCover":
-          actionCard["prop"] = {"playerId": ""};
-          break;
-      }
+    Map<String, Map<String, dynamic>> masterActionCard = Map<String, Map<String, dynamic>>.from(Constant.ACTION);
+    masterActionCard.removeWhere((key, value) => value["type"] != "Pet War");
+    for (var action in masterActionCard.entries) {
       var size = int.tryParse(action.value["cardNum"].toString()) ?? 1;
       for (var i = 0; i < size; i++) {
+        var actionCard = Map<String, dynamic>.from(action.value);
         actionCard["id"] = GF.generateId("action", action.value, i);
         actionCard["useSpecial"] = false;
         actionCard.remove("cardNum");
         actionDeck.add(actionCard);
       }
-
-      // for (var j = 0; j < size; j++) {
-      //   String cardName = actionCard["name"];
-      //   String normalName = actionCard["name"], specialName = "";
-      //   actionCard["id"] = GF.generateId("action", actionCard);
-      //   if (cardName.contains("-")) {
-      //     normalName = cardName.split("-")[0];
-      //     specialName = cardName.split("-")[1];
-
-      //     if (actionCard["special"] != null) {
-      //       var specialMap = Map<String, dynamic>.from(actionCard["special"]);
-      //       if (!specialMap.containsKey("name")) {
-      //         specialMap["name"] = specialName;
-      //       }
-      //       actionCard["special"] = specialMap;
-      //     }
-      //     actionCard["name"] = normalName;
-      //   }
-      //   actionCard["useSpecial"] = false;
-      //   actionCard.remove("cardNum");
-      //   actionDeck.add(actionCard);
-      // }
     }
     if (shuffle) {
       actionDeck.shuffle();
@@ -109,7 +78,6 @@ class GameUtils {
       var pet = Map<String, dynamic>.from(Constant.PET["Forest"]!);
       pet["id"] = GF.generateId("pet", pet, i);
       pet.remove("cardNum");
-
       petDeck.add([pet].asMap().map((key, value) => MapEntry(key.toString(), value)));
     }
 
@@ -121,19 +89,7 @@ class GameUtils {
       }
       pet.remove("cardNum");
     }
-
-    // for (var i = 0; i < playerArr.length; i++) {
-    //   for (var j = 0; j < playerArr[i].maxLife(); j++) {
-    //     var pet = Map<String, dynamic>.from(
-    //         Constant.PET[playerArr[i].ranger["pet"]]!);
-    //     pet["id"] = GF.generateId("pet", pet, j);
-    //     pet.remove("cardNum");
-    //     petDeck.add(
-    //         [pet].asMap().map((key, value) => MapEntry(key.toString(), value)));
-    //   }
-    // }
     petDeck.shuffle();
-
     return petDeck;
   }
 
@@ -155,6 +111,14 @@ class GameUtils {
         }
       }
       return false;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  static checkIsLpgZord(List<List<Map<String, dynamic>>> petLine, int cardPosition) {
+    try {
+      return petLine[cardPosition].first["name"] == Constant.LPG_ZORD;
     } catch (e) {
       return false;
     }
@@ -206,10 +170,7 @@ class GameUtils {
 
   static bool checkIsForest(List<List<Map<String, dynamic>>> petLine, int cardPosition) {
     try {
-      if (Constant.PET["Forest"]?["name"] == petLine[cardPosition][0]["name"]) {
-        return true;
-      }
-      return false;
+      return Constant.FOREST == petLine[cardPosition][0]["name"];
     } catch (e) {
       return false;
     }
@@ -245,7 +206,7 @@ class GameUtils {
       "Bump Right",
       //
       "Boom",
-      "Two Boom",
+      "Two Booms",
       "Miss",
       // JS
       "Air Shield"
@@ -265,7 +226,7 @@ class GameUtils {
         : controller.playerSelectedCard()["name"];
     var dragTargetCardList = [
       "Aim",
-      "Two Aim",
+      "Two Aims",
     ];
     if (dragTargetCardList.contains(cardName) && controller.aimList[cardIndex] == null) {
       return WidgetMode.dragTarget;
@@ -341,7 +302,6 @@ class GameUtils {
       "Get Cover",
 
       //Special
-      "Kamikaze",
       "Escape",
       "Master Hide",
       "Go Anyward",
@@ -355,6 +315,14 @@ class GameUtils {
 
     if (checkPlayerNowPet(controller.playerObj(), controller.petLine(), cardIndex) &&
         needPlayerPetList.contains(cardName)) {
+      return WidgetMode.dragTarget;
+    }
+
+    var needLpgZord = [
+      "Kamikaze",
+    ];
+
+    if (checkIsLpgZord(controller.petLine(), cardIndex) && needLpgZord.contains(cardName)) {
       return WidgetMode.dragTarget;
     }
 
@@ -395,7 +363,7 @@ class GameUtils {
         : controller.playerSelectedCard()["name"];
     var actionUpList = [
       "Aim",
-      "Two Aim",
+      "Two Aims",
     ];
 
     if (GF.isListFull(controller.aimList) && actionUpList.contains(cardName)) {
@@ -421,6 +389,7 @@ class GameUtils {
       "Bump Left",
       "Bump Right",
       "Boom",
+      "Two Booms",
       // JS
       "Air Shield",
     ];
@@ -510,5 +479,14 @@ class GameUtils {
 
   static Map<String, dynamic> getResurrectPet(RxPlayer player) {
     return Map<String, dynamic>.from(Constant.PET[player.ranger["pet"]]!);
+  }
+
+  static String? getPlayerIdByPet(String cardName, Map<String, dynamic> playerObj) {
+    for (var player in playerObj.entries) {
+      if (cardName == player.value["ranger"]["pet"]) {
+        return player.key;
+      }
+    }
+    return null;
   }
 }

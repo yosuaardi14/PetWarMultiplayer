@@ -2,6 +2,7 @@ import 'package:flutter_pet_war/core/values/constant.dart';
 
 class CardUtils {
   static Map<String, dynamic> resetCard(Map<String, dynamic> card) {
+    card["block"] = 1;
     return card;
   }
 

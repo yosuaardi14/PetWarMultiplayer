@@ -67,6 +67,33 @@ class GF {
     return data;
   }
 
+  static List<Map<String, Map<String, dynamic>>> convertListofListMapToListMap(
+    List<List<Map<String, dynamic>>> petDeck,
+  ) {
+    List<Map<String, Map<String, dynamic>>> data = [];
+    for (List<Map<String, dynamic>> pet in petDeck) {
+      data.add(pet.asMap().map((key, value) => MapEntry(key.toString(), value)));
+    }
+    return data;
+  }
+
+  static List<List<Map<String, dynamic>>> convertListMapToListofListMap(
+    List<Map<String, Map<String, dynamic>>> petDeck,
+  ) {
+    List<List<Map<String, dynamic>>> data = [];
+
+    for (var i = 0; i < petDeck.length; i++) {
+      List<Map<String, dynamic>> petListObj = Map<String, Map<String, dynamic>>.from(petDeck[0])
+          .entries
+          .map(
+            (e) => e.value,
+          )
+          .toList();
+      data.add(petListObj);
+    }
+    return data;
+  }
+
   static String generateId(
     String type, [
     Map<String, dynamic>? data,

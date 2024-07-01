@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pet_war/core/utils/ability_utils.dart';
+import 'package:flutter_pet_war/core/utils/base_ability_utils.dart';
 import 'package:flutter_pet_war/core/utils/card_utils.dart';
 import 'package:flutter_pet_war/core/utils/circular_queue.dart';
 import 'package:flutter_pet_war/core/utils/game_utils.dart';
@@ -40,6 +41,7 @@ class BaseGameFirebaseController extends GetxController {
   final actionDeck = <Map<String, dynamic>>[].obs;
   final actionDeckLength = 0.obs;
   final petDeck = CircularQueue<List<Map<String, dynamic>>>().obs;
+  final petDeckNew = <List<Map<String, dynamic>>>[].obs;
   final petDeckLength = 0.obs;
   final discardPile = <Map<String, dynamic>>[].obs;
 
@@ -76,6 +78,9 @@ class BaseGameFirebaseController extends GetxController {
 
   final roomId = "".obs;
   final hostId = "".obs;
+
+  // TEMP
+  final discardPilePerTurn = <Map<String, dynamic>>[].obs;
 
   @override
   void onInit() {
@@ -284,6 +289,10 @@ class BaseGameFirebaseController extends GetxController {
   void onPlayerTurn(Map<String, dynamic>? e) {
     notifyTurn();
     isPlayerTurn(true);
+    if (playerObj().cardDeck.length < 3) {
+      playerObj().cardDeck.add(CardUtils.getActionCardById(List<String>.from(e?["game"]["actionDeck"])[0]));
+      actionDeck.removeAt(0);
+    }
   }
 
   void onConfirmAction(Map<String, dynamic>? e) async {
@@ -301,6 +310,11 @@ class BaseGameFirebaseController extends GetxController {
     isPlayerTurn(false);
     try {
       Map<String, dynamic> copyData = Map<String, dynamic>.from(e ?? {});
+      if (copyData["game"]["actionDeck"].length <= 0) {
+        copyData["game"]["actionDeck"] =
+            List<Map<String, dynamic>>.from(copyData["game"]["discardPile"]).map((e) => (e["id"] ?? "")).toList();
+        copyData["game"]["discardPile"] = [];
+      }
       // getCard
       (List<String>, Map<String, dynamic>) playerGetCard = getCard(
         List<String>.from(copyData["game"]["actionDeck"]),
@@ -328,6 +342,7 @@ class BaseGameFirebaseController extends GetxController {
       for (var i = 0; i < playerIdArr.length; i++) {
         nextTurnId = playerIdArr[turn % playerIdArr.length];
         // print(playerInfo);
+        checkHideAndTrapTurn(nextTurnId);
         if (playerInfo[nextTurnId]["isDead"] == false) {
           break;
         }
@@ -337,6 +352,8 @@ class BaseGameFirebaseController extends GetxController {
       Map<String, dynamic> data = {
         "log": FieldValue.arrayUnion(["Giliran ${playerInfo[nextTurnId]["name"]}"]),
         "game": {
+          "petDeck": GF.convertListofListMapToListMap(petDeckNew()),
+          if (discardPilePerTurn.isNotEmpty) "discardPile": FieldValue.arrayUnion(discardPilePerTurn()),
           "turn": turn,
           "totalTurn": FieldValue.increment(1),
         },
@@ -354,6 +371,8 @@ class BaseGameFirebaseController extends GetxController {
       await firestoreService.updateData("room", Get.parameters["roomId"]!, data);
     } catch (e) {
       e.printError();
+    } finally {
+      discardPilePerTurn.clear();
     }
   }
 
@@ -471,14 +490,32 @@ class BaseGameFirebaseController extends GetxController {
   }
 
   void playerfinishAction(Map<String, dynamic> card, Map<String, dynamic>? extraprop) async {
+    await updateCardTurn();
+    List<Map<String, dynamic>> discardCard = [
+      ...discardPilePerTurn(),
+    ];
+    // Player Data
+    List<Map<String, dynamic>> cardDeck = playerObj().cardDeck();
+    List<Map<String, dynamic>> defeatedPet = playerObj().defeatedPet();
+    cardDeck.remove(card);
+
+    // Send Data
     Map<String, dynamic> data = {
       "playerInfoList": {
+        ...playerInfoObj,
         playerData["id"]: {
-          "cardDeck": FieldValue.arrayRemove([card]),
+          "life": playerObj().life(),
+          "cardDeck": cardDeck, //FieldValue.arrayRemove([card]),
+          "defeatedPet": defeatedPet,
         }
       },
       "game": {
-        "discardPile": FieldValue.arrayUnion([card]),
+        "aimList": aimList(), //[null, null, null, null, null, null],
+        "actionUp": actionUp(),
+        "grenadeList": grenadeList(),
+        "actionDown": actionDown(),
+        "petDeck": GF.convertListofListMapToListMap(petDeckNew()),
+        if (discardCard.isNotEmpty) "discardPile": FieldValue.arrayUnion(discardCard),
       },
       "state": {
         "name": GameState.finishAction.name,
@@ -491,6 +528,7 @@ class BaseGameFirebaseController extends GetxController {
       }
     };
     await firestoreService.updateData("room", Get.parameters["roomId"]!, data);
+    discardPilePerTurn().clear();
   }
 
   /////////////////////////////////////////  CONFIRMACTION FUNCTION  /////////////////////////////////////////
@@ -505,11 +543,28 @@ class BaseGameFirebaseController extends GetxController {
     return (actionDeck, playerInfo);
   }
 
+  Future<void> updateCardTurn() async {
+    // Grenande
+    for (var i = 0; i < grenadeList().length; i++) {
+      if (grenadeList[i] == null) {
+        continue;
+      }
+      grenadeList[i] = (grenadeList()[i] ?? 0) + 1;
+      if (grenadeList[i] == Constant.GRENADE_TURN) {
+        grenadeList[i] = null;
+        // explode grenade
+        // need to add check if there is grenade, megagrenada, grenade -> will it explode or add checking in UI
+        await BaseAbilityUtils.explodeGrenadeMine(this, i);
+      }
+    }
+  }
+
   void updateLineAndDeck(Map<String, dynamic>? e) {
     hostId(e?["host"] ?? "");
     updatePlayerUI(e);
     if (e?["game"]?["petDeck"] != null) {
       petLine.clear();
+      petDeckNew.clear();
       for (var pet in e?["game"]["petDeck"]) {
         List<Map<String, dynamic>> petListObj = Map<String, Map<String, dynamic>>.from(pet)
             .entries
@@ -517,12 +572,13 @@ class BaseGameFirebaseController extends GetxController {
               (e) => e.value,
             )
             .toList();
-        petLine.add(petListObj);
         // print(petLine);
-        if (petLine.length >= 6) {
-          break;
-        }
+        // if (petLine.length < 6) {
+        //   petLine.add(petListObj);
+        // }
+        petDeckNew.add(petListObj);
       }
+      petLine.value = petDeckNew.getRange(0, 6).toList();
       petDeckLength(e?["game"]?["petDeck"]?.length ?? 0);
       initPetDeckFinish(true);
     }
@@ -563,19 +619,10 @@ class BaseGameFirebaseController extends GetxController {
   }
 
   void updatePlayerUI(Map<String, dynamic>? e) {
-    // print(e?["playerInfoList"][playerData["id"]]);
-    // if (e?["playerInfoList"]?["ranger"] == null) {
-    //   playerInfoObj({});
-    //   return;
-    // }
     try {
-      playerObj().setFromJson(Map<String, dynamic>.from(e?["playerInfoList"][playerData["id"]]));
-      // playerObj().setFromJson({
-      //   "name": "A",
-      //   "life": 5,
-      //   "maxLife": 5,
-      //   "isDead": false,
-      // });
+      playerObj().setFromJson(Map<String, dynamic>.from(
+        e?["playerInfoList"][playerData["id"]],
+      ));
       playerObj().setRanger(e?["playerInfoList"]?[playerData["id"]]["ranger"]);
       playerObj().setCardDeck(
         List<Map<String, dynamic>>.from(
@@ -642,7 +689,25 @@ class BaseGameFirebaseController extends GetxController {
   }
 
   /////////////////////////////////////////  NEXTURN FUNCTION  /////////////////////////////////////////
-  void checkHideAndTrapTurn() {}
+  void checkHideAndTrapTurn(String playerId) {
+    // Remove Hide or Trap
+    for (var i = 0; i < petLine().length; i++) {
+      List<Map<String, dynamic>> tempCard = [];
+      // Find and Remove Hide and Trap that Player Use one turn before
+      for (var j = 0; j < petDeckNew()[i].length; j++) {
+        if (petDeckNew[i][j]["name"] == Constant.HIDE || petDeckNew[i][j]["special"]?["name"] == Constant.TRAP) {
+          if (petDeckNew[i][j]["prop"]?["playerId"] == playerId) {
+            discardPilePerTurn.add(CardUtils.resetCard(petDeckNew[i][j]));
+          } else {
+            tempCard.add(petDeckNew[i][j]);
+          }
+        } else {
+          tempCard.add(petDeckNew[i][j]);
+        }
+      }
+      petDeckNew[i] = tempCard;
+    }
+  }
 
   /////////////////////////////////////////  GAMEFINISH FUNCTION  /////////////////////////////////////////
 

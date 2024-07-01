@@ -8,8 +8,9 @@ import 'package:get/get.dart';
 
 class MasterHideDialog extends StatelessWidget {
   final int index;
+  final bool onGetCover;
   final List<List<Map<String, dynamic>>> cardList;
-  const MasterHideDialog({super.key, required this.cardList, required this.index});
+  const MasterHideDialog({super.key, required this.cardList, required this.index, this.onGetCover = false});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class MasterHideDialog extends StatelessWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text("Daftar Kartu untuk Master Hide"),
+          Text("Daftar Kartu untuk ${(onGetCover) ? "Get Cover" : "Master Hide"}"),
           IconButton(
             onPressed: () {
               Get.back(result: -1);
@@ -62,7 +63,17 @@ class MasterHideDialog extends StatelessWidget {
                           card,
                           Text("Jumlah: ${e.value.length}"),
                           if (e.key == index) const Icon(Icons.arrow_upward),
-                          if (e.value[0]["name"] != "Forest" && e.key != index)
+                          if (!onGetCover && e.value[0]["name"] != "Forest" && e.key != index)
+                            ElevatedButton(
+                              onPressed: () {
+                                Get.back(result: e.key);
+                              },
+                              child: const Text("Pilih"),
+                            ),
+                          if (onGetCover &&
+                              e.value[0]["name"] != "Forest" &&
+                              e.key != index &&
+                              (e.key == index + 1 || e.key == index - 1))
                             ElevatedButton(
                               onPressed: () {
                                 Get.back(result: e.key);

@@ -141,9 +141,9 @@ class ActionDeckLine<T extends BaseGameFirebaseController> extends GetView<T> {
                                         ),
                                       Visibility(
                                         visible: e.value != null && controller.isHaunted(),
-                                        maintainSize: true,
-                                        maintainAnimation: true,
-                                        maintainState: true,
+                                        maintainSize: e.value != null && controller.isHaunted(),
+                                        maintainAnimation: e.value != null && controller.isHaunted(),
+                                        maintainState: e.value != null && controller.isHaunted(),
                                         child: SizedBox(
                                           height: 25,
                                           child: ElevatedButton(
